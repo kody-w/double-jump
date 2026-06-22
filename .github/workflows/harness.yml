@@ -43,4 +43,7 @@ jobs:
           git config user.email "actions@github.com"
           git add warehouse/
           git commit -m "harness: double-jumped the weakest ($(date -u +%FT%TZ)) [skip ci]"
-          git push
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push; then break; fi
+            echo "push race (attempt $attempt) — retrying"; sleep 3
+          done
