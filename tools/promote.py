@@ -84,7 +84,15 @@ def main():
             print(json.dumps({"status": "noop", "reason": "all selected improvements already on the global feed"}))
             return 0
         feed.extend(added)
-        json.dump({"moments": feed}, open(feed_path, "w"), indent=2)
+        # preserve the feed's on-disk format: the warehouse files are minified single-line (the
+        # git-scraping convention), so a compact write keeps the diff to one line, not a full reformat.
+        orig = open(feed_path).read()
+        minified = "\n" not in orig.strip()
+        with open(feed_path, "w") as fh:
+            if minified:
+                fh.write(json.dumps({"moments": feed}, separators=(",", ":"), ensure_ascii=False))
+            else:
+                json.dump({"moments": feed}, fh, indent=2, ensure_ascii=False)
 
         _run(["git", "config", "user.name", "double-jump-twin"], cwd=clone)
         _run(["git", "config", "user.email", "actions@github.com"], cwd=clone)
