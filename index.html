@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- (c) 2026 Kody Wildfeuer · PolyForm Noncommercial 1.0.0 · "Holographic Moments" is a trademark. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Double Jump — the improvement frontier</title>
+<meta property="og:title" content="Double Jump — autonomous holographic improvement">
+<meta property="og:description" content="Things compete; the weakest gets double-jumped. Each card is a live hologram looping its 100 frames.">
+<style>
+  :root { --bg:#0a0a12; --panel:#12121d; --mut:#7d8499; --pa:#35e0c0; --pb:#6f8cff; --pc:#ff6b6b; --txt:#e8ecf4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { padding:34px 22px 14px; max-width:1180px; margin:0 auto; }
+  h1 { margin:0 0 6px; font-size:30px; letter-spacing:-.5px; }
+  h1 small { color:var(--pa); font-weight:600; }
+  .lede { color:var(--mut); max-width:760px; }
+  .lede a { color:var(--pb); text-decoration:none; }
+  .bar { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .bar a { color:var(--txt); background:var(--panel); border:1px solid #20212e; padding:7px 12px; border-radius:9px; text-decoration:none; font-size:13px; }
+  .bar a:hover { border-color:var(--pa); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; max-width:1180px; margin:14px auto 60px; padding:0 22px; }
+  .card { background:var(--panel); border:1px solid #1c1d2a; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+  .art { position:relative; aspect-ratio:1/1; background:#05060a; }
+  .art iframe { width:100%; height:100%; border:0; display:block; }
+  .rank { position:absolute; top:8px; left:8px; z-index:2; background:rgba(0,0,0,.6); border-radius:20px; padding:3px 9px; font-size:12px; font-weight:700; }
+  .meta { padding:11px 13px 13px; }
+  .ti { font-weight:650; font-size:14px; margin-bottom:2px; }
+  .au { color:var(--mut); font-size:12px; }
+  .vit { height:6px; border-radius:4px; background:#20212e; margin-top:9px; overflow:hidden; }
+  .vit i { display:block; height:100%; background:linear-gradient(90deg,var(--pc),var(--pb),var(--pa)); }
+  .s { font-size:11px; color:var(--mut); margin-top:5px; display:flex; justify-content:space-between; }
+  footer { color:var(--mut); text-align:center; padding:26px; font-size:12px; }
+  footer a { color:var(--pb); text-decoration:none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Double&nbsp;Jump <small>— the improvement frontier</small></h1>
+  <p class="lede">
+    A warehouse of living <a href="https://github.com/kody-w/rapp-moment">RAPP&nbsp;Moments</a>, ranked
+    <b>weakest&nbsp;→&nbsp;strongest</b>. The harness finds the weakest and appends a stronger one that
+    leapfrogs it by a margin — a <b>double&nbsp;jump</b>. Every card's art is the <b>live hologram</b>
+    streamed from a CDN and looping its 100 frames. Houses the
+    <a href="triple-jump/SPEC.md">triple&nbsp;jump</a> tournament too.
+  </p>
+  <div class="bar">
+    <a href="https://github.com/kody-w/double-jump/issues/new?template=submit.yml">➕ Submit a Moment</a>
+    <a href="HARNESS.md">📐 The harness pattern</a>
+    <a href="triple-jump/SPEC.md">🥉 Triple jump</a>
+    <a href="https://github.com/kody-w/rapp-hologram">🖥 Engine</a>
+    <a href="https://github.com/kody-w/double-jump">⌥ Repo</a>
+  </div>
+</header>
+<div class="grid" id="grid"><div style="color:var(--mut);padding:30px">Loading the warehouse…</div></div>
+<footer>
+  Engine, not experience · serverless · alive ·
+  <a href="https://github.com/kody-w/double-jump">kody-w/double-jump</a>
+</footer>
+
+<script>
+// ---- the canonical share token: base64url(JSON) (matches rapp-hologram moment.js encode) ----
+var PLAYER = "https://kody-w.github.io/rapp-hologram/";
+function encodeToken(m){ return btoa(unescape(encodeURIComponent(JSON.stringify(m)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+
+// ---- strength: a JS port of harness/strength.py (kept in sync) ----
+var LIN=["s","l","p","g"], DRIFT=["x","z"], N=100;
+function expand(m){
+  var s=(m.k||[]).slice().sort(function(a,b){return a.at-b.at;}); var out=[];
+  if(!s.length) s=[{at:0},{at:99}];
+  for(var i=0;i<N;i++){ var at=i/(N-1)*99, fr;
+    if(at<=s[0].at) fr=s[0]; else if(at>=s[s.length-1].at) fr=s[s.length-1];
+    else { for(var j=0;j<s.length-1;j++){ var a=s[j],b=s[j+1]; if(a.at<=at&&at<=b.at){ var t=(at-a.at)/((b.at-a.at)||1),o={};
+      LIN.concat(DRIFT).forEach(function(f){o[f]=(a[f]||0)+((b[f]||0)-(a[f]||0))*t;}); fr=o; break; } } }
+    out.push(fr); }
+  return out;
+}
+function mean(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s/(a.length||1);}
+function std(a){var m=mean(a);return Math.sqrt(mean(a.map(function(x){return (x-m)*(x-m);})));}
+function strength(m){
+  var fr=expand(m), gen=(m.k||[]).length, path=0, jerk=0;
+  for(var i=1;i<fr.length;i++) path+=Math.hypot((fr[i].x||0)-(fr[i-1].x||0),(fr[i].z||0)-(fr[i-1].z||0));
+  for(var j=2;j<fr.length;j++) jerk+=Math.abs((fr[j].s||0)-2*(fr[j-1].s||0)+(fr[j-2].s||0));
+  var glow=mean(fr.map(function(f){return f.g||0;})), spike=mean(fr.map(function(f){return f.p||0;}));
+  var varc=mean(LIN.map(function(k){return std(fr.map(function(f){return f[k]||0;}));}));
+  var raw=0.30*Math.min(gen/8,1)+0.25*Math.min(path/5,1)+0.10*Math.min(jerk/2,1)+0.15*glow+0.08*spike+0.12*Math.min(varc*3,1);
+  return +(raw).toFixed(4); // vitality gate ~1 for well-formed genomes
+}
+
+function card(m, i){
+  var tok=encodeToken(m), s=strength(m), pct=Math.round(Math.min(s/0.7,1)*100);
+  var el=document.createElement("div"); el.className="card";
+  el.innerHTML =
+    '<div class="art"><span class="rank">#'+(i+1)+'</span>'+
+      '<iframe loading="lazy" src="'+PLAYER+'?m='+tok+'" title="'+(m.t||"Moment").replace(/"/g,"&quot;")+'"></iframe>'+
+    '</div>'+
+    '<div class="meta"><div class="ti">'+(m.t||"Moment")+'</div>'+
+      '<div class="au">'+(m.a||"@anon")+' · '+(m.b||"savanna")+' · '+((m.k||[]).length)+' keyframes</div>'+
+      '<div class="vit"><i style="width:'+pct+'%"></i></div>'+
+      '<div class="s"><span>strength</span><span>'+s.toFixed(4)+'</span></div>'+
+    '</div>';
+  return el;
+}
+
+fetch("warehouse/moments.json").then(function(r){return r.json();}).then(function(d){
+  var ms=(d.moments||d||[]).slice().sort(function(a,b){return strength(a)-strength(b);}); // weakest first
+  var g=document.getElementById("grid"); g.innerHTML="";
+  if(!ms.length){ g.innerHTML='<div style="color:var(--mut);padding:30px">Warehouse is empty — submit the first Moment.</div>'; return; }
+  ms.forEach(function(m,i){ g.appendChild(card(m,i)); });
+}).catch(function(e){
+  document.getElementById("grid").innerHTML='<div style="color:var(--pc);padding:30px">Could not load warehouse: '+e+'</div>';
+});
+</script>
+</body>
+</html>

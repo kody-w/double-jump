@@ -1,0 +1,66 @@
+name: ingest
+
+# Static-API CRUD via issue-ops: a `moment-submit` issue is the write endpoint. This workflow decodes the
+# Moment token, verifies it, applies the op to warehouse/moments.json (append-only, idempotent), commits,
+# comments the result + live player link, and closes the issue. Mirrors the federate.yml convention.
+
+on:
+  issues:
+    types: [opened, edited, labeled, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  ingest:
+    # only act on submission issues
+    if: contains(github.event.issue.labels.*.name, 'moment-submit')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Ingest the submission
+        id: ingest
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          python3 tools/ingest.py > result.json || true
+          echo "----- ingest result -----"; cat result.json
+
+      - name: Commit warehouse change
+        run: |
+          if [[ -z "$(git status --porcelain warehouse/)" ]]; then
+            echo "No warehouse change."
+          else
+            git config user.name  "double-jump-harness"
+            git config user.email "actions@github.com"
+            git add warehouse/
+            git commit -m "ingest: #${{ github.event.issue.number }} $(python3 -c "import json;print(json.load(open('result.json')).get('status',''))") [skip ci]"
+            git push
+          fi
+
+      - name: Comment + close
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "**Ingest result**"
+            echo ''
+            echo '```json'
+            cat result.json
+            echo '```'
+            PLAY=$(python3 -c "import json;print(json.load(open('result.json')).get('play_url',''))")
+            if [ -n "$PLAY" ]; then echo ''; echo "▶️ Play the hologram: $PLAY"; fi
+          } > comment.md
+          gh issue comment "${{ github.event.issue.number }}" --body-file comment.md
+          STATUS=$(python3 -c "import json;print(json.load(open('result.json')).get('status',''))")
+          if [ "$STATUS" != "error" ] && [ "$STATUS" != "rejected" ]; then
+            gh issue close "${{ github.event.issue.number }}" --reason completed || true
+          fi

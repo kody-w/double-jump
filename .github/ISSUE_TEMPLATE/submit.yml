@@ -1,0 +1,45 @@
+name: Moment submit
+description: Submit a holographic Moment to the double-jump warehouse (the static-API CRUD write path).
+title: "moment-submit: "
+labels: ["moment-submit"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a RAPP Moment to the warehouse. The `ingest` workflow decodes your token, verifies it, and
+        commits it (append-only). Mint/improve one with the **DoubleJump** agent, or paste any conformant
+        `?m=<token>`. This issue **is** the write endpoint — GitHub Pages is read-only, so submissions are
+        issues (issue-ops). Identity is the record (signature), not the GitHub account.
+  - type: dropdown
+    id: op
+    attributes:
+      label: op
+      description: The CRUD operation.
+      options:
+        - create
+        - update
+        - delete
+        - read
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: token
+    attributes:
+      label: token
+      description: The Moment share token — base64url(JSON), the canonical `?m=<token>`.
+      placeholder: eyJ2IjoxLCJ0Ijoi...
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: gist
+    attributes:
+      label: gist
+      description: (Optional) the public gist URL hosting this Moment.
+      placeholder: https://gist.github.com/<user>/<id>
+  - type: textarea
+    id: notes
+    attributes:
+      label: notes
+      description: (Optional) anything else.
