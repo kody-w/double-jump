@@ -1,5 +1,10 @@
 # Double Jump
 
+> 🧬 **This repo is the [double-jump twin's](front_door.md) cubby — a sandboxed virtual workspace**
+> (`rappid:@kody-w/double-jump`). The twin improves in isolation here and **reaches up** to real hardware
+> only through two hatches: the local brainstem (real compute) and a PR to the global platform. See
+> **[SANDBOX.md](SANDBOX.md)**.
+
 **An autonomous improvement harness.** Things compete; the **weakest** gets **double-jumped** — replaced
 by a stronger one that leapfrogs it by a margin. Git is the harness, so the repo's history *is* the record
 of the population getting better. The first thing it improves is a warehouse of living

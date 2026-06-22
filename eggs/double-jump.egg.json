@@ -1,0 +1,18 @@
+{
+  "schema": "rapp-egg/1.0",
+  "name": "double-jump",
+  "kind": "agent-cartridge",
+  "from": "rappid:@kody-w/double-jump:3d6b5d8ffe54538e7b59b8f8939677db",
+  "what": "The autonomous double-jump improver, as a portable cartridge. Plant it in any RAPP brainstem and drive it: scan -> weakest -> jump -> submit -> loop.",
+  "plant": {
+    "agent": "agents/double_jump_agent.py",
+    "needs": ["harness/moment.py", "harness/strength.py", "harness/loop.py"],
+    "how": "Copy agents/ + harness/ into a brainstem's AGENTS_PATH parent (the agent adds the repo root to sys.path and imports harness), or drop just the agent file in (it carries an embedded fallback). Then /chat it.",
+    "warehouse": "warehouse/moments.json (or it falls back to the published raw warehouse over the CDN)"
+  },
+  "standards": {
+    "moment": "https://github.com/kody-w/rapp-moment",
+    "engine": "https://github.com/kody-w/rapp-hologram"
+  },
+  "license": "PolyForm-Noncommercial-1.0.0"
+}

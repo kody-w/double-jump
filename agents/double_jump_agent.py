@@ -133,9 +133,9 @@ except Exception:                                                    # pragma: n
         return {"champion": champ, "rounds": hist, "strength": strength(champ)}
 
 
-def _run(args, stdin=None):
+def _run(args, stdin=None, timeout=60):
     try:
-        r = subprocess.run(args, capture_output=True, text=True, timeout=60, input=stdin)
+        r = subprocess.run(args, capture_output=True, text=True, timeout=timeout, input=stdin)
         return r.returncode, r.stdout.strip(), r.stderr.strip()
     except Exception as e:
         return 1, "", str(e)
@@ -155,14 +155,15 @@ class DoubleJumpAgent(BasicAgent):
                 "hologram iframe (the animated card art). Actions: 'scan' (rank weakest->strongest), 'weakest' "
                 "(the next target), 'jump' (double-jump the weakest or a given token), 'triple_jump' (a 3-round "
                 "tournament -> a champion), 'submit' (gist + moment-submit issue, CRUD create), 'loop' "
-                "(autonomously find-weakest->jump->submit N rounds). Use when the user wants to improve, "
-                "compete with, rank, or publish holographic Moments."
+                "(autonomously find-weakest->jump->submit N rounds), 'promote' (reach up from the sandbox "
+                "and open a PR promoting proven improvements to the GLOBAL rapp-commons Moment feed). Use when "
+                "the user wants to improve, compete with, rank, publish, or globally promote holographic Moments."
             ),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "action": {"type": "string",
-                               "enum": ["scan", "weakest", "jump", "triple_jump", "submit", "loop"],
+                               "enum": ["scan", "weakest", "jump", "triple_jump", "submit", "loop", "promote"],
                                "description": "What to do. Default 'scan'."},
                     "token": {"type": "string", "description": "A Moment share token (base64url). For 'jump' a specific Moment, or for 'submit' the Moment to publish. If omitted, 'jump'/'submit' act on the current weakest / last jump."},
                     "rounds": {"type": "integer", "description": "For 'loop': how many improvement rounds (default 1)."},
@@ -170,6 +171,8 @@ class DoubleJumpAgent(BasicAgent):
                     "title": {"type": "string", "description": "Optional title override for a minted/improved Moment."},
                     "biome": {"type": "string", "enum": ["savanna", "canyon", "forest", "volcanic", "void"],
                               "description": "Optional biome for a minted Moment."},
+                    "apply": {"type": "boolean", "description": "For 'promote': actually open the PR (default false = dry-run that just lists what would be promoted)."},
+                    "mode": {"type": "string", "enum": ["pr", "direct"], "description": "For 'promote': 'pr' (default, reach up via PR — respects the sacred global main) or 'direct'."},
                 },
                 "required": [],
                 "additionalProperties": True,
@@ -338,4 +341,21 @@ class DoubleJumpAgent(BasicAgent):
                              improved=len(log), log=log,
                              note="autonomous improvement loop complete; warehouse grows append-only.")
 
-        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|jump|triple_jump|submit|loop.")
+        if action == "promote":
+            tool = os.path.join(_ROOT, "tools", "promote.py")
+            if not os.path.exists(tool):
+                return self._env(action, "error",
+                                 error="promote tool not found — run this from inside the double-jump cubby repo.")
+            args = ["python3", tool, "--mode", (kwargs.get("mode") or "pr")]
+            if kwargs.get("apply"):
+                args.append("--apply")
+            rc, out, err = _run(args, timeout=240)        # clone + PR can take a bit
+            try:
+                res = json.loads(out)
+            except Exception:
+                res = {"raw": out[:800], "stderr": err[:400]}
+            return self._env(action, "success" if rc == 0 else "error",
+                             reach_up="global rapp-commons Moment feed (by PR)",
+                             dry_run=not bool(kwargs.get("apply")), result=res)
+
+        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|jump|triple_jump|submit|loop|promote.")
