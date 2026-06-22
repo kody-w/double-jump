@@ -1,0 +1,119 @@
+{
+  "schema": "rappcards-seed-index/1.0",
+  "binder": "double-jump",
+  "homepage": "https://kody-w.github.io/double-jump/cards.html",
+  "cards_url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+  "count": 11,
+  "seeds": {
+    "6147380527733081792": {
+      "id": "@double-jump/stillness-3-won-the-triple-jump",
+      "name": "Stillness 3",
+      "rarity_tier": "common",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/stillness-3-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "2203350426555733774": {
+      "id": "@double-jump/frenzy-4-won-the-triple-jump",
+      "name": "Frenzy 4",
+      "rarity_tier": "legendary",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/frenzy-4-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "13635261904936066047": {
+      "id": "@double-jump/ascent-5-won-the-triple-jump",
+      "name": "Ascent 5",
+      "rarity_tier": "uncommon",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/ascent-5-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "8403583549317521519": {
+      "id": "@double-jump/frenzy-6-won-the-triple-jump",
+      "name": "Frenzy 6",
+      "rarity_tier": "rare",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/frenzy-6-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "445740000046355201": {
+      "id": "@double-jump/stillness-7-won-the-triple-jump",
+      "name": "Stillness 7",
+      "rarity_tier": "common",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/stillness-7-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "3937039020836505579": {
+      "id": "@double-jump/frenzy-8-won-the-triple-jump",
+      "name": "Frenzy 8",
+      "rarity_tier": "legendary",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/frenzy-8-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "3354473083605240789": {
+      "id": "@double-jump/ascent-9-won-the-triple-jump",
+      "name": "Ascent 9",
+      "rarity_tier": "uncommon",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/ascent-9-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "15520812612572765336": {
+      "id": "@double-jump/frenzy-10-won-the-triple-jump",
+      "name": "Frenzy 10",
+      "rarity_tier": "rare",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/frenzy-10-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "6204024257523028348": {
+      "id": "@double-jump/stillness-11-won-the-triple-jump",
+      "name": "Stillness 11",
+      "rarity_tier": "common",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/stillness-11-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "10211273021813166838": {
+      "id": "@double-jump/frenzy-12-won-the-triple-jump",
+      "name": "Frenzy 12",
+      "rarity_tier": "rare",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/frenzy-12-won-the-triple-jump",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    },
+    "17734757470992396975": {
+      "id": "@double-jump/stillness-7-double-jumped",
+      "name": "Stillness 7",
+      "rarity_tier": "common",
+      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "url_is_bundle": true,
+      "bundle_key": "@double-jump/stillness-7-double-jumped",
+      "binder": "double-jump",
+      "upstream": "double-jump"
+    }
+  }
+}

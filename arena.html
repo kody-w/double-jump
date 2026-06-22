@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<!-- (c) 2026 Kody Wildfeuer · PolyForm Noncommercial 1.0.0 · "Holographic Moments" is a trademark. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Double-Jump Arena — living holograms compete &amp; evolve</title>
+<style>
+  body{margin:0;overflow:hidden;background:#05060a;color:#e8ecf4;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  #ui{position:absolute;top:12px;left:12px;background:rgba(8,10,18,.82);border:1px solid #222a3a;
+    border-radius:12px;padding:14px 16px;min-width:200px;backdrop-filter:blur(6px)}
+  #ui h1{font-size:15px;margin:0 0 8px}#ui h1 .b{color:#35e0c0}
+  .row{display:flex;justify-content:space-between;gap:14px;font-size:13px;margin:3px 0}
+  .row .k{color:#8b93a7}.row .v{font-weight:700}
+  #lb{position:absolute;top:12px;right:12px;background:rgba(8,10,18,.82);border:1px solid #222a3a;
+    border-radius:12px;padding:12px;width:260px;max-height:74vh;overflow:auto;backdrop-filter:blur(6px)}
+  #lb h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#8b93a7;margin:0 0 8px}
+  .le{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:8px;font-size:12px}
+  .le:hover{background:#141a26}.le .r{color:#8b93a7;width:18px}.le .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .le .s{font-weight:700}.le.champ{background:linear-gradient(90deg,rgba(255,210,74,.16),transparent);border:1px solid #5a4a14}
+  #controls{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;
+    background:rgba(8,10,18,.82);border:1px solid #222a3a;border-radius:14px;padding:10px;backdrop-filter:blur(6px)}
+  button{background:#16203a;color:#e8ecf4;border:1px solid #2a3550;padding:9px 15px;border-radius:10px;
+    cursor:pointer;font:inherit;font-weight:650}
+  button:hover{border-color:#35e0c0;box-shadow:0 0 14px rgba(53,224,192,.3)}
+  button.go{background:#35e0c0;color:#062019;border-color:#35e0c0}
+  a.link{position:absolute;bottom:16px;right:16px;color:#6f8cff;text-decoration:none;font-size:13px}
+  #toast{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;color:#35e0c0;
+    background:rgba(8,10,18,.9);border:1px solid #2a3550;border-radius:10px;padding:10px 16px;display:none}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<div id="ui">
+  <h1>Double-Jump <span class="b">Arena</span></h1>
+  <div class="row"><span class="k">Generation</span><span class="v" id="gen">1</span></div>
+  <div class="row"><span class="k">Organisms</span><span class="v" id="pop">0</span></div>
+  <div class="row"><span class="k">Champion</span><span class="v" id="champ">—</span></div>
+  <div class="row"><span class="k">Avg strength</span><span class="v" id="avg">0</span></div>
+  <div class="row"><span class="k">Floor (weakest)</span><span class="v" id="floor">0</span></div>
+</div>
+<div id="lb"><h2>Leaderboard · strength</h2><div id="lbrows"></div></div>
+<div id="controls">
+  <button class="go" onclick="evolveOnce()">▶ Evolve (double-jump the weakest)</button>
+  <button onclick="toggleAuto()" id="autoBtn">⏩ Auto-evolve</button>
+  <button onclick="addContender()">➕ New contender</button>
+  <button onclick="toggleOrbit()" id="orbitBtn">⏸ Orbit</button>
+</div>
+<div id="toast"></div>
+<a class="link" href="pokedex.html">🔴 open the Holodex →</a>
+
+<script>
+var WAREHOUSE_LOCAL="warehouse/moments.json";
+var WAREHOUSE_RAW="https://raw.githubusercontent.com/kody-w/double-jump/main/warehouse/moments.json";
+
+// ---------- genome math (DNA): interpolate the 100-frame organism ----------
+var LIN=["s","l","p","g"],DRIFT=["x","z"];
+function sortK(k){return (k||[]).slice().sort(function(a,b){return a.at-b.at;});}
+function sampleForm(m,at){
+  var s=sortK(m.k);if(!s.length)return{s:.4,l:.4,p:.2,g:.3,h:200,x:0,z:0};
+  if(at<=s[0].at)return s[0];if(at>=s[s.length-1].at)return s[s.length-1];
+  for(var i=0;i<s.length-1;i++){var a=s[i],b=s[i+1];if(a.at<=at&&at<=b.at){
+    var t=(at-a.at)/((b.at-a.at)||1),o={};LIN.concat(DRIFT).forEach(function(f){o[f]=(a[f]||0)+((b[f]||0)-(a[f]||0))*t;});
+    var ha=a.h||0,hb=b.h||0,dd=((hb-ha+540)%360)-180;o.h=(ha+dd*t+360)%360;return o;}}
+  return s[s.length-1];
+}
+function expand(m){var o=[];for(var i=0;i<100;i++)o.push(sampleForm(m,i/99*99));return o;}
+function mean(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s/(a.length||1);}
+function std(a){var mu=mean(a);return Math.sqrt(mean(a.map(function(x){return (x-mu)*(x-mu);})));}
+function strength(m){
+  var fr=expand(m),gen=(m.k||[]).length,path=0,jerk=0;
+  for(var i=1;i<fr.length;i++)path+=Math.hypot((fr[i].x||0)-(fr[i-1].x||0),(fr[i].z||0)-(fr[i-1].z||0));
+  for(var j=2;j<fr.length;j++)jerk+=Math.abs((fr[j].s||0)-2*(fr[j-1].s||0)+(fr[j-2].s||0));
+  var glow=mean(fr.map(function(f){return f.g||0;})),spike=mean(fr.map(function(f){return f.p||0;}));
+  var varc=mean(LIN.map(function(k){return std(fr.map(function(f){return f[k]||0;}));}));
+  return +(0.30*Math.min(gen/8,1)+0.25*Math.min(path/5,1)+0.10*Math.min(jerk/2,1)+0.15*glow+0.08*spike+0.12*Math.min(varc*3,1)).toFixed(4);
+}
+function clamp(v,a,b){return v<a?a:v>b?b:v;}
+// double-jump: insert a mid keyframe in the biggest gap + lift glow/spikes/motion (the mutation)
+function improve(m,boost){
+  var k=sortK(m.k).map(function(f){return Object.assign({},f);});
+  if(k.length<2)k=[{at:0,s:.3,l:.3,p:.1,g:.2,h:40,x:0,z:0},{at:99,s:.4,l:.35,p:.1,g:.3,h:60,x:0,z:.1}];
+  for(var b=0;b<(boost||1);b++){
+    var gi=0,gmax=-1;for(var i=0;i<k.length-1;i++){var g=k[i+1].at-k[i].at;if(g>gmax){gmax=g;gi=i;}}
+    if(gmax<2)break;var midAt=Math.round((k[gi].at+k[gi+1].at)/2),nf=sampleForm(m,midAt);
+    nf={at:midAt,s:nf.s,l:nf.l,p:clamp(nf.p+.15,0,1),g:clamp(nf.g+.18,0,1),h:(nf.h+50)%360,
+      x:clamp(nf.x+(Math.random()-.5),-1,1),z:clamp(nf.z+(Math.random()-.5),-1,1)};
+    k.push(nf);k=sortK(k);
+  }
+  for(var i2=0;i2<k.length;i2++){k[i2].g=clamp((k[i2].g||0)+.06*(boost||1),0,1);k[i2].p=clamp((k[i2].p||0)+.04*(boost||1),0,1);}
+  var out=Object.assign({},m);out.k=k;out.t=(m.t||"Moment").split(" · ")[0]+" · double-jumped";return out;
+}
+function forge(seed){var n=6+Math.floor(Math.random()*3),k=[];for(var i=0;i<n;i++){var sgn=i%2?-1:1;
+  k.push({at:Math.round(i/(n-1)*99),s:+(.2+Math.random()*.75).toFixed(3),l:+(.2+Math.random()*.6).toFixed(3),
+    p:+(.4+Math.random()*.5).toFixed(3),g:+(.6+Math.random()*.35).toFixed(3),h:+(Math.random()*360).toFixed(1),
+    x:+clamp(sgn*(.5+Math.random()*.45),-1,1).toFixed(3),z:+clamp(-sgn*(.5+Math.random()*.45),-1,1).toFixed(3)});}
+  return {v:1,t:"Contender "+(seed||Math.floor(Math.random()*9999)),a:"@challenger",
+    b:["savanna","canyon","forest","volcanic","void"][Math.floor(Math.random()*5)],k:k};}
+
+// ---------- 3D world ----------
+var W=window,D=document;
+var renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(W.devicePixelRatio,2));
+renderer.setSize(W.innerWidth,W.innerHeight);D.body.appendChild(renderer.domElement);
+var scene=new THREE.Scene();scene.background=new THREE.Color(0x070b14);scene.fog=new THREE.Fog(0x070b14,40,150);
+var camera=new THREE.PerspectiveCamera(60,W.innerWidth/W.innerHeight,0.1,600);
+scene.add(new THREE.AmbientLight(0xffffff,0.7));
+var sun=new THREE.DirectionalLight(0xfff2d6,1.0);sun.position.set(20,40,15);scene.add(sun);
+var ground=new THREE.Mesh(new THREE.CircleGeometry(70,72),new THREE.MeshStandardMaterial({color:0x0e1726,roughness:1}));
+ground.rotateX(-Math.PI/2);scene.add(ground);
+for(var r=10;r<=60;r+=10){var ring=new THREE.Mesh(new THREE.RingGeometry(r-.08,r+.08,80),
+  new THREE.MeshBasicMaterial({color:0x1b2740,side:THREE.DoubleSide}));ring.rotateX(-Math.PI/2);ring.position.y=.02;scene.add(ring);}
+
+function hsl(h){var c=new THREE.Color();c.setHSL((((h%360)+360)%360)/360,0.72,0.56);return c;}
+function buildForm(f){
+  var col=hsl(f.h),size=0.8+f.s*1.9,legLen=0.35+f.l*1.9,bodyY=legLen+size*0.5,g=new THREE.Group();
+  var mat=new THREE.MeshStandardMaterial({color:col,roughness:0.5,metalness:0.1,emissive:col,emissiveIntensity:0.25+f.g*0.7});
+  var body=new THREE.Mesh(new THREE.BoxGeometry(size*1.7,size,size*1.1),mat);body.position.y=bodyY;g.add(body);
+  var lt=new THREE.PointLight(col,0.6+f.g*2.2,22);lt.position.set(0,bodyY+1.2,0);g.add(lt);
+  var head=new THREE.Mesh(new THREE.BoxGeometry(size*0.75,size*0.75,size*0.75),mat);head.position.set(size*1.05,bodyY+size*0.25,0);g.add(head);
+  [-0.22,0.22].forEach(function(dz){var e=new THREE.Mesh(new THREE.SphereGeometry(0.1,8,8),
+    new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffe08a,emissiveIntensity:1.3}));e.position.set(size*1.45,bodyY+size*0.35,dz*size);g.add(e);});
+  [[-0.55,-0.42],[-0.55,0.42],[0.55,-0.42],[0.55,0.42]].forEach(function(p){var leg=new THREE.Mesh(
+    new THREE.CylinderGeometry(0.12,0.14,legLen,6),mat);leg.position.set(p[0]*size,legLen/2,p[1]*size);g.add(leg);});
+  var ns=Math.round(f.p*8);
+  for(var i=0;i<ns;i++){var sp=new THREE.Mesh(new THREE.ConeGeometry(0.14,0.4+f.p*0.6,5),
+    new THREE.MeshStandardMaterial({color:col,emissive:col,emissiveIntensity:0.5}));sp.position.set(((i+0.5)/ns-0.5)*size*1.2,bodyY+size*0.55,0);g.add(sp);}
+  g.userData.heart=lt;g.userData.baseLI=0.6+f.g*2.2;g.userData.body=body;
+  return g;
+}
+function disposeGroup(g){g.traverse(function(o){if(o.geometry)o.geometry.dispose();if(o.material)o.material.dispose();});}
+
+// ---------- population ----------
+var POP=[],gen=1,auto=null,orbit=true,crown=null;
+function slot(i,n){var a=i/n*Math.PI*2,r=Math.min(8+n*1.6,52);return {x:Math.cos(a)*r,z:Math.sin(a)*r};}
+
+function placeAll(){
+  POP.forEach(function(o,i){
+    if(o.group){scene.remove(o.group);disposeGroup(o.group);}
+    var f0=sampleForm(o.m,0);o.group=buildForm(f0);
+    var s=slot(i,POP.length);o.home={x:s.x,z:s.z};o.group.position.set(s.x,0,s.z);
+    o.phase=Math.random()*100;scene.add(o.group);
+  });
+  refreshHUD();
+}
+function ranked(){return POP.slice().sort(function(a,b){return b.s-a.s;});}
+function refreshHUD(){
+  POP.forEach(function(o){o.s=strength(o.m);});
+  var R=ranked();crown=R[0];
+  D.getElementById("gen").textContent=gen;D.getElementById("pop").textContent=POP.length;
+  D.getElementById("champ").textContent=(crown?crown.m.t.split(" · ")[0]+" ("+crown.s.toFixed(3)+")":"—");
+  D.getElementById("avg").textContent=(mean(POP.map(function(o){return o.s;}))||0).toFixed(3);
+  D.getElementById("floor").textContent=(R.length?R[R.length-1].s.toFixed(3):"0");
+  var rows=R.map(function(o,i){return '<div class="le'+(i===0?' champ':'')+'"><span class="r">'+(i===0?"👑":"#"+(i+1))+
+    '</span><span class="n" style="color:'+(i===0?"#ffd24a":"#e8ecf4")+'">'+o.m.t.split(" · ")[0]+
+    '</span><span class="s">'+o.s.toFixed(3)+'</span></div>';}).join("");
+  D.getElementById("lbrows").innerHTML=rows;
+}
+function toast(t){var e=D.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(function(){e.style.display="none";},1800);}
+
+function evolveOnce(){
+  if(POP.length<2)return;var R=ranked();var weak=R[R.length-1];var bar=R.length>1?R[R.length-2].s:weak.s+.05;
+  var best=null;for(var b=1;b<=8;b++){var c=improve(weak.m,b);if(!best||strength(c)>strength(best))best=c;if(strength(c)>=bar+.0)break;}
+  weak.m=best;weak.s=strength(best);
+  // rebuild just the evolved organism
+  if(weak.group){scene.remove(weak.group);disposeGroup(weak.group);}
+  weak.group=buildForm(sampleForm(weak.m,0));weak.group.position.set(weak.home.x,0,weak.home.z);scene.add(weak.group);
+  gen++;refreshHUD();
+  toast("⤴ double-jumped “"+weak.m.t.split(" · ")[0]+"” → "+weak.s.toFixed(3));
+}
+function addContender(){
+  var m=forge();POP.push({m:m,s:strength(m)});placeAll();
+  toast("➕ @challenger entered the arena · strength "+strength(m).toFixed(3));
+}
+function toggleAuto(){var btn=D.getElementById("autoBtn");
+  if(auto){clearInterval(auto);auto=null;btn.textContent="⏩ Auto-evolve";btn.classList.remove("go");}
+  else{auto=setInterval(evolveOnce,1600);btn.textContent="⏸ Stop auto";btn.classList.add("go");}}
+function toggleOrbit(){orbit=!orbit;D.getElementById("orbitBtn").textContent=orbit?"⏸ Orbit":"▶ Orbit";}
+W.evolveOnce=evolveOnce;W.addContender=addContender;W.toggleAuto=toggleAuto;W.toggleOrbit=toggleOrbit;
+
+// ---------- animate ----------
+var t=0,camA=0;
+function animate(){
+  requestAnimationFrame(animate);
+  t=(t+0.6)%100;
+  POP.forEach(function(o){
+    if(!o.group)return;var f=sampleForm(o.m,(t+o.phase)%100);
+    // drift around home slot (motion = behavior), scaled by the organism's own x/z genome
+    o.group.position.x=o.home.x+(f.x||0)*3;o.group.position.z=o.home.z+(f.z||0)*3;
+    o.group.position.y=Math.sin((t+o.phase)*0.06)*0.25;            // gentle bob
+    o.group.rotation.y+=0.004+ (o.s||0)*0.01;                       // stronger = livelier spin
+    if(o.group.userData.body){var sc=0.85+f.s*0.5;o.group.userData.body.scale.setScalar(sc/(0.85+sampleForm(o.m,0).s*0.5));}
+    // heartbeat glow
+    var beat=Math.pow(Math.max(0,Math.sin((t+o.phase)*0.13)),6);
+    if(o.group.userData.heart)o.group.userData.heart.intensity=o.group.userData.baseLI*(0.5+beat);
+    // champion gets a brighter aura
+    if(o===crown&&o.group.userData.heart)o.group.userData.heart.intensity*=1.8;
+  });
+  if(orbit)camA+=0.0016;
+  var rad=Math.min(46+POP.length*1.4,90);
+  camera.position.set(Math.cos(camA)*rad,26+POP.length*0.4,Math.sin(camA)*rad);
+  camera.lookAt(0,3,0);
+  renderer.render(scene,camera);
+}
+W.addEventListener("resize",function(){camera.aspect=W.innerWidth/W.innerHeight;camera.updateProjectionMatrix();renderer.setSize(W.innerWidth,W.innerHeight);});
+
+function load(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();});}
+load(WAREHOUSE_LOCAL).catch(function(){return load(WAREHOUSE_RAW);}).then(function(d){
+  var ms=d.moments||d||[];POP=ms.map(function(m){return {m:m,s:strength(m)};});
+  placeAll();animate();
+}).catch(function(e){toast("could not load the warehouse");animate();});
+</script>
+</body>
+</html>

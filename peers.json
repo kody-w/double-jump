@@ -1,0 +1,29 @@
+{
+  "schema": "rappcards-peers/1.0",
+  "updated": "2026-06-21",
+  "binder": "double-jump",
+  "canonical_registry": "https://kody-w.github.io/RAPPcards/peers.json",
+  "note": "The double-jump binder: holocards minted from living holograms, each card's art the live walkable Moment. Federates with RAR + RAPPcards so cross-binder summon resolves these too.",
+  "peers": [
+    {
+      "binder": "rar",
+      "homepage": "https://kody-w.github.io/RAR/",
+      "seed_index": "https://raw.githubusercontent.com/kody-w/RAR/main/seed-index.json",
+      "cards_url": "https://raw.githubusercontent.com/kody-w/RAR/main/cards/holo_cards.json",
+      "role": "registry"
+    },
+    {
+      "binder": "rappcards",
+      "homepage": "https://kody-w.github.io/RAPPcards/",
+      "seed_index": "https://raw.githubusercontent.com/kody-w/RAPPcards/main/seed-index.json",
+      "role": "twin"
+    },
+    {
+      "binder": "double-jump",
+      "homepage": "https://kody-w.github.io/double-jump/pokedex.html",
+      "seed_index": "https://raw.githubusercontent.com/kody-w/double-jump/main/seed-index.json",
+      "cards_url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
+      "role": "third-party"
+    }
+  ]
+}

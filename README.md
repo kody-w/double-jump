@@ -23,8 +23,10 @@ of the population getting better. The first thing it improves is a warehouse of 
 | [`harness/`](harness/) | the loop engine — `strength.py` (fitness), `moment.py` (mint/improve), `loop.py` (the loop) |
 | [`triple-jump/SPEC.md`](triple-jump/SPEC.md) | the housed three-hop tournament |
 | [`warehouse/moments.json`](warehouse/moments.json) | the static population the harness improves |
+| [`arena.html`](arena.html) | the **3D arena** — every organism in one world, animated by its genome, ranked by strength; click **Evolve** to double-jump the weakest (the evolution sim) |
+| [`pokedex.html`](pokedex.html) + [`cards.json`](cards.json) | the **Holodex** — each creature as a `rappcards/1.0` holocard whose art is the live hologram; federated via [`peers.json`](peers.json) |
 | [`index.html`](index.html) | the gallery — every card's art is a **live hologram iframe** looping 100 frames |
-| [`tools/ingest.py`](tools/ingest.py) + [`.github/`](.github/) | the static-API **issue-ops CRUD** + the scheduled loop |
+| [`tools/ingest.py`](tools/ingest.py) + [`tools/promote.py`](tools/promote.py) + [`.github/`](.github/) | the static-API **issue-ops CRUD**, the reach-up **promote**, + the scheduled loop |
 
 ## Quickstart
 

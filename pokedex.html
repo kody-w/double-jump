@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!-- (c) 2026 Kody Wildfeuer · PolyForm Noncommercial 1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Holodex — the double-jump creatures</title>
+<meta property="og:title" content="Holodex — living holographic organisms">
+<meta property="og:description" content="A pokedex of digital organisms. Click one to walk it — just that creature, alone.">
+<style>
+  :root{--bg:#0c1018;--surface:#161b27;--line:#222a3a;--txt:#e8ecf4;--mut:#8b93a7;
+    --savanna:#78C850;--canyon:#E0C068;--forest:#35e0c0;--volcanic:#F08030;--void:#7038F8;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 600px at 50% -10%,#16203a,var(--bg));color:var(--txt);
+    font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;min-height:100vh;padding:24px}
+  h1{font-size:clamp(1.8rem,4vw,2.6rem);text-align:center;letter-spacing:-.5px}
+  h1 .b{color:#6f8cff}.lede{color:var(--mut);text-align:center;max-width:680px;margin:6px auto 0}
+  .bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px auto;max-width:900px}
+  .bar a,.chip{background:var(--surface);border:1px solid var(--line);color:var(--txt);
+    padding:7px 12px;border-radius:999px;text-decoration:none;font-size:13px;cursor:pointer}
+  .chip.active{border-color:#6f8cff;background:#1c2540}
+  input.search{width:100%;max-width:520px;display:block;margin:0 auto;padding:11px 16px;border-radius:999px;
+    background:var(--surface);border:1px solid var(--line);color:var(--txt);font-size:15px;outline:none}
+  #dex{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px;max-width:1200px;margin:18px auto 60px}
+  .c{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;cursor:pointer;
+    text-align:center;transition:transform .15s,box-shadow .15s,border-color .15s;position:relative}
+  .c:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.4);border-color:#6f8cff}
+  .c .no{position:absolute;top:8px;left:10px;color:var(--mut);font-size:11px;font-weight:700}
+  .c .rar{position:absolute;top:8px;right:10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+  .c svg{width:104px;height:104px;border-radius:12px;margin:6px auto 8px;display:block}
+  .c .nm{font-weight:700;font-size:14px}
+  .c .ty{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;
+    color:#0b0e14;padding:2px 8px;border-radius:999px;margin-top:6px}
+  .c .st{color:var(--mut);font-size:11px;margin-top:6px}
+  .leg{color:#ffd24a}.rare{color:#5bc8ff}.unc{color:#7ee787}.com{color:var(--mut)}
+  /* detail modal */
+  #ov{position:fixed;inset:0;background:rgba(4,6,12,.82);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+  #ov.on{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--line);border-radius:20px;max-width:880px;width:100%;
+    max-height:92vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media(max-width:680px){.modal{grid-template-columns:1fr}}
+  .holo{background:#05060a;aspect-ratio:1/1;position:relative}
+  .holo iframe{width:100%;height:100%;border:0;display:block}
+  .info{padding:20px}
+  .info h2{font-size:20px}.info .sub{color:var(--mut);font-size:13px;margin-bottom:12px}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}
+  .stat{background:#0e131d;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  .stat .k{color:var(--mut);font-size:11px;text-transform:uppercase}.stat .v{font-weight:800;font-size:18px}
+  .ab{background:#0e131d;border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px}
+  .ab .an{font-weight:700;color:#6f8cff}.flav{color:var(--mut);font-style:italic;margin-top:12px;font-size:13px}
+  .x{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.5);border-radius:50%;width:34px;height:34px;
+    border:0;color:#fff;font-size:18px;cursor:pointer;z-index:2}
+  .play{display:inline-block;margin-top:12px;background:#6f8cff;color:#0b0e14;font-weight:700;
+    padding:8px 14px;border-radius:10px;text-decoration:none}
+</style>
+</head>
+<body>
+<h1>Holo<span class="b">dex</span></h1>
+<p class="lede">Every double-jump creature is a living holographic organism. Click one to <b>walk it</b> —
+just that creature, alone. They all compete together in the <a href="arena.html" style="color:#6f8cff">arena</a>.</p>
+<div class="bar" id="types"></div>
+<input class="search" id="q" placeholder="Search creatures…">
+<div id="dex">Loading the dex…</div>
+
+<div id="ov"><div class="modal" id="modal"></div></div>
+
+<script>
+var TYPE={savanna:"#78C850",canyon:"#E0C068",forest:"#35e0c0",volcanic:"#F08030",void:"#7038F8"};
+var RAR={legendary:"leg",rare:"rare",uncommon:"unc",common:"com"};
+var CARDS=[], FILTER="", TYPEF="";
+
+function biomeOf(c){return (c.agent_types&&c.agent_types[1]||"VOID").toLowerCase();}
+function tile(c,i){
+  var b=biomeOf(c), col=TYPE[b]||"#888";
+  var d=document.createElement("div");d.className="c";d.onclick=function(){open(c);};
+  d.innerHTML='<span class="no">#'+String(i+1).padStart(2,"0")+'</span>'+
+    '<span class="rar '+RAR[c.rarity_tier]+'">'+c.rarity_label+'</span>'+
+    c.avatar_svg+
+    '<div class="nm">'+c.name+'</div>'+
+    '<span class="ty" style="background:'+col+'">'+b+'</span>'+
+    '<div class="st">⚡ '+c.holo.strength+' · '+c.holo.keyframes+'f</div>';
+  return d;
+}
+function open(c){
+  var m=document.getElementById("modal");
+  var ab=(c.abilities||[]).map(function(a){return '<div class="ab"><span class="an">'+a.name+'</span> '+
+    (a.damage?'· '+a.damage+' dmg ':'')+'<div style="color:var(--mut);font-size:13px">'+a.text+'</div></div>';}).join("");
+  var s=c.stats;
+  m.innerHTML='<div class="holo"><button class="x" onclick="shut(event)">×</button>'+
+      '<iframe src="'+c.holo.play_url+'" title="'+c.name+'"></iframe></div>'+
+    '<div class="info"><h2>'+c.name+' '+c.evolution.icon+'</h2>'+
+      '<div class="sub">'+c.title+' · '+biomeOf(c)+' · '+c.rarity_label+' · by '+c.holo.author+'</div>'+
+      '<div class="stats">'+
+        '<div class="stat"><div class="k">HP</div><div class="v">'+c.hp+'</div></div>'+
+        '<div class="stat"><div class="k">ATK (motion)</div><div class="v">'+s.atk+'</div></div>'+
+        '<div class="stat"><div class="k">DEF (vitality)</div><div class="v">'+s.def+'</div></div>'+
+        '<div class="stat"><div class="k">SPD (spikes)</div><div class="v">'+s.spd+'</div></div>'+
+        '<div class="stat"><div class="k">INT (articulation)</div><div class="v">'+s.int+'</div></div>'+
+        '<div class="stat"><div class="k">Strength</div><div class="v">'+c.holo.strength+'</div></div>'+
+      '</div>'+ab+
+      '<div class="flav">“'+c.flavor_text+'”</div>'+
+      '<a class="play" href="'+c.holo.play_url+'" target="_blank">▶ Walk it fullscreen</a>'+
+    '</div>';
+  document.getElementById("ov").classList.add("on");
+}
+function shut(e){if(e)e.stopPropagation();document.getElementById("ov").classList.remove("on");}
+document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")shut();};
+
+function render(){
+  var dex=document.getElementById("dex");dex.innerHTML="";
+  var list=CARDS.filter(function(c){
+    var okT=!TYPEF||biomeOf(c)===TYPEF;
+    var okQ=!FILTER||(c.name+" "+c.title+" "+c.holo.author).toLowerCase().indexOf(FILTER)>=0;
+    return okT&&okQ;
+  }).sort(function(a,b){return b.holo.strength-a.holo.strength;});
+  if(!list.length){dex.innerHTML='<div style="color:var(--mut);padding:30px">No creatures match.</div>';return;}
+  list.forEach(function(c,i){dex.appendChild(tile(c,i));});
+}
+document.getElementById("q").oninput=function(e){FILTER=e.target.value.toLowerCase();render();};
+
+fetch("cards.json").then(function(r){return r.json();}).then(function(d){
+  CARDS=Object.values(d.cards||{});
+  var types=document.getElementById("types");
+  var seen={};
+  var all=document.createElement("span");all.className="chip active";all.textContent="all";
+  all.onclick=function(){TYPEF="";[].forEach.call(types.children,function(c){c.classList.remove("active");});all.classList.add("active");render();};
+  types.appendChild(all);
+  CARDS.forEach(function(c){var b=biomeOf(c);if(seen[b])return;seen[b]=1;
+    var ch=document.createElement("span");ch.className="chip";ch.textContent=b;ch.style.borderColor=TYPE[b];
+    ch.onclick=function(){TYPEF=b;[].forEach.call(types.children,function(c){c.classList.remove("active");});ch.classList.add("active");render();};
+    types.appendChild(ch);});
+  render();
+}).catch(function(e){document.getElementById("dex").innerHTML='<div style="color:#ff6b6b;padding:30px">Could not load cards.json: '+e+'</div>';});
+</script>
+</body>
+</html>
