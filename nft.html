@@ -32,6 +32,10 @@
   .buy{display:flex;gap:10px;margin:14px 0 6px}
   .buy button{flex:1;padding:13px;border-radius:12px;border:0;font:inherit;font-weight:700;cursor:pointer}
   .buy .b1{background:var(--blue);color:#0b0e14}.buy .b2{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .share{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .share button{flex:1;min-width:118px;background:#0e131d;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px;font:inherit;font-size:12px;font-weight:600;cursor:pointer}
+  .share button:hover{border-color:var(--ac)}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#16203a;border:1px solid var(--ac);color:#dffaf3;padding:9px 16px;border-radius:10px;font-size:13px;display:none;z-index:70}
   .traits{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
   @media(max-width:520px){.traits{grid-template-columns:repeat(2,1fr)}}
   .tr{background:#0e131d;border:1px solid var(--line);border-radius:10px;padding:9px 10px}
@@ -43,9 +47,15 @@
   .switch button{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:10px;
     padding:7px 11px;font-size:12px;cursor:pointer}
   .switch button.on{border-color:var(--ac)}
+  .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
+  .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
+  .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
+  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  body{padding-top:62px}
 </style>
 </head>
 <body>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html" class="active">Market</a></nav>
 <div class="top">
   <h1>Holo<span class="b">Market</span></h1>
   <span class="badge">⛓ 100% on-chain art · serverless · the art is alive</span>
@@ -67,18 +77,28 @@
     <span class="rar" id="rar"></span>
     <div class="price"><span class="p" id="price">—</span><span class="u">≈ strength × 10 Ξ (vibes)</span></div>
     <div class="buy"><button class="b1">Place bid</button><button class="b2">Make offer</button></div>
+    <div class="share"><button onclick="copyLink()">🔗 Copy link</button><button onclick="copyEmbed()">⧉ Copy embed</button><button onclick="shareNative()">📤 Share</button><button onclick="tweet()">𝕏 Tweet</button></div>
     <div class="traits" id="traits"></div>
     <div class="meta" id="meta"></div>
   </div>
 </div>
 <div class="switch" id="switch"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 var RAR={legendary:"#ffd24a",rare:"#5bc8ff",uncommon:"#7ee787",common:"#aab2c5"};
 var SPEC="https://github.com/kody-w/rapp-moment/blob/main/SPEC.md";
 var COMMONS="rappid:dimension:0c0ba7d21766be26e61700893fd94";
 var RAW="https://raw.githubusercontent.com/kody-w/double-jump/main/resolve/";
-var CARDS=[];
+var CARDS=[],CUR=null;
+function curUrl(){return location.origin+location.pathname+"?id="+(CUR?CUR.id.split("/").pop():"");}
+function curEmbed(){return CUR?'<iframe src="'+CUR.holo.play_url+'" width="480" height="480" style="border:0;border-radius:16px" title="'+CUR.name+'"></iframe>':"";}
+function toast(t){var e=document.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(function(){e.style.display="none";},1900);}
+function copyLink(){navigator.clipboard.writeText(curUrl()).then(function(){toast("🔗 link copied — opens this exact creature");});}
+function copyEmbed(){navigator.clipboard.writeText(curEmbed()).then(function(){toast("⧉ embed copied — paste the live hologram anywhere");});}
+function shareNative(){if(navigator.share&&CUR){navigator.share({title:CUR.name,text:CUR.name+" — a living holographic NFT",url:curUrl()}).catch(function(){});}else{copyLink();}}
+function tweet(){if(!CUR)return;window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(CUR.name+" — a living holographic NFT; the art IS the walkable hologram ")+"&url="+encodeURIComponent(curUrl()),"_blank");}
+function setMeta(prop,val){var key=prop.indexOf("og:")===0?"property":"name";var m=document.querySelector('meta['+key+'="'+prop+'"]');if(!m){m=document.createElement("meta");m.setAttribute(key,prop);document.head.appendChild(m);}m.setAttribute("content",val);}
 
 // client-side resolve() — the same ERC-721/OpenSea doc tools/resolve_card.py emits (the Gateway, SPEC §11¾)
 async function sha256hex(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
@@ -109,13 +129,22 @@ async function show(c){
     '<div style="margin-top:6px"><b>tokenURI</b> (the static metadata a marketplace fetches): <a href="'+d._tokenuri+'" target="_blank">'+d._tokenuri+'</a></div>'+
     '<div style="margin-top:6px"><b>animation_url</b> = the live hologram itself · <b>image</b> = a self-contained SVG data-URI · <b>chain</b> = git. No server anywhere.</div>';
   [].forEach.call(document.querySelectorAll("#switch button"),function(b){b.classList.toggle("on",b.dataset.id===c.id);});
+  CUR=c;
+  try{history.replaceState(null,"","?id="+c.id.split("/").pop());}catch(e){}
+  document.title=c.name+" · Holo Market";
+  setMeta("og:title",c.name+" — a living holographic NFT");
+  setMeta("og:description","Strength "+c.holo.strength+" · "+c.holo.biome+" · the card art IS the live walkable hologram. Zero servers.");
+  setMeta("twitter:card","summary_large_image");
+  setMeta("twitter:title",c.name+" — living holographic NFT");
 }
 fetch("cards.json").then(function(r){return r.json();}).then(function(d){
   CARDS=Object.values(d.cards).sort(function(a,b){return b.holo.strength-a.holo.strength;});
   var sw=document.getElementById("switch");
   CARDS.forEach(function(c){var b=document.createElement("button");b.dataset.id=c.id;
     b.textContent=c.name+" · "+c.holo.strength;b.onclick=function(){show(c);};sw.appendChild(b);});
-  show(CARDS[0]);   // the champion
+  var qid=new URLSearchParams(location.search).get("id");
+  var start=qid?CARDS.find(function(c){return c.id.split("/").pop()===qid;}):null;
+  show(start||CARDS[0]);   // ?id deep-link, else the champion
 });
 </script>
 </body>

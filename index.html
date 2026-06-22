@@ -30,11 +30,15 @@
   .vit { height:6px; border-radius:4px; background:#20212e; margin-top:9px; overflow:hidden; }
   .vit i { display:block; height:100%; background:linear-gradient(90deg,var(--pc),var(--pb),var(--pa)); }
   .s { font-size:11px; color:var(--mut); margin-top:5px; display:flex; justify-content:space-between; }
-  footer { color:var(--mut); text-align:center; padding:26px; font-size:12px; }
-  footer a { color:var(--pb); text-decoration:none; }
+  .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
+  .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
+  .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
+  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  body{padding-top:62px}
 </style>
 </head>
 <body>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html" class="active">Gallery</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Market</a></nav>
 <header>
   <h1>Double&nbsp;Jump <small>— the improvement frontier</small></h1>
   <p class="lede">

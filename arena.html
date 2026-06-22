@@ -27,10 +27,15 @@
   a.link{position:absolute;bottom:16px;right:16px;color:#6f8cff;text-decoration:none;font-size:13px}
   #toast{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;color:#35e0c0;
     background:rgba(8,10,18,.9);border:1px solid #2a3550;border-radius:10px;padding:10px 16px;display:none}
+  .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
+  .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
+  .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
+  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="arena.html" class="active">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Market</a></nav>
 <div id="ui">
   <h1>Double-Jump <span class="b">Arena</span></h1>
   <div class="row"><span class="k">Generation</span><span class="v" id="gen">1</span></div>
@@ -109,6 +114,10 @@ var ground=new THREE.Mesh(new THREE.CircleGeometry(70,72),new THREE.MeshStandard
 ground.rotateX(-Math.PI/2);scene.add(ground);
 for(var r=10;r<=60;r+=10){var ring=new THREE.Mesh(new THREE.RingGeometry(r-.08,r+.08,80),
   new THREE.MeshBasicMaterial({color:0x1b2740,side:THREE.DoubleSide}));ring.rotateX(-Math.PI/2);ring.position.y=.02;scene.add(ring);}
+// champion spotlight — a gold ring + beam that locks onto the current leader
+var champRing=new THREE.Mesh(new THREE.RingGeometry(2.0,2.5,48),new THREE.MeshBasicMaterial({color:0xffd24a,side:THREE.DoubleSide,transparent:true,opacity:0.85}));
+champRing.rotateX(-Math.PI/2);champRing.position.y=0.06;champRing.visible=false;scene.add(champRing);
+var champBeam=new THREE.PointLight(0xffe89a,0,44);scene.add(champBeam);
 
 function hsl(h){var c=new THREE.Color();c.setHSL((((h%360)+360)%360)/360,0.72,0.56);return c;}
 function buildForm(f){
@@ -192,8 +201,14 @@ function animate(){
     // heartbeat glow
     var beat=Math.pow(Math.max(0,Math.sin((t+o.phase)*0.13)),6);
     if(o.group.userData.heart)o.group.userData.heart.intensity=o.group.userData.baseLI*(0.5+beat);
-    // champion gets a brighter aura
-    if(o===crown&&o.group.userData.heart)o.group.userData.heart.intensity*=1.8;
+    // champion spotlight: bigger, brighter, ringed, beamed
+    if(o===crown){
+      if(o.group.userData.heart)o.group.userData.heart.intensity*=2.1;
+      o.group.scale.setScalar(1.1+Math.sin(t*0.12)*0.06);
+      champRing.visible=true;champRing.position.set(o.group.position.x,0.06,o.group.position.z);champRing.rotation.z+=0.02;
+      champBeam.position.set(o.group.position.x,o.group.userData.bodyY+7,o.group.position.z);
+      champBeam.intensity=2.4+Math.sin(t*0.12)*0.9;
+    } else { o.group.scale.setScalar(1); }
   });
   if(orbit)camA+=0.0016;
   var rad=Math.min(46+POP.length*1.4,90);
