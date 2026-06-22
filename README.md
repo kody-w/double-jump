@@ -27,6 +27,7 @@ of the population getting better. The first thing it improves is a warehouse of 
 | [`pokedex.html`](pokedex.html) + [`cards.json`](cards.json) | the **Holodex** — each creature as a `rappcards/1.0` holocard whose art is the live hologram; federated via [`peers.json`](peers.json) |
 | [`index.html`](index.html) | the gallery — every card's art is a **live hologram iframe** looping 100 frames |
 | [`tools/ingest.py`](tools/ingest.py) + [`tools/promote.py`](tools/promote.py) + [`.github/`](.github/) | the static-API **issue-ops CRUD**, the reach-up **promote**, + the scheduled loop |
+| [`share/double_jump_agent.py`](share/double_jump_agent.py) | the **generic** double-jump harness — a standalone agent to autonomously improve *anything you can score* (code, copy, prompts, plans…). [How to use](share/README.md) |
 
 ## Quickstart
 
