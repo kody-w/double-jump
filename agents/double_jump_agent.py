@@ -163,7 +163,7 @@ class DoubleJumpAgent(BasicAgent):
                 "type": "object",
                 "properties": {
                     "action": {"type": "string",
-                               "enum": ["scan", "weakest", "jump", "triple_jump", "submit", "loop", "promote"],
+                               "enum": ["scan", "weakest", "jump", "triple_jump", "submit", "loop", "promote", "resolve"],
                                "description": "What to do. Default 'scan'."},
                     "token": {"type": "string", "description": "A Moment share token (base64url). For 'jump' a specific Moment, or for 'submit' the Moment to publish. If omitted, 'jump'/'submit' act on the current weakest / last jump."},
                     "rounds": {"type": "integer", "description": "For 'loop': how many improvement rounds (default 1)."},
@@ -173,6 +173,7 @@ class DoubleJumpAgent(BasicAgent):
                               "description": "Optional biome for a minted Moment."},
                     "apply": {"type": "boolean", "description": "For 'promote': actually open the PR (default false = dry-run that just lists what would be promoted)."},
                     "mode": {"type": "string", "enum": ["pr", "direct"], "description": "For 'promote': 'pr' (default, reach up via PR — respects the sacred global main) or 'direct'."},
+                    "id": {"type": "string", "description": "For 'resolve': the holocard id to resolve (e.g. @double-jump/frenzy-8-...). Default = the champion (strongest)."},
                 },
                 "required": [],
                 "additionalProperties": True,
@@ -358,4 +359,21 @@ class DoubleJumpAgent(BasicAgent):
                              reach_up="global rapp-commons Moment feed (by PR)",
                              dry_run=not bool(kwargs.get("apply")), result=res)
 
-        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|jump|triple_jump|submit|loop|promote.")
+        if action == "resolve":
+            tool = os.path.join(_ROOT, "tools", "resolve_card.py")
+            if not os.path.exists(tool):
+                return self._env(action, "error",
+                                 error="resolve tool not found — run this from inside the double-jump cubby repo.")
+            args = ["python3", tool]
+            if kwargs.get("id"):
+                args += ["--id", kwargs["id"]]
+            rc, out, err = _run(args, timeout=60)
+            try:
+                res = json.loads(out)
+            except Exception:
+                res = {"raw": out[:1000], "stderr": err[:400]}
+            return self._env(action, "success" if rc == 0 else "error",
+                             note="resolved into an ERC-721/OpenSea token URI; animation_url is the live walkable hologram (zero servers).",
+                             result=res)
+
+        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|jump|triple_jump|submit|loop|promote|resolve.")
