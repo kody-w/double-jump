@@ -34,6 +34,9 @@ def resolve(card):
     svg_b64 = base64.b64encode(card["avatar_svg"].encode("utf-8")).decode("ascii")
     s = card.get("stats", {})
     attrs = [
+        {"trait_type": "Species", "value": card.get("morphology", {}).get("species_name")},
+        {"trait_type": "Body plan", "value": card.get("morphology", {}).get("body_plan")},
+        {"trait_type": "Locomotion", "value": card.get("morphology", {}).get("locomotion")},
         {"trait_type": "Biome", "value": h.get("biome")},
         {"trait_type": "Keyframes", "value": h.get("keyframes")},
         {"trait_type": "Strength", "value": h.get("strength")},

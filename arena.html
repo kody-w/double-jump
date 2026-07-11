@@ -34,6 +34,7 @@
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="assets/fitness.js"></script>
+<script src="assets/species.js"></script>
 </head>
 <body>
 <nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html" class="active">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
@@ -139,7 +140,7 @@ function slot(i,n){var a=i/n*Math.PI*2,r=Math.min(8+n*1.6,52);return {x:Math.cos
 function placeAll(){
   POP.forEach(function(o,i){
     if(o.group){scene.remove(o.group);disposeGroup(o.group);}
-    var f0=sampleForm(o.m,0);o.group=buildForm(f0);
+    var f0=sampleForm(o.m,0);o.group=DoubleJumpSpecies.build(THREE,o.morph||DoubleJumpSpecies.fallback(i),f0);
     var s=slot(i,POP.length);o.home={x:s.x,z:s.z};o.group.position.set(s.x,0,s.z);
     o.phase=Math.random()*100;scene.add(o.group);
   });
@@ -169,12 +170,12 @@ function evolveOnce(){
   weak.m=best;weak.s=strength(best);
   // rebuild just the evolved organism
   if(weak.group){scene.remove(weak.group);disposeGroup(weak.group);}
-  weak.group=buildForm(sampleForm(weak.m,0));weak.group.position.set(weak.home.x,0,weak.home.z);scene.add(weak.group);
+  weak.group=DoubleJumpSpecies.build(THREE,weak.morph,sampleForm(weak.m,0));weak.group.position.set(weak.home.x,0,weak.home.z);scene.add(weak.group);
   gen++;refreshHUD();
   toast("⤴ local simulation: “"+weak.m.t.split(" · ")[0]+"” → "+weak.s.toFixed(3));
 }
 function addContender(){
-  var m=forge();POP.push({m:m,s:strength(m)});placeAll();
+  var m=forge();POP.push({m:m,s:strength(m),morph:DoubleJumpSpecies.fallback(POP.length)});placeAll();
   toast("➕ @challenger entered the arena · strength "+strength(m).toFixed(3));
 }
 function toggleAuto(){var btn=D.getElementById("autoBtn");
@@ -216,8 +217,11 @@ function animate(){
 W.addEventListener("resize",function(){camera.aspect=W.innerWidth/W.innerHeight;camera.updateProjectionMatrix();renderer.setSize(W.innerWidth,W.innerHeight);});
 
 function load(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();});}
-load(WAREHOUSE_LOCAL).then(function(d){
-  var entries=d.entries||[];POP=entries.map(function(entry){return {m:entry.moment,s:entry.strength};});
+Promise.all([load(WAREHOUSE_LOCAL),load("cards.json")]).then(function(values){
+  var d=values[0],cards=values[1].cards||{},entries=d.entries||[];POP=entries.map(function(entry,index){
+    var card=cards["@double-jump/"+entry.id.slice(7,31)];
+    return {m:entry.moment,s:entry.strength,morph:card?card.morphology:DoubleJumpSpecies.fallback(index)};
+  });
   placeAll();animate();
 }).catch(function(e){toast("could not load the warehouse");animate();});
 </script>

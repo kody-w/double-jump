@@ -8,6 +8,310 @@
     "description": "Double Jump — holocards minted from living holograms. Each card's art is the live walkable Moment."
   },
   "cards": {
+    "@double-jump/1d5f9ad5fe5366e5efbde48c": {
+      "id": "@double-jump/1d5f9ad5fe5366e5efbde48c",
+      "aliases": [
+        "@double-jump/frenzy-12-won-the-triple-jump"
+      ],
+      "name": "Frenzy 12",
+      "title": "Frenzy 12 · won the triple jump",
+      "seed": "4595106128419845400",
+      "hp": 74,
+      "stats": {
+        "atk": 69,
+        "def": 100,
+        "spd": 57,
+        "int": 62
+      },
+      "agent_types": [
+        "HOLO",
+        "FOREST"
+      ],
+      "weakness": "STILLNESS",
+      "resistance": "MOTION",
+      "rarity_tier": "rare",
+      "rarity_label": "Rare",
+      "abilities": [
+        {
+          "name": "Double Jump",
+          "cost": 1,
+          "damage": 27,
+          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
+        },
+        {
+          "name": "Triple Jump",
+          "cost": 2,
+          "damage": 34,
+          "text": "Three hops, one crown. This organism won its tournament."
+        }
+      ],
+      "retreat_cost": 1,
+      "evolution": {
+        "stage": 2,
+        "label": "Evolved",
+        "icon": "👑"
+      },
+      "flavor_text": "A living forest hologram — 5 heartbeats, strength 0.5591.",
+      "morphology": {
+        "species_id": "orbital-1d5f9ad5",
+        "species_name": "Orbital Grazer",
+        "body_plan": "orbital",
+        "locomotion": "levitation",
+        "limbs": 0,
+        "ornament": "rings",
+        "symmetry": "radial",
+        "surface": "glass",
+        "primary_hue": 256,
+        "secondary_hue": 323,
+        "scale": 1.179
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(256 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#0a1f1c\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(256 75% 58%)\" stroke=\"hsl(323 85% 68%)\"><circle cx=\"60\" cy=\"57\" r=\"25\"/><ellipse cx=\"60\" cy=\"57\" rx=\"39\" ry=\"12\" fill=\"none\" stroke-width=\"5\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Orbital Grazer · 5f</text></svg>",
+      "holo": {
+        "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
+        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
+        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
+        "strength": 0.5591,
+        "biome": "forest",
+        "keyframes": 5,
+        "author": "@brainstem"
+      },
+      "meta": {
+        "version": "1.0.0",
+        "category": "double-jump",
+        "author": "@brainstem",
+        "quality_tier": "experimental",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "description": "Frenzy 12 · won the triple jump"
+      }
+    },
+    "@double-jump/4b24a63eed07fc90e20dcb72": {
+      "id": "@double-jump/4b24a63eed07fc90e20dcb72",
+      "aliases": [
+        "@double-jump/ascent-9-won-the-triple-jump"
+      ],
+      "name": "Ascent 9",
+      "title": "Ascent 9 · won the triple jump",
+      "seed": "2829771431145240677",
+      "hp": 60,
+      "stats": {
+        "atk": 20,
+        "def": 100,
+        "spd": 30,
+        "int": 38
+      },
+      "agent_types": [
+        "HOLO",
+        "VOID"
+      ],
+      "weakness": "STILLNESS",
+      "resistance": "MOTION",
+      "rarity_tier": "uncommon",
+      "rarity_label": "Uncommon",
+      "abilities": [
+        {
+          "name": "Double Jump",
+          "cost": 1,
+          "damage": 8,
+          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
+        },
+        {
+          "name": "Triple Jump",
+          "cost": 2,
+          "damage": 20,
+          "text": "Three hops, one crown. This organism won its tournament."
+        }
+      ],
+      "retreat_cost": 1,
+      "evolution": {
+        "stage": 2,
+        "label": "Evolved",
+        "icon": "👑"
+      },
+      "flavor_text": "A living void hologram — 3 heartbeats, strength 0.3317.",
+      "morphology": {
+        "species_id": "beetle-4b24a63e",
+        "species_name": "Prism Beetle",
+        "body_plan": "beetle",
+        "locomotion": "hexapod",
+        "limbs": 6,
+        "ornament": "shell-wings",
+        "symmetry": "bilateral",
+        "surface": "carapace",
+        "primary_hue": 130,
+        "secondary_hue": 216,
+        "scale": 1.155
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(130 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#0a0a16\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(130 75% 58%)\" stroke=\"hsl(216 85% 68%)\"><ellipse cx=\"60\" cy=\"57\" rx=\"27\" ry=\"33\"/><path d=\"M60 25v65M35 43 18 30M35 57 14 57M35 72 18 86M85 43l17-13M85 57l21 0M85 72l17 14\" fill=\"none\" stroke-width=\"5\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Prism Beetle · 3f</text></svg>",
+      "holo": {
+        "token": "eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
+        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
+        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
+        "strength": 0.3317,
+        "biome": "void",
+        "keyframes": 3,
+        "author": "@claude"
+      },
+      "meta": {
+        "version": "1.0.0",
+        "category": "double-jump",
+        "author": "@claude",
+        "quality_tier": "experimental",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "description": "Ascent 9 · won the triple jump"
+      }
+    },
+    "@double-jump/64455c2638b7d435fb41b38c": {
+      "id": "@double-jump/64455c2638b7d435fb41b38c",
+      "aliases": [
+        "@double-jump/stillness-11-won-the-triple-jump"
+      ],
+      "name": "Stillness 11",
+      "title": "Stillness 11 · won the triple jump",
+      "seed": "939296485627164129",
+      "hp": 52,
+      "stats": {
+        "atk": 8,
+        "def": 100,
+        "spd": 1,
+        "int": 25
+      },
+      "agent_types": [
+        "HOLO",
+        "CANYON"
+      ],
+      "weakness": "STILLNESS",
+      "resistance": "MOTION",
+      "rarity_tier": "common",
+      "rarity_label": "Common",
+      "abilities": [
+        {
+          "name": "Double Jump",
+          "cost": 1,
+          "damage": 3,
+          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
+        },
+        {
+          "name": "Triple Jump",
+          "cost": 2,
+          "damage": 12,
+          "text": "Three hops, one crown. This organism won its tournament."
+        }
+      ],
+      "retreat_cost": 1,
+      "evolution": {
+        "stage": 2,
+        "label": "Evolved",
+        "icon": "👑"
+      },
+      "flavor_text": "A living canyon hologram — 2 heartbeats, strength 0.1968.",
+      "morphology": {
+        "species_id": "manta-64455c26",
+        "species_name": "Sky Manta",
+        "body_plan": "manta",
+        "locomotion": "gliding",
+        "limbs": 2,
+        "ornament": "ribbon-tail",
+        "symmetry": "bilateral",
+        "surface": "silk",
+        "primary_hue": 55,
+        "secondary_hue": 160,
+        "scale": 0.899
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(55 80% 58%)\"/><stop offset=\"100%\" stop-color=\"#2a1c0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(55 75% 58%)\" stroke=\"hsl(160 85% 68%)\"><path d=\"M15 52Q38 20 60 48Q82 20 105 52Q82 75 60 63Q38 75 15 52Z\"/><path d=\"M60 62q8 25 2 43\" fill=\"none\" stroke-width=\"5\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Sky Manta · 2f</text></svg>",
+      "holo": {
+        "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+        "strength": 0.1968,
+        "biome": "canyon",
+        "keyframes": 2,
+        "author": "@twin"
+      },
+      "meta": {
+        "version": "1.0.0",
+        "category": "double-jump",
+        "author": "@twin",
+        "quality_tier": "experimental",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "description": "Stillness 11 · won the triple jump"
+      }
+    },
+    "@double-jump/807067e1a64659277e0082f1": {
+      "id": "@double-jump/807067e1a64659277e0082f1",
+      "aliases": [
+        "@double-jump/ascent-5-won-the-triple-jump"
+      ],
+      "name": "Ascent 5",
+      "title": "Ascent 5 · won the triple jump",
+      "seed": "11284302192194928439",
+      "hp": 59,
+      "stats": {
+        "atk": 14,
+        "def": 100,
+        "spd": 31,
+        "int": 38
+      },
+      "agent_types": [
+        "HOLO",
+        "SAVANNA"
+      ],
+      "weakness": "STILLNESS",
+      "resistance": "MOTION",
+      "rarity_tier": "uncommon",
+      "rarity_label": "Uncommon",
+      "abilities": [
+        {
+          "name": "Double Jump",
+          "cost": 1,
+          "damage": 6,
+          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
+        },
+        {
+          "name": "Triple Jump",
+          "cost": 2,
+          "damage": 19,
+          "text": "Three hops, one crown. This organism won its tournament."
+        }
+      ],
+      "retreat_cost": 1,
+      "evolution": {
+        "stage": 2,
+        "label": "Evolved",
+        "icon": "👑"
+      },
+      "flavor_text": "A living savanna hologram — 3 heartbeats, strength 0.3231.",
+      "morphology": {
+        "species_id": "serpent-807067e1",
+        "species_name": "Segment Serpent",
+        "body_plan": "serpent",
+        "locomotion": "slithering",
+        "limbs": 0,
+        "ornament": "crest",
+        "symmetry": "linear",
+        "surface": "scales",
+        "primary_hue": 180,
+        "secondary_hue": 304,
+        "scale": 1.054
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(180 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#1c2a14\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(180 75% 58%)\" stroke=\"hsl(304 85% 68%)\"><path d=\"M16 72Q35 25 55 66T104 45\" fill=\"none\" stroke-width=\"17\" stroke-linecap=\"round\"/><circle cx=\"103\" cy=\"45\" r=\"13\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Segment Serpent · 3f</text></svg>",
+      "holo": {
+        "token": "eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+        "strength": 0.3231,
+        "biome": "savanna",
+        "keyframes": 3,
+        "author": "@claude"
+      },
+      "meta": {
+        "version": "1.0.0",
+        "category": "double-jump",
+        "author": "@claude",
+        "quality_tier": "experimental",
+        "license": "PolyForm-Noncommercial-1.0.0",
+        "description": "Ascent 5 · won the triple jump"
+      }
+    },
     "@double-jump/a3a8c486578b4c175fde1148": {
       "id": "@double-jump/a3a8c486578b4c175fde1148",
       "aliases": [
@@ -52,7 +356,20 @@
         "icon": "👑"
       },
       "flavor_text": "A living volcanic hologram — 2 heartbeats, strength 0.2228.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(350 80% 61%)\"/><stop offset=\"100%\" stop-color=\"#2a0e0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(350 75% 60%)\" opacity=\"0.92\"/><circle cx=\"60\" cy=\"80\" r=\"7\" fill=\"hsl(30 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">volcanic · 2f</text></svg>",
+      "morphology": {
+        "species_id": "tripod-a3a8c486",
+        "species_name": "Crystal Tripod",
+        "body_plan": "tripod",
+        "locomotion": "tripod",
+        "limbs": 3,
+        "ornament": "crown",
+        "symmetry": "triangular",
+        "surface": "crystal",
+        "primary_hue": 350,
+        "secondary_hue": 133,
+        "scale": 0.943
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(350 80% 61%)\"/><stop offset=\"100%\" stop-color=\"#2a0e0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(350 75% 58%)\" stroke=\"hsl(133 85% 68%)\"><path d=\"M60 20 87 61 60 78 33 61Z\"/><path d=\"M60 74v31M43 68 25 98M77 68l18 30\" fill=\"none\" stroke-width=\"6\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Crystal Tripod · 2f</text></svg>",
       "holo": {
         "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
         "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
@@ -115,7 +432,20 @@
         "icon": "👑"
       },
       "flavor_text": "A living void hologram — 5 heartbeats, strength 0.6288.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(78 80% 57%)\"/><stop offset=\"100%\" stop-color=\"#0a0a16\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(78 75% 60%)\" opacity=\"0.92\"/><circle cx=\"35\" cy=\"80\" r=\"7\" fill=\"hsl(118 75% 60%)\" opacity=\"0.92\"/><circle cx=\"52\" cy=\"60\" r=\"7\" fill=\"hsl(158 75% 60%)\" opacity=\"0.92\"/><circle cx=\"68\" cy=\"80\" r=\"7\" fill=\"hsl(198 75% 60%)\" opacity=\"0.92\"/><circle cx=\"85\" cy=\"60\" r=\"7\" fill=\"hsl(238 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">void · 5f</text></svg>",
+      "morphology": {
+        "species_id": "jelly-c3b2a796",
+        "species_name": "Lantern Jelly",
+        "body_plan": "jelly",
+        "locomotion": "floating",
+        "limbs": 8,
+        "ornament": "tendrils",
+        "symmetry": "radial",
+        "surface": "translucent",
+        "primary_hue": 78,
+        "secondary_hue": 240,
+        "scale": 1.155
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(78 80% 57%)\"/><stop offset=\"100%\" stop-color=\"#0a0a16\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(78 75% 58%)\" stroke=\"hsl(240 85% 68%)\"><path d=\"M28 59a32 32 0 0 1 64 0Z\"/><path d=\"M36 58q-8 24 2 45M50 58q-5 28 2 48M64 58q6 24-1 45M78 58q9 25 1 44\" fill=\"none\" stroke-width=\"5\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Lantern Jelly · 5f</text></svg>",
       "holo": {
         "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
         "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
@@ -132,69 +462,6 @@
         "quality_tier": "experimental",
         "license": "PolyForm-Noncommercial-1.0.0",
         "description": "Frenzy 4 · won the triple jump"
-      }
-    },
-    "@double-jump/807067e1a64659277e0082f1": {
-      "id": "@double-jump/807067e1a64659277e0082f1",
-      "aliases": [
-        "@double-jump/ascent-5-won-the-triple-jump"
-      ],
-      "name": "Ascent 5",
-      "title": "Ascent 5 · won the triple jump",
-      "seed": "11284302192194928439",
-      "hp": 59,
-      "stats": {
-        "atk": 14,
-        "def": 100,
-        "spd": 31,
-        "int": 38
-      },
-      "agent_types": [
-        "HOLO",
-        "SAVANNA"
-      ],
-      "weakness": "STILLNESS",
-      "resistance": "MOTION",
-      "rarity_tier": "uncommon",
-      "rarity_label": "Uncommon",
-      "abilities": [
-        {
-          "name": "Double Jump",
-          "cost": 1,
-          "damage": 6,
-          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        },
-        {
-          "name": "Triple Jump",
-          "cost": 2,
-          "damage": 19,
-          "text": "Three hops, one crown. This organism won its tournament."
-        }
-      ],
-      "retreat_cost": 1,
-      "evolution": {
-        "stage": 2,
-        "label": "Evolved",
-        "icon": "👑"
-      },
-      "flavor_text": "A living savanna hologram — 3 heartbeats, strength 0.3231.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(180 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#1c2a14\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(180 75% 60%)\" opacity=\"0.92\"/><circle cx=\"46\" cy=\"80\" r=\"7\" fill=\"hsl(220 75% 60%)\" opacity=\"0.92\"/><circle cx=\"74\" cy=\"60\" r=\"7\" fill=\"hsl(260 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">savanna · 3f</text></svg>",
-      "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
-        "strength": 0.3231,
-        "biome": "savanna",
-        "keyframes": 3,
-        "author": "@claude"
-      },
-      "meta": {
-        "version": "1.0.0",
-        "category": "double-jump",
-        "author": "@claude",
-        "quality_tier": "experimental",
-        "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Ascent 5 · won the triple jump"
       }
     },
     "@double-jump/cb4b136d8bc82d21866b53a1": {
@@ -241,7 +508,20 @@
         "icon": "👑"
       },
       "flavor_text": "A living canyon hologram — 6 heartbeats, strength 0.5953.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(247 80% 54%)\"/><stop offset=\"100%\" stop-color=\"#2a1c0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(247 75% 60%)\" opacity=\"0.92\"/><circle cx=\"32\" cy=\"80\" r=\"7\" fill=\"hsl(287 75% 60%)\" opacity=\"0.92\"/><circle cx=\"46\" cy=\"60\" r=\"7\" fill=\"hsl(327 75% 60%)\" opacity=\"0.92\"/><circle cx=\"60\" cy=\"80\" r=\"7\" fill=\"hsl(7 75% 60%)\" opacity=\"0.92\"/><circle cx=\"74\" cy=\"60\" r=\"7\" fill=\"hsl(47 75% 60%)\" opacity=\"0.92\"/><circle cx=\"88\" cy=\"80\" r=\"7\" fill=\"hsl(87 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">canyon · 6f</text></svg>",
+      "morphology": {
+        "species_id": "flower-cb4b136d",
+        "species_name": "Bloom Walker",
+        "body_plan": "flower",
+        "locomotion": "root-walking",
+        "limbs": 5,
+        "ornament": "petals",
+        "symmetry": "radial",
+        "surface": "botanical",
+        "primary_hue": 247,
+        "secondary_hue": 68,
+        "scale": 1.016
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(247 80% 54%)\"/><stop offset=\"100%\" stop-color=\"#2a1c0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(247 75% 58%)\" stroke=\"hsl(68 85% 68%)\"><circle cx=\"60\" cy=\"57\" r=\"13\"/><g><ellipse cx=\"60\" cy=\"28\" rx=\"12\" ry=\"22\"/><ellipse cx=\"60\" cy=\"86\" rx=\"12\" ry=\"22\"/><ellipse cx=\"31\" cy=\"57\" rx=\"22\" ry=\"12\"/><ellipse cx=\"89\" cy=\"57\" rx=\"22\" ry=\"12\"/></g></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Bloom Walker · 6f</text></svg>",
       "holo": {
         "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
         "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
@@ -304,7 +584,20 @@
         "icon": "👑"
       },
       "flavor_text": "A living volcanic hologram — 6 heartbeats, strength 0.671.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(85 80% 57%)\"/><stop offset=\"100%\" stop-color=\"#2a0e0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(85 75% 60%)\" opacity=\"0.92\"/><circle cx=\"32\" cy=\"80\" r=\"7\" fill=\"hsl(125 75% 60%)\" opacity=\"0.92\"/><circle cx=\"46\" cy=\"60\" r=\"7\" fill=\"hsl(165 75% 60%)\" opacity=\"0.92\"/><circle cx=\"60\" cy=\"80\" r=\"7\" fill=\"hsl(205 75% 60%)\" opacity=\"0.92\"/><circle cx=\"74\" cy=\"60\" r=\"7\" fill=\"hsl(245 75% 60%)\" opacity=\"0.92\"/><circle cx=\"88\" cy=\"80\" r=\"7\" fill=\"hsl(285 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">volcanic · 6f</text></svg>",
+      "morphology": {
+        "species_id": "walker-d9d72ee5",
+        "species_name": "Tower Walker",
+        "body_plan": "walker",
+        "locomotion": "quadruped",
+        "limbs": 4,
+        "ornament": "banner-head",
+        "symmetry": "bilateral",
+        "surface": "stone",
+        "primary_hue": 85,
+        "secondary_hue": 285,
+        "scale": 1.02
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(85 80% 57%)\"/><stop offset=\"100%\" stop-color=\"#2a0e0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(85 75% 58%)\" stroke=\"hsl(285 85% 68%)\"><rect x=\"39\" y=\"24\" width=\"42\" height=\"50\" rx=\"8\"/><rect x=\"48\" y=\"12\" width=\"36\" height=\"24\" rx=\"7\"/><path d=\"M45 72 34 105M55 73l-2 33M68 73l3 33M78 72l12 33\" fill=\"none\" stroke-width=\"7\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Tower Walker · 6f</text></svg>",
       "holo": {
         "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDggwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvbGNhbmljIiwiayI6W3siYXQiOjAsInMiOjAuNTE0LCJsIjowLjU0MSwicCI6MC4wNDcsImciOjAuODM0LCJoIjo4NSwieCI6MC4yNDYsInoiOjAuOTQ5fSx7ImF0IjoyMCwicyI6MC44MDMsImwiOjAuOTcyLCJwIjowLjU3MywiZyI6MC45NzEsImgiOjgxLCJ4IjotMC45MiwieiI6MC42ODl9LHsiYXQiOjQwLCJzIjowLjk2NCwibCI6MC41NTcsInAiOjAuMTc0LCJnIjowLjA0MSwiaCI6NzIsIngiOjAuMjU4LCJ6IjowLjU0N30seyJhdCI6NTksInMiOjAuMjE2LCJsIjowLjQ1MiwicCI6MC43NTgsImciOjAuNjEsImgiOjI1MCwieCI6LTAuNjk5LCJ6IjowLjUzM30seyJhdCI6NzksInMiOjAuMTQzLCJsIjowLjgyNiwicCI6MC45MzMsImciOjAuNDY2LCJoIjoyNjksIngiOi0wLjUxLCJ6IjowLjA5MX0seyJhdCI6OTksInMiOjAuNzQsImwiOjAuMTY2LCJwIjowLjA1NSwiZyI6MC42MjUsImgiOjM0LCJ4IjotMC43NDgsInoiOi0wLjY4OH1dfQ",
         "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDggwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvbGNhbmljIiwiayI6W3siYXQiOjAsInMiOjAuNTE0LCJsIjowLjU0MSwicCI6MC4wNDcsImciOjAuODM0LCJoIjo4NSwieCI6MC4yNDYsInoiOjAuOTQ5fSx7ImF0IjoyMCwicyI6MC44MDMsImwiOjAuOTcyLCJwIjowLjU3MywiZyI6MC45NzEsImgiOjgxLCJ4IjotMC45MiwieiI6MC42ODl9LHsiYXQiOjQwLCJzIjowLjk2NCwibCI6MC41NTcsInAiOjAuMTc0LCJnIjowLjA0MSwiaCI6NzIsIngiOjAuMjU4LCJ6IjowLjU0N30seyJhdCI6NTksInMiOjAuMjE2LCJsIjowLjQ1MiwicCI6MC43NTgsImciOjAuNjEsImgiOjI1MCwieCI6LTAuNjk5LCJ6IjowLjUzM30seyJhdCI6NzksInMiOjAuMTQzLCJsIjowLjgyNiwicCI6MC45MzMsImciOjAuNDY2LCJoIjoyNjksIngiOi0wLjUxLCJ6IjowLjA5MX0seyJhdCI6OTksInMiOjAuNzQsImwiOjAuMTY2LCJwIjowLjA1NSwiZyI6MC42MjUsImgiOjM0LCJ4IjotMC43NDgsInoiOi0wLjY4OH1dfQ",
@@ -323,67 +616,74 @@
         "description": "Frenzy 8 · won the triple jump"
       }
     },
-    "@double-jump/4b24a63eed07fc90e20dcb72": {
-      "id": "@double-jump/4b24a63eed07fc90e20dcb72",
+    "@double-jump/d9d9b8220bdd990732ca9acf": {
+      "id": "@double-jump/d9d9b8220bdd990732ca9acf",
       "aliases": [
-        "@double-jump/ascent-9-won-the-triple-jump"
+        "@double-jump/stillness-7-double-jumped"
       ],
-      "name": "Ascent 9",
-      "title": "Ascent 9 · won the triple jump",
-      "seed": "2829771431145240677",
-      "hp": 60,
+      "name": "Stillness 7",
+      "title": "Stillness 7 · double-jumped",
+      "seed": "13640745081961078303",
+      "hp": 57,
       "stats": {
-        "atk": 20,
+        "atk": 21,
         "def": 100,
-        "spd": 30,
+        "spd": 14,
         "int": 38
       },
       "agent_types": [
         "HOLO",
-        "VOID"
+        "FOREST"
       ],
       "weakness": "STILLNESS",
       "resistance": "MOTION",
-      "rarity_tier": "uncommon",
-      "rarity_label": "Uncommon",
+      "rarity_tier": "common",
+      "rarity_label": "Common",
       "abilities": [
         {
           "name": "Double Jump",
           "cost": 1,
           "damage": 8,
           "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        },
-        {
-          "name": "Triple Jump",
-          "cost": 2,
-          "damage": 20,
-          "text": "Three hops, one crown. This organism won its tournament."
         }
       ],
       "retreat_cost": 1,
       "evolution": {
         "stage": 2,
         "label": "Evolved",
-        "icon": "👑"
+        "icon": "✦"
       },
-      "flavor_text": "A living void hologram — 3 heartbeats, strength 0.3317.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(130 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#0a0a16\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(130 75% 60%)\" opacity=\"0.92\"/><circle cx=\"46\" cy=\"80\" r=\"7\" fill=\"hsl(170 75% 60%)\" opacity=\"0.92\"/><circle cx=\"74\" cy=\"60\" r=\"7\" fill=\"hsl(210 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">void · 3f</text></svg>",
+      "flavor_text": "A living forest hologram — 3 heartbeats, strength 0.2891.",
+      "morphology": {
+        "species_id": "crystal-d9d9b822",
+        "species_name": "Shard Swarm",
+        "body_plan": "crystal",
+        "locomotion": "orbiting",
+        "limbs": 7,
+        "ornament": "satellites",
+        "symmetry": "asymmetric",
+        "surface": "faceted",
+        "primary_hue": 34,
+        "secondary_hue": 253,
+        "scale": 0.836
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(34 80% 60%)\"/><stop offset=\"100%\" stop-color=\"#0a1f1c\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(34 75% 58%)\" stroke=\"hsl(253 85% 68%)\"><path d=\"M60 16 87 48 75 91 38 99 20 57Z\"/><path d=\"M15 26 25 35 18 46ZM92 19 106 31 94 42ZM93 79 108 90 93 102Z\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Shard Swarm · 3f</text></svg>",
       "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
-        "strength": 0.3317,
-        "biome": "void",
+        "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
+        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
+        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
+        "strength": 0.2891,
+        "biome": "forest",
         "keyframes": 3,
-        "author": "@claude"
+        "author": "@twin"
       },
       "meta": {
         "version": "1.0.0",
         "category": "double-jump",
-        "author": "@claude",
+        "author": "@twin",
         "quality_tier": "experimental",
         "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Ascent 9 · won the triple jump"
+        "description": "Stillness 7 · double-jumped"
       }
     },
     "@double-jump/e30a478fa7f65ba17bfb2ba4": {
@@ -430,7 +730,20 @@
         "icon": "👑"
       },
       "flavor_text": "A living savanna hologram — 5 heartbeats, strength 0.5467.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(117 80% 50%)\"/><stop offset=\"100%\" stop-color=\"#1c2a14\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(117 75% 60%)\" opacity=\"0.92\"/><circle cx=\"35\" cy=\"80\" r=\"7\" fill=\"hsl(157 75% 60%)\" opacity=\"0.92\"/><circle cx=\"52\" cy=\"60\" r=\"7\" fill=\"hsl(197 75% 60%)\" opacity=\"0.92\"/><circle cx=\"68\" cy=\"80\" r=\"7\" fill=\"hsl(237 75% 60%)\" opacity=\"0.92\"/><circle cx=\"85\" cy=\"60\" r=\"7\" fill=\"hsl(277 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">savanna · 5f</text></svg>",
+      "morphology": {
+        "species_id": "ring-e30a478f",
+        "species_name": "Halo Engine",
+        "body_plan": "ring",
+        "locomotion": "rolling",
+        "limbs": 4,
+        "ornament": "orbitals",
+        "symmetry": "radial",
+        "surface": "metallic",
+        "primary_hue": 117,
+        "secondary_hue": 355,
+        "scale": 1.056
+      },
+      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(117 80% 50%)\"/><stop offset=\"100%\" stop-color=\"#1c2a14\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><g fill=\"hsl(117 75% 58%)\" stroke=\"hsl(355 85% 68%)\"><circle cx=\"60\" cy=\"57\" r=\"29\" fill=\"none\" stroke-width=\"14\"/><circle cx=\"60\" cy=\"57\" r=\"8\"/><circle cx=\"19\" cy=\"39\" r=\"7\"/><circle cx=\"101\" cy=\"75\" r=\"7\"/></g><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">Halo Engine · 5f</text></svg>",
       "holo": {
         "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDEwIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJzYXZhbm5hIiwiayI6W3siYXQiOjAsInMiOjAuNzg2LCJsIjowLjE4NywicCI6MC44MzcsImciOjAuMTIxLCJoIjoxMTcsIngiOi0wLjU2NiwieiI6MC4yMzF9LHsiYXQiOjI1LCJzIjowLjE5MSwibCI6MC4wODMsInAiOjAuNjU1LCJnIjowLjE5NSwiaCI6MjA3LCJ4IjotMC45NjgsInoiOi0wLjg2OH0seyJhdCI6NTAsInMiOjAuMzU0LCJsIjowLjgwOCwicCI6MC43NjcsImciOjAuNzEzLCJoIjozMzUsIngiOi0wLjkzNCwieiI6LTAuMzExfSx7ImF0Ijo3NCwicyI6MC4wNjQsImwiOjAuOCwicCI6MC43NywiZyI6MC4yNSwiaCI6OTQsIngiOi0wLjUwMywieiI6MC4xMTF9LHsiYXQiOjk5LCJzIjowLjU3MiwibCI6MC40MjUsInAiOjAuNDY4LCJnIjowLjM4MywiaCI6MjIyLCJ4IjowLjY1MiwieiI6MC44Mjh9XX0",
         "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDEwIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJzYXZhbm5hIiwiayI6W3siYXQiOjAsInMiOjAuNzg2LCJsIjowLjE4NywicCI6MC44MzcsImciOjAuMTIxLCJoIjoxMTcsIngiOi0wLjU2NiwieiI6MC4yMzF9LHsiYXQiOjI1LCJzIjowLjE5MSwibCI6MC4wODMsInAiOjAuNjU1LCJnIjowLjE5NSwiaCI6MjA3LCJ4IjotMC45NjgsInoiOi0wLjg2OH0seyJhdCI6NTAsInMiOjAuMzU0LCJsIjowLjgwOCwicCI6MC43NjcsImciOjAuNzEzLCJoIjozMzUsIngiOi0wLjkzNCwieiI6LTAuMzExfSx7ImF0Ijo3NCwicyI6MC4wNjQsImwiOjAuOCwicCI6MC43NywiZyI6MC4yNSwiaCI6OTQsIngiOi0wLjUwMywieiI6MC4xMTF9LHsiYXQiOjk5LCJzIjowLjU3MiwibCI6MC40MjUsInAiOjAuNDY4LCJnIjowLjM4MywiaCI6MjIyLCJ4IjowLjY1MiwieiI6MC44Mjh9XX0",
@@ -447,189 +760,6 @@
         "quality_tier": "experimental",
         "license": "PolyForm-Noncommercial-1.0.0",
         "description": "Frenzy 10 · won the triple jump"
-      }
-    },
-    "@double-jump/64455c2638b7d435fb41b38c": {
-      "id": "@double-jump/64455c2638b7d435fb41b38c",
-      "aliases": [
-        "@double-jump/stillness-11-won-the-triple-jump"
-      ],
-      "name": "Stillness 11",
-      "title": "Stillness 11 · won the triple jump",
-      "seed": "939296485627164129",
-      "hp": 52,
-      "stats": {
-        "atk": 8,
-        "def": 100,
-        "spd": 1,
-        "int": 25
-      },
-      "agent_types": [
-        "HOLO",
-        "CANYON"
-      ],
-      "weakness": "STILLNESS",
-      "resistance": "MOTION",
-      "rarity_tier": "common",
-      "rarity_label": "Common",
-      "abilities": [
-        {
-          "name": "Double Jump",
-          "cost": 1,
-          "damage": 3,
-          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        },
-        {
-          "name": "Triple Jump",
-          "cost": 2,
-          "damage": 12,
-          "text": "Three hops, one crown. This organism won its tournament."
-        }
-      ],
-      "retreat_cost": 1,
-      "evolution": {
-        "stage": 2,
-        "label": "Evolved",
-        "icon": "👑"
-      },
-      "flavor_text": "A living canyon hologram — 2 heartbeats, strength 0.1968.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(55 80% 58%)\"/><stop offset=\"100%\" stop-color=\"#2a1c0e\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(55 75% 60%)\" opacity=\"0.92\"/><circle cx=\"60\" cy=\"80\" r=\"7\" fill=\"hsl(95 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">canyon · 2f</text></svg>",
-      "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
-        "strength": 0.1968,
-        "biome": "canyon",
-        "keyframes": 2,
-        "author": "@twin"
-      },
-      "meta": {
-        "version": "1.0.0",
-        "category": "double-jump",
-        "author": "@twin",
-        "quality_tier": "experimental",
-        "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Stillness 11 · won the triple jump"
-      }
-    },
-    "@double-jump/1d5f9ad5fe5366e5efbde48c": {
-      "id": "@double-jump/1d5f9ad5fe5366e5efbde48c",
-      "aliases": [
-        "@double-jump/frenzy-12-won-the-triple-jump"
-      ],
-      "name": "Frenzy 12",
-      "title": "Frenzy 12 · won the triple jump",
-      "seed": "4595106128419845400",
-      "hp": 74,
-      "stats": {
-        "atk": 69,
-        "def": 100,
-        "spd": 57,
-        "int": 62
-      },
-      "agent_types": [
-        "HOLO",
-        "FOREST"
-      ],
-      "weakness": "STILLNESS",
-      "resistance": "MOTION",
-      "rarity_tier": "rare",
-      "rarity_label": "Rare",
-      "abilities": [
-        {
-          "name": "Double Jump",
-          "cost": 1,
-          "damage": 27,
-          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        },
-        {
-          "name": "Triple Jump",
-          "cost": 2,
-          "damage": 34,
-          "text": "Three hops, one crown. This organism won its tournament."
-        }
-      ],
-      "retreat_cost": 1,
-      "evolution": {
-        "stage": 2,
-        "label": "Evolved",
-        "icon": "👑"
-      },
-      "flavor_text": "A living forest hologram — 5 heartbeats, strength 0.5591.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(256 80% 56%)\"/><stop offset=\"100%\" stop-color=\"#0a1f1c\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(256 75% 60%)\" opacity=\"0.92\"/><circle cx=\"35\" cy=\"80\" r=\"7\" fill=\"hsl(296 75% 60%)\" opacity=\"0.92\"/><circle cx=\"52\" cy=\"60\" r=\"7\" fill=\"hsl(336 75% 60%)\" opacity=\"0.92\"/><circle cx=\"68\" cy=\"80\" r=\"7\" fill=\"hsl(16 75% 60%)\" opacity=\"0.92\"/><circle cx=\"85\" cy=\"60\" r=\"7\" fill=\"hsl(56 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">forest · 5f</text></svg>",
-      "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDEyIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQGJyYWluc3RlbSIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC4wMTgsImwiOjAuNTQ5LCJwIjowLjU3MywiZyI6MC44OTIsImgiOjI1NiwieCI6LTAuNywieiI6MC40Nzh9LHsiYXQiOjI1LCJzIjowLjg5NSwibCI6MC41NjYsInAiOjAuNjEsImciOjAuNTIyLCJoIjoxOTEsIngiOi0wLjgyMSwieiI6MC42Nzl9LHsiYXQiOjUwLCJzIjowLjU4NSwibCI6MC41OTgsInAiOjAuNzU3LCJnIjowLjA4MSwiaCI6MzA1LCJ4IjowLjM4OSwieiI6MC44NX0seyJhdCI6NzQsInMiOjAuMDM0LCJsIjowLjU5NSwicCI6MC41NzIsImciOjAuNzg2LCJoIjoxMzcsIngiOjAuODA3LCJ6IjowLjM0N30seyJhdCI6OTksInMiOjAuOTA3LCJsIjowLjMyMywicCI6MC4xNTMsImciOjAuNzkzLCJoIjo5MSwieCI6LTAuMzYsInoiOi0wLjI3Nn1dfQ",
-        "strength": 0.5591,
-        "biome": "forest",
-        "keyframes": 5,
-        "author": "@brainstem"
-      },
-      "meta": {
-        "version": "1.0.0",
-        "category": "double-jump",
-        "author": "@brainstem",
-        "quality_tier": "experimental",
-        "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Frenzy 12 · won the triple jump"
-      }
-    },
-    "@double-jump/d9d9b8220bdd990732ca9acf": {
-      "id": "@double-jump/d9d9b8220bdd990732ca9acf",
-      "aliases": [
-        "@double-jump/stillness-7-double-jumped"
-      ],
-      "name": "Stillness 7",
-      "title": "Stillness 7 · double-jumped",
-      "seed": "13640745081961078303",
-      "hp": 57,
-      "stats": {
-        "atk": 21,
-        "def": 100,
-        "spd": 14,
-        "int": 38
-      },
-      "agent_types": [
-        "HOLO",
-        "FOREST"
-      ],
-      "weakness": "STILLNESS",
-      "resistance": "MOTION",
-      "rarity_tier": "common",
-      "rarity_label": "Common",
-      "abilities": [
-        {
-          "name": "Double Jump",
-          "cost": 1,
-          "damage": 8,
-          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        }
-      ],
-      "retreat_cost": 1,
-      "evolution": {
-        "stage": 2,
-        "label": "Evolved",
-        "icon": "✦"
-      },
-      "flavor_text": "A living forest hologram — 3 heartbeats, strength 0.2891.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(34 80% 60%)\"/><stop offset=\"100%\" stop-color=\"#0a1f1c\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(34 75% 60%)\" opacity=\"0.92\"/><circle cx=\"46\" cy=\"80\" r=\"7\" fill=\"hsl(74 75% 60%)\" opacity=\"0.92\"/><circle cx=\"74\" cy=\"60\" r=\"7\" fill=\"hsl(114 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">forest · 3f</text></svg>",
-      "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgZG91YmxlLWp1bXBlZCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA4OSwiZyI6MC40NjgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo0OSwicyI6MC41ODM1LCJsIjowLjMzOCwicCI6MC4xOSwiZyI6MC43NywieCI6LTAuMzY2LCJ6IjowLjM0NSwiaCI6OTUuNjF9LHsiYXQiOjk5LCJzIjowLjYzNCwibCI6MC4zMzgsInAiOjAuMDg5LCJnIjowLjY2OCwiaCI6NTgsIngiOjAsInoiOjAuMn1dfQ",
-        "strength": 0.2891,
-        "biome": "forest",
-        "keyframes": 3,
-        "author": "@twin"
-      },
-      "meta": {
-        "version": "1.0.0",
-        "category": "double-jump",
-        "author": "@twin",
-        "quality_tier": "experimental",
-        "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Stillness 7 · double-jumped"
       }
     }
   },

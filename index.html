@@ -69,24 +69,18 @@
 </footer>
 
 <script>
-// ---- the canonical share token: base64url(JSON) (matches rapp-hologram moment.js encode) ----
-var PLAYER = "https://kody-w.github.io/rapp-hologram/";
-function encodeToken(m){ return btoa(unescape(encodeURIComponent(JSON.stringify(m)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
-
-function strength(m){return DoubleJumpFitness.strength(m);}
-
-function card(entry, i){
-  var m=entry.moment||entry,tok=encodeToken(m),s=entry.strength==null?strength(m):entry.strength;
+function card(c, i){
+  var s=c.holo.strength,m={t:c.title,a:c.holo.author,b:c.holo.biome,k:new Array(c.holo.keyframes)};
   var pct=Math.round(Math.min(s/0.7,1)*100);
   var el=document.createElement("div"); el.className="card";
   var art=document.createElement("div");art.className="art";
   var rank=document.createElement("span");rank.className="rank";rank.textContent="#"+(i+1);art.appendChild(rank);
-  var frame=document.createElement("iframe");frame.loading="lazy";frame.src=PLAYER+"?m="+tok;
-  frame.title=m.t||"Moment";frame.setAttribute("sandbox","allow-scripts");art.appendChild(frame);el.appendChild(art);
+  var frame=document.createElement("iframe");frame.loading="lazy";frame.src="organism.html?id="+encodeURIComponent(c.id.split("/").pop());
+  frame.title=c.morphology.species_name+" — "+(m.t||"Moment");art.appendChild(frame);el.appendChild(art);
   var meta=document.createElement("div");meta.className="meta";
-  var title=document.createElement("div");title.className="ti";title.textContent=m.t||"Moment";meta.appendChild(title);
+  var title=document.createElement("div");title.className="ti";title.textContent=c.morphology.species_name+" · "+(m.t||"Moment");meta.appendChild(title);
   var author=document.createElement("div");author.className="au";
-  author.textContent=(m.a||"@anon")+" · "+(m.b||"savanna")+" · "+((m.k||[]).length)+" keyframes";meta.appendChild(author);
+  author.textContent=(m.a||"@anon")+" · "+c.morphology.body_plan+" · "+c.morphology.locomotion;meta.appendChild(author);
   var vitality=document.createElement("div");vitality.className="vit";var fill=document.createElement("i");
   fill.style.width=pct+"%";vitality.appendChild(fill);meta.appendChild(vitality);
   var score=document.createElement("div");score.className="s";var label=document.createElement("span");
@@ -95,8 +89,8 @@ function card(entry, i){
   return el;
 }
 
-fetch("warehouse/frontier.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(d){
-  var ms=(d.entries||[]).slice().sort(function(a,b){return a.strength-b.strength;});
+fetch("cards.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(d){
+  var ms=Object.values(d.cards||{}).sort(function(a,b){return a.holo.strength-b.holo.strength;});
   var g=document.getElementById("grid"); g.innerHTML="";
   if(!ms.length){ g.innerHTML='<div style="color:var(--mut);padding:30px">Warehouse is empty — submit the first Moment.</div>'; return; }
   ms.forEach(function(m,i){ g.appendChild(card(m,i)); });

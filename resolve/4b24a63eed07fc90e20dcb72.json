@@ -4,10 +4,22 @@
   "$schema": "erc721-metadata-compatible",
   "name": "Ascent 9",
   "description": "A living void hologram — 3 heartbeats, strength 0.3317. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.3317. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
-  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgxMzAgODAlIDU2JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwYTBhMTYiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgxMzAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI0NiIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMTcwIDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDIxMCA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj52b2lkIMK3IDNmPC90ZXh0Pjwvc3ZnPg==",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgxMzAgODAlIDU2JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwYTBhMTYiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxnIGZpbGw9ImhzbCgxMzAgNzUlIDU4JSkiIHN0cm9rZT0iaHNsKDIxNiA4NSUgNjglKSI+PGVsbGlwc2UgY3g9IjYwIiBjeT0iNTciIHJ4PSIyNyIgcnk9IjMzIi8+PHBhdGggZD0iTTYwIDI1djY1TTM1IDQzIDE4IDMwTTM1IDU3IDE0IDU3TTM1IDcyIDE4IDg2TTg1IDQzbDE3LTEzTTg1IDU3bDIxIDBNODUgNzJsMTcgMTQiIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iNSIvPjwvZz48dGV4dCB4PSI2MCIgeT0iMTEyIiBmb250LXNpemU9IjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNyIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSI+UHJpc20gQmVldGxlIMK3IDNmPC90ZXh0Pjwvc3ZnPg==",
   "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
   "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDkgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC4yOTksImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxMzAsIngiOi0wLjMzLCJ6IjowfSx7ImF0Ijo1MCwicyI6MC42NjYsImwiOjAuNSwicCI6MC4zMjYsImciOjAuNiwiaCI6MjYzLCJ4IjowLCJ6IjotMC4xOTJ9LHsiYXQiOjk5LCJzIjowLjgxNiwibCI6MC43LCJwIjowLjU0NSwiZyI6MC45LCJoIjozNiwieCI6MC4yMDcsInoiOjAuNH1dfQ",
   "attributes": [
+    {
+      "trait_type": "Species",
+      "value": "Prism Beetle"
+    },
+    {
+      "trait_type": "Body plan",
+      "value": "beetle"
+    },
+    {
+      "trait_type": "Locomotion",
+      "value": "hexapod"
+    },
     {
       "trait_type": "Biome",
       "value": "void"

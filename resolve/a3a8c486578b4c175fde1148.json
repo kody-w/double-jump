@@ -4,10 +4,22 @@
   "$schema": "erc721-metadata-compatible",
   "name": "Stillness 3",
   "description": "A living volcanic hologram — 2 heartbeats, strength 0.2228. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.2228. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
-  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgzNTAgODAlIDYxJSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyYTBlMGUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgzNTAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI2MCIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMzAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48dGV4dCB4PSI2MCIgeT0iMTEyIiBmb250LXNpemU9IjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNyIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSI+dm9sY2FuaWMgwrcgMmY8L3RleHQ+PC9zdmc+",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgzNTAgODAlIDYxJSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyYTBlMGUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxnIGZpbGw9ImhzbCgzNTAgNzUlIDU4JSkiIHN0cm9rZT0iaHNsKDEzMyA4NSUgNjglKSI+PHBhdGggZD0iTTYwIDIwIDg3IDYxIDYwIDc4IDMzIDYxWiIvPjxwYXRoIGQ9Ik02MCA3NHYzMU00MyA2OCAyNSA5OE03NyA2OGwxOCAzMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSI2Ii8+PC9nPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj5DcnlzdGFsIFRyaXBvZCDCtyAyZjwvdGV4dD48L3N2Zz4=",
   "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
   "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
   "attributes": [
+    {
+      "trait_type": "Species",
+      "value": "Crystal Tripod"
+    },
+    {
+      "trait_type": "Body plan",
+      "value": "tripod"
+    },
+    {
+      "trait_type": "Locomotion",
+      "value": "tripod"
+    },
     {
       "trait_type": "Biome",
       "value": "volcanic"

@@ -57,6 +57,7 @@
   body{padding-top:62px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/species.js"></script>
 </head>
 <body>
 <nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html" class="active">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
@@ -110,11 +111,11 @@ if(HAS3D){
   function resize(){renderer.setSize(window.innerWidth,window.innerHeight,false);}
   window.addEventListener("resize",resize);resize();
 }
-function makeScene(m){
+function makeScene(m,c){
   var sc=new THREE.Scene();sc.add(new THREE.AmbientLight(0xffffff,0.75));
   var d=new THREE.DirectionalLight(0xfff2d6,1.0);d.position.set(6,10,6);sc.add(d);
   var disc=new THREE.Mesh(new THREE.CircleGeometry(3.4,40),new THREE.MeshBasicMaterial({color:0x0c1322}));disc.rotateX(-Math.PI/2);sc.add(disc);
-  var g=buildForm(sampleForm(m,0));sc.add(g);sc.userData={g:g,m:m,phase:Math.random()*100};return sc;
+  var g=DoubleJumpSpecies.build(THREE,c.morphology,sampleForm(m,0));sc.add(g);sc.userData={g:g,m:m,phase:Math.random()*100};return sc;
 }
 var t=0;
 function loop(){
@@ -145,7 +146,7 @@ function tile(c,i){
   d.innerHTML='<span class="no">#'+String(i+1).padStart(2,"0")+'</span>'+
     '<span class="rar '+esc(RAR[c.rarity_tier]||"com")+'">'+esc(c.rarity_label)+'</span>'+
     '<div class="art3d">'+(HAS3D?"":c.avatar_svg)+'</div>'+
-    '<div class="nm">'+esc(c.name)+'</div>'+
+    '<div class="nm">'+esc(c.morphology.species_name)+'</div>'+
     '<span class="ty" style="background:'+col+'">'+b+'</span>'+
     '<div class="st">⚡ '+esc(c.holo.strength)+' · '+esc(c.holo.keyframes)+'f</div>';
   return d;
@@ -154,9 +155,10 @@ function open(c){
   var m=document.getElementById("modal");
   var ab=(c.abilities||[]).map(function(a){return '<div class="ab"><span class="an">'+esc(a.name)+'</span> '+(a.damage?'· '+esc(a.damage)+' dmg ':'')+'<div style="color:var(--mut);font-size:13px">'+esc(a.text)+'</div></div>';}).join("");
   var s=c.stats;
-  m.innerHTML='<div class="holo"><button class="x" onclick="shut(event)">×</button><iframe sandbox="allow-scripts" src="'+playOf(c)+'" title="'+esc(c.name)+'"></iframe></div>'+
-    '<div class="info"><h2>'+esc(c.name)+' '+esc(c.evolution.icon)+'</h2>'+
-      '<div class="sub">'+esc(c.title)+' · '+esc(biomeOf(c))+' · '+esc(c.rarity_label)+' · by '+esc(c.holo.author)+'</div>'+
+  var localPlay="organism.html?id="+encodeURIComponent(c.id.split("/").pop());
+  m.innerHTML='<div class="holo"><button class="x" onclick="shut(event)">×</button><iframe src="'+localPlay+'" title="'+esc(c.morphology.species_name)+'"></iframe></div>'+
+    '<div class="info"><h2>'+esc(c.morphology.species_name)+' '+esc(c.evolution.icon)+'</h2>'+
+      '<div class="sub">'+esc(c.title)+' · '+esc(c.morphology.body_plan)+' · '+esc(c.morphology.locomotion)+' · '+esc(biomeOf(c))+'</div>'+
       '<div class="stats">'+
         '<div class="stat"><div class="k">HP</div><div class="v">'+esc(c.hp)+'</div></div>'+
         '<div class="stat"><div class="k">ATK (motion)</div><div class="v">'+esc(s.atk)+'</div></div>'+
@@ -165,7 +167,7 @@ function open(c){
         '<div class="stat"><div class="k">INT (articulation)</div><div class="v">'+esc(s.int)+'</div></div>'+
         '<div class="stat"><div class="k">Strength</div><div class="v">'+esc(c.holo.strength)+'</div></div>'+
       '</div>'+ab+'<div class="flav">“'+esc(c.flavor_text)+'”</div>'+
-      '<a class="play" href="'+playOf(c)+'" target="_blank" rel="noopener">▶ Walk it fullscreen</a></div>';
+      '<a class="play" href="'+localPlay+'" target="_blank" rel="noopener">▶ Inspect species fullscreen</a></div>';
   document.getElementById("ov").classList.add("on");
 }
 function shut(e){if(e)e.stopPropagation();document.getElementById("ov").classList.remove("on");}
@@ -181,7 +183,7 @@ function render(){
   if(!list.length){dex.innerHTML='<div style="color:var(--mut);padding:30px">No creatures match.</div>';return;}
   list.forEach(function(c,i){
     var el=tile(c,i);dex.appendChild(el);
-    if(HAS3D){var m=decodeToken(c.holo.token);if(m)VIEWS.push({el:el.querySelector(".art3d"),scene:makeScene(m)});}
+    if(HAS3D){var m=decodeToken(c.holo.token);if(m)VIEWS.push({el:el.querySelector(".art3d"),scene:makeScene(m,c)});}
   });
 }
 document.getElementById("q").oninput=function(e){FILTER=e.target.value.toLowerCase();render();};

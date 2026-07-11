@@ -4,10 +4,22 @@
   "$schema": "erc721-metadata-compatible",
   "name": "Ascent 5",
   "description": "A living savanna hologram — 3 heartbeats, strength 0.3231. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.3231. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
-  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgxODAgODAlIDU2JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYzJhMTQiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgxODAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI0NiIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMjIwIDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDI2MCA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj5zYXZhbm5hIMK3IDNmPC90ZXh0Pjwvc3ZnPg==",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgxODAgODAlIDU2JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYzJhMTQiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxnIGZpbGw9ImhzbCgxODAgNzUlIDU4JSkiIHN0cm9rZT0iaHNsKDMwNCA4NSUgNjglKSI+PHBhdGggZD0iTTE2IDcyUTM1IDI1IDU1IDY2VDEwNCA0NSIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxNyIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iMTAzIiBjeT0iNDUiIHI9IjEzIi8+PC9nPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj5TZWdtZW50IFNlcnBlbnQgwrcgM2Y8L3RleHQ+PC9zdmc+",
   "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
   "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
   "attributes": [
+    {
+      "trait_type": "Species",
+      "value": "Segment Serpent"
+    },
+    {
+      "trait_type": "Body plan",
+      "value": "serpent"
+    },
+    {
+      "trait_type": "Locomotion",
+      "value": "slithering"
+    },
     {
       "trait_type": "Biome",
       "value": "savanna"

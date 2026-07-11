@@ -2,19 +2,19 @@
   "schema": "double-jump-build-manifest/1.0",
   "frontier_revision": "ac4e22a8c94b5a35b0aa167383e818946f9f2690f2df31759970e1b80aa180a4",
   "files": {
-    "cards.json": "sha256:bf7fd9df9da52a42835e9d09a7f9a6774893e7be4187ab1c47ce9ca5c7e9cf4b",
-    "seed-index.json": "sha256:a798631cb3843cdeaa13a452097da5a5a41ebeaec6aa3cd697e08c2644c2bb1d",
+    "cards.json": "sha256:19e6ad232918a5eea1b09ec26dbebb5a75ae552aa66d2bbdd2ad3555311aadfe",
+    "seed-index.json": "sha256:5882b55bd6e2a47dc5633e63028f6e91624aa3f3a79f7cbfa0f9a1c27ef11de9",
     "warehouse/frontier.json": "sha256:d39a8bf480173d51a45a55ae7b28388c102aee008347ba9a9d167d23bdcce94a",
     "warehouse/lineages.json": "sha256:6b11fa8abf144e046eb218e739ac491b21a1dd6f991f85890b88a9f4533ea89a",
-    "resolve/1d5f9ad5fe5366e5efbde48c.json": "sha256:e0802ed2665291390b544bee69c6bfcde2d5d54ef3284b1fcb4ffb78f3ac9bc3",
-    "resolve/4b24a63eed07fc90e20dcb72.json": "sha256:6388776ccc9842c8c46063c16c1f42cdcd2d75d4cd69274ee6f72e8e5ec2d344",
-    "resolve/64455c2638b7d435fb41b38c.json": "sha256:306738b35dc0a2d21624db5026a0943a5b324981062084b367ffd460b1c90da7",
-    "resolve/807067e1a64659277e0082f1.json": "sha256:cf56e970dbe473c3a1ea96274974005a35fea792f2a9da891525afb3a2990587",
-    "resolve/a3a8c486578b4c175fde1148.json": "sha256:57a783649f5aa5d79ae24cea3489aeeb6a7837ff5cad6f8cf913a241dcba3307",
-    "resolve/c3b2a796ed342ca8a71f7f4a.json": "sha256:d9e470814d75747a4785806ba484e3100dd06e79f522a4e38b7d06b8e69447fe",
-    "resolve/cb4b136d8bc82d21866b53a1.json": "sha256:6f4a80e7f99455d11aa3b911ff05cd322540d57fc9b6119bd5f0af33defc10e9",
-    "resolve/d9d72ee58e03fc5a818444dd.json": "sha256:ce589cff92bfd079da9723cedb710b1d9c62f79694d538ed69686233e9ff3de0",
-    "resolve/d9d9b8220bdd990732ca9acf.json": "sha256:34e6f08f0ff93bae2d2a45ff325756006ac4f9fa0a4d52ce2c696d346aee43c2",
-    "resolve/e30a478fa7f65ba17bfb2ba4.json": "sha256:15b88f368b34f96d6f0798bf37f526f9334f8fda238c05fdc5d4a8b5a2a8bfb9"
+    "resolve/1d5f9ad5fe5366e5efbde48c.json": "sha256:039d7037af0eb81cd20caab3d38eef97ad1f83b256ac62f0213c32f3e5eed84a",
+    "resolve/4b24a63eed07fc90e20dcb72.json": "sha256:d79749e123b0cdd5891999cb80c36d2dfd98010bd4cbbd501b9ebb284a0f0948",
+    "resolve/64455c2638b7d435fb41b38c.json": "sha256:5651232a788f62240d89215eff971688a058ed3ad6a2276fde5af288df198cc0",
+    "resolve/807067e1a64659277e0082f1.json": "sha256:d85ddd83d37085905f43ea182577fd26bdc6c8674b6fe6875405e58ff91ecefd",
+    "resolve/a3a8c486578b4c175fde1148.json": "sha256:210e638d3ad99e47fe5e86d2836fd25e935556017b6d42456f97af3dbf35faa1",
+    "resolve/c3b2a796ed342ca8a71f7f4a.json": "sha256:660cecde227579ab4484c4cbbd0a149de51a5d3b0ee319d48f49d7cb608ebec9",
+    "resolve/cb4b136d8bc82d21866b53a1.json": "sha256:cbdbd6f6a258d0cccc5c75474154ece17aba513cdf84db36224051ca773ca6b8",
+    "resolve/d9d72ee58e03fc5a818444dd.json": "sha256:73c0c4627865f76daa3103301000ad9c5ed59abfb5c10115a73edd4c9ca4dc73",
+    "resolve/d9d9b8220bdd990732ca9acf.json": "sha256:14032920500897791c7b448a306eb9f1836e7aa22386f1d1550bfaaa796214fc",
+    "resolve/e30a478fa7f65ba17bfb2ba4.json": "sha256:f1575e4f512fc4b9981493146dfbba0615fcfe0115ed5a60ae2a948e3cb4af54"
   }
 }
