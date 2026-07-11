@@ -15,7 +15,7 @@ permissions:
 # Serialize per-issue so the opened+labeled events can't race each other to push (the loser would hit a
 # non-fast-forward). The second run starts only after the first finishes, sees the commit, and no-ops.
 concurrency:
-  group: ingest-issue-${{ github.event.issue.number }}
+  group: double-jump-writes
   cancel-in-progress: false
 
 jobs:
@@ -40,20 +40,25 @@ jobs:
           python3 tools/ingest.py > result.json || true
           echo "----- ingest result -----"; cat result.json
 
+      - name: Rebuild static artifacts
+        run: python3 tools/build_artifacts.py
+
       - name: Commit warehouse change
         run: |
-          if [[ -z "$(git status --porcelain warehouse/)" ]]; then
+          if [[ -z "$(git status --porcelain warehouse/ cards.json seed-index.json resolve/)" ]]; then
             echo "No warehouse change."
           else
             git config user.name  "double-jump-harness"
             git config user.email "actions@github.com"
-            git add warehouse/
+            git add warehouse/ cards.json seed-index.json resolve/
             git commit -m "ingest: #${{ github.event.issue.number }} $(python3 -c "import json;print(json.load(open('result.json')).get('status',''))") [skip ci]"
             # tolerate a concurrent push (e.g. the scheduled harness): rebase + retry the fast-forward race
+            pushed=false
             for attempt in 1 2 3; do
-              if git pull --rebase --autostash origin main && git push; then break; fi
+              if git pull --rebase --autostash origin main && git push; then pushed=true; break; fi
               echo "push race (attempt $attempt) — retrying"; sleep 3
             done
+            $pushed || { echo "push failed after 3 attempts"; exit 1; }
           fi
 
       - name: Comment + close

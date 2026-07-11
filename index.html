@@ -33,12 +33,13 @@
   .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
   .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
   .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
-  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none;overflow-x:auto}.djnav a{padding:7px 9px;font-size:12px}}
   body{padding-top:62px}
 </style>
+<script src="assets/fitness.js"></script>
 </head>
 <body>
-<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html" class="active">Gallery</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Market</a></nav>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html" class="active">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
 <header>
   <h1>Double&nbsp;Jump <small>— the improvement frontier</small></h1>
   <p class="lede">
@@ -50,8 +51,10 @@
   </p>
   <div class="bar">
     <a href="arena.html">🌐 The Arena (3D · compete)</a>
+    <a href="evolve.html">🧪 Evolution Lab (choose a draft)</a>
     <a href="pokedex.html">🔴 Holodex (the creatures)</a>
-    <a href="nft.html">🪙 Holo Market (NFT embed)</a>
+    <a href="nft.html">🧾 Metadata Inspector</a>
+    <a href="evolution.html">🧬 Evolution Observatory</a>
     <a href="https://github.com/kody-w/double-jump/issues/new?template=submit.yml">➕ Submit a Moment</a>
     <a href="HARNESS.md">📐 The harness pattern</a>
     <a href="triple-jump/SPEC.md">🥉 Triple jump</a>
@@ -70,52 +73,35 @@
 var PLAYER = "https://kody-w.github.io/rapp-hologram/";
 function encodeToken(m){ return btoa(unescape(encodeURIComponent(JSON.stringify(m)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
 
-// ---- strength: a JS port of harness/strength.py (kept in sync) ----
-var LIN=["s","l","p","g"], DRIFT=["x","z"], N=100;
-function expand(m){
-  var s=(m.k||[]).slice().sort(function(a,b){return a.at-b.at;}); var out=[];
-  if(!s.length) s=[{at:0},{at:99}];
-  for(var i=0;i<N;i++){ var at=i/(N-1)*99, fr;
-    if(at<=s[0].at) fr=s[0]; else if(at>=s[s.length-1].at) fr=s[s.length-1];
-    else { for(var j=0;j<s.length-1;j++){ var a=s[j],b=s[j+1]; if(a.at<=at&&at<=b.at){ var t=(at-a.at)/((b.at-a.at)||1),o={};
-      LIN.concat(DRIFT).forEach(function(f){o[f]=(a[f]||0)+((b[f]||0)-(a[f]||0))*t;}); fr=o; break; } } }
-    out.push(fr); }
-  return out;
-}
-function mean(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s/(a.length||1);}
-function std(a){var m=mean(a);return Math.sqrt(mean(a.map(function(x){return (x-m)*(x-m);})));}
-function strength(m){
-  var fr=expand(m), gen=(m.k||[]).length, path=0, jerk=0;
-  for(var i=1;i<fr.length;i++) path+=Math.hypot((fr[i].x||0)-(fr[i-1].x||0),(fr[i].z||0)-(fr[i-1].z||0));
-  for(var j=2;j<fr.length;j++) jerk+=Math.abs((fr[j].s||0)-2*(fr[j-1].s||0)+(fr[j-2].s||0));
-  var glow=mean(fr.map(function(f){return f.g||0;})), spike=mean(fr.map(function(f){return f.p||0;}));
-  var varc=mean(LIN.map(function(k){return std(fr.map(function(f){return f[k]||0;}));}));
-  var raw=0.30*Math.min(gen/8,1)+0.25*Math.min(path/5,1)+0.10*Math.min(jerk/2,1)+0.15*glow+0.08*spike+0.12*Math.min(varc*3,1);
-  return +(raw).toFixed(4); // vitality gate ~1 for well-formed genomes
-}
+function strength(m){return DoubleJumpFitness.strength(m);}
 
-function card(m, i){
-  var tok=encodeToken(m), s=strength(m), pct=Math.round(Math.min(s/0.7,1)*100);
+function card(entry, i){
+  var m=entry.moment||entry,tok=encodeToken(m),s=entry.strength==null?strength(m):entry.strength;
+  var pct=Math.round(Math.min(s/0.7,1)*100);
   var el=document.createElement("div"); el.className="card";
-  el.innerHTML =
-    '<div class="art"><span class="rank">#'+(i+1)+'</span>'+
-      '<iframe loading="lazy" src="'+PLAYER+'?m='+tok+'" title="'+(m.t||"Moment").replace(/"/g,"&quot;")+'"></iframe>'+
-    '</div>'+
-    '<div class="meta"><div class="ti">'+(m.t||"Moment")+'</div>'+
-      '<div class="au">'+(m.a||"@anon")+' · '+(m.b||"savanna")+' · '+((m.k||[]).length)+' keyframes</div>'+
-      '<div class="vit"><i style="width:'+pct+'%"></i></div>'+
-      '<div class="s"><span>strength</span><span>'+s.toFixed(4)+'</span></div>'+
-    '</div>';
+  var art=document.createElement("div");art.className="art";
+  var rank=document.createElement("span");rank.className="rank";rank.textContent="#"+(i+1);art.appendChild(rank);
+  var frame=document.createElement("iframe");frame.loading="lazy";frame.src=PLAYER+"?m="+tok;
+  frame.title=m.t||"Moment";frame.setAttribute("sandbox","allow-scripts");art.appendChild(frame);el.appendChild(art);
+  var meta=document.createElement("div");meta.className="meta";
+  var title=document.createElement("div");title.className="ti";title.textContent=m.t||"Moment";meta.appendChild(title);
+  var author=document.createElement("div");author.className="au";
+  author.textContent=(m.a||"@anon")+" · "+(m.b||"savanna")+" · "+((m.k||[]).length)+" keyframes";meta.appendChild(author);
+  var vitality=document.createElement("div");vitality.className="vit";var fill=document.createElement("i");
+  fill.style.width=pct+"%";vitality.appendChild(fill);meta.appendChild(vitality);
+  var score=document.createElement("div");score.className="s";var label=document.createElement("span");
+  label.textContent="strength";var value=document.createElement("span");value.textContent=s.toFixed(4);
+  score.appendChild(label);score.appendChild(value);meta.appendChild(score);el.appendChild(meta);
   return el;
 }
 
-fetch("warehouse/moments.json").then(function(r){return r.json();}).then(function(d){
-  var ms=(d.moments||d||[]).slice().sort(function(a,b){return strength(a)-strength(b);}); // weakest first
+fetch("warehouse/frontier.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(d){
+  var ms=(d.entries||[]).slice().sort(function(a,b){return a.strength-b.strength;});
   var g=document.getElementById("grid"); g.innerHTML="";
   if(!ms.length){ g.innerHTML='<div style="color:var(--mut);padding:30px">Warehouse is empty — submit the first Moment.</div>'; return; }
   ms.forEach(function(m,i){ g.appendChild(card(m,i)); });
 }).catch(function(e){
-  document.getElementById("grid").innerHTML='<div style="color:var(--pc);padding:30px">Could not load warehouse: '+e+'</div>';
+  var grid=document.getElementById("grid");grid.textContent="Could not load active frontier: "+e;grid.style.color="var(--pc)";
 });
 </script>
 </body>

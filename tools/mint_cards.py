@@ -10,6 +10,7 @@ plus the federation index (`seed-index.json`), exactly the shape a third-party b
 
 Deterministic, dependency-free. Run from the repo root: `python3 tools/mint_cards.py`.
 """
+import argparse
 import hashlib
 import json
 import os
@@ -18,12 +19,14 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from harness.moment import encode_token            # noqa: E402
+from harness.store import load_state                # noqa: E402
 from harness.strength import strength, components  # noqa: E402
+from harness.validation import moment_id            # noqa: E402
 
 WAREHOUSE = os.path.join(ROOT, "warehouse", "moments.json")
 PLAYER = "https://kody-w.github.io/rapp-hologram/"
 RAW = "https://raw.githubusercontent.com/kody-w/double-jump/main"
-HOMEPAGE = "https://kody-w.github.io/double-jump/cards.html"
+HOMEPAGE = "https://kody-w.github.io/double-jump/pokedex.html"
 BIOME_HEX = {"savanna": "#6fae4a", "canyon": "#d8a86a", "forest": "#35e0c0",
              "volcanic": "#ff5a3c", "void": "#6f8cff"}
 BIOME_BG = {"savanna": "#1c2a14", "canyon": "#2a1c0e", "forest": "#0a1f1c",
@@ -72,7 +75,8 @@ def _avatar_svg(m, c):
 def card_of(m):
     s = strength(m)
     c = components(m)
-    cid = f"@double-jump/{_slug(m.get('t'))}"
+    legacy_id = f"@double-jump/{_slug(m.get('t'))}"
+    cid = f"@double-jump/{moment_id(m).split(':', 1)[1][:24]}"
     rt, rl = _rarity(s)
     token = encode_token(m)
     champ = "won the triple jump" in (m.get("t") or "")
@@ -84,6 +88,7 @@ def card_of(m):
                           "text": "Three hops, one crown. This organism won its tournament."})
     return cid, {
         "id": cid,
+        "aliases": [legacy_id],
         "name": (m.get("t") or "Moment").split(" · ")[0],
         "title": m.get("t"),
         "seed": _blake64(cid),
@@ -116,8 +121,9 @@ def card_of(m):
     }
 
 
-def main():
-    moments = json.load(open(WAREHOUSE))["moments"]
+def build_documents():
+    state = load_state(WAREHOUSE)
+    moments = state.active_moments
     cards = {}
     seeds = {}
     for m in moments:
@@ -128,24 +134,40 @@ def main():
                                "binder": "double-jump", "upstream": "double-jump"}
     deck = {"_meta": {"schema": "rappcards/1.0", "registry": "double-jump", "homepage": HOMEPAGE,
                       "total": len(cards),
+                      "frontier_revision": state.revision,
                       "description": "Double Jump — holocards minted from living holograms. Each card's art is the live walkable Moment."},
             "cards": cards, "agents": {}}
     index = {"schema": "rappcards-seed-index/1.0", "binder": "double-jump", "homepage": HOMEPAGE,
              "cards_url": RAW + "/cards.json", "count": len(cards), "seeds": seeds}
 
-    def stable_write(path, obj):
-        new = json.dumps(obj, indent=2, ensure_ascii=False) + "\n"
-        old = open(path).read() if os.path.exists(path) else None
-        if new != old:
-            open(path, "w").write(new)
-        return new != old
+    return deck, index
 
-    a = stable_write(os.path.join(ROOT, "cards.json"), deck)
-    b = stable_write(os.path.join(ROOT, "seed-index.json"), index)
+
+def stable_write(path, obj, check=False):
+    new = json.dumps(obj, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    changed = new != old
+    if changed and not check:
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(new)
+    return changed
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    deck, index = build_documents()
+    cards = deck["cards"]
+    a = stable_write(os.path.join(ROOT, "cards.json"), deck, args.check)
+    b = stable_write(os.path.join(ROOT, "seed-index.json"), index, args.check)
     print(json.dumps({"minted": len(cards), "cards_changed": a, "index_changed": b,
                       "rarities": {r: sum(1 for c in cards.values() if c["rarity_tier"] == r)
                                    for r in ("legendary", "rare", "uncommon", "common")}}, indent=2))
+    if args.check and (a or b):
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

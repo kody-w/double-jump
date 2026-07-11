@@ -1,0 +1,166 @@
+{
+  "schema": "double-jump-council-index/1.0",
+  "cycles": [
+    {
+      "cycle_id": "sha256:3b0a23a5ff33d3d9a98fddd7be1abbb4f11c8a377d4eed1b5c22c0dfa308d271",
+      "label": "CLI council · 3b0a23a5ff",
+      "created_at": "2026-07-11T18:41:26.143833+00:00",
+      "snapshot_digest": "sha256:960079b4890bdb3499c786dcd58cfd5db8774fd3ed95900151a8709949eaa342",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/cycles/3b0a23a5ff33d3d9a98fddd7be1abbb4f11c8a377d4eed1b5c22c0dfa308d271.json"
+    },
+    {
+      "cycle_id": "sha256:b820748016b34d4430d018eab6d94923476773d2a0aa16fae002b6c066f425a7",
+      "label": "CLI council · b820748016",
+      "created_at": "2026-07-11T17:16:59.076397+00:00",
+      "snapshot_digest": "sha256:e02e69c5f4632ac9eb1bd87f141afbf5f408c56103edac2fcc2fe3df8f23ae30",
+      "status": "insufficient_consensus",
+      "top_three": [
+        "fitness-score-explanations"
+      ],
+      "url": "council/cycles/b820748016b34d4430d018eab6d94923476773d2a0aa16fae002b6c066f425a7.json"
+    },
+    {
+      "cycle_id": "sha256:e9e0d0305966657319c9e54cb68059fbf65a5556dda9050cf84e4ffc789e69a8",
+      "label": "CLI council · e9e0d03059",
+      "created_at": "2026-07-11T16:40:34.063507+00:00",
+      "snapshot_digest": "sha256:103634606b92e66ba24d623a7866392c9369383545cd316e9255968112cc26fc",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/cycles/e9e0d0305966657319c9e54cb68059fbf65a5556dda9050cf84e4ffc789e69a8.json"
+    },
+    {
+      "cycle_id": "sha256:0311759461b78f4bd7c008c47912f2c671876f16b09ffcfa5fc59af724e21c17",
+      "label": "CLI council · 0311759461",
+      "created_at": "2026-07-11T14:40:23.014363+00:00",
+      "snapshot_digest": "sha256:9cb1a37992845605cac74e666f8f2d255eacfd7f67608a72026b4c83c185214f",
+      "status": "insufficient_consensus",
+      "top_three": [
+        "accessible-responsive-app-shell"
+      ],
+      "url": "council/cycles/0311759461b78f4bd7c008c47912f2c671876f16b09ffcfa5fc59af724e21c17.json"
+    },
+    {
+      "cycle_id": "sha256:2f4cc8f057a743b3ec846a2a047eaf23ece7d6c66c0dc862c8fe19bf0c7b3f54",
+      "label": "CLI council · 2f4cc8f057",
+      "created_at": "2026-07-11T14:37:32.667260+00:00",
+      "snapshot_digest": "sha256:ca224079c6a5a89ae776ff5ddb2761097975776ddc47d0de9a26635227a1ad81",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/cycles/2f4cc8f057a743b3ec846a2a047eaf23ece7d6c66c0dc862c8fe19bf0c7b3f54.json"
+    },
+    {
+      "cycle_id": "sha256:d7b722c0fcd0e1cf273dccb472ba3ab23b4d8f8d1cf9ee324504185b21067344",
+      "label": "CLI council · d7b722c0fc",
+      "created_at": "2026-07-11T14:13:44.201670+00:00",
+      "snapshot_digest": "sha256:c39185143e9b49017f20068510f8bac33c7b91bce76f2f56e9da2457d609e5be",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/cycles/d7b722c0fcd0e1cf273dccb472ba3ab23b4d8f8d1cf9ee324504185b21067344.json"
+    },
+    {
+      "cycle_id": "sha256:d9a8e73167b72b8f28493236e721f01dd306137de55b3238e3e5cb841389a49b",
+      "label": "CLI council · d9a8e73167",
+      "created_at": "2026-07-11T14:10:43.600830+00:00",
+      "snapshot_digest": "sha256:0fd3a9ef06e8d31b140c2a01cc657adb8f735b5c5e06d623dc7078e2733b4e39",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/cycles/d9a8e73167b72b8f28493236e721f01dd306137de55b3238e3e5cb841389a49b.json"
+    },
+    {
+      "cycle_id": "sha256:fafea400ea10bf95ab0350ceea878c60582cfa940ac449835b8e1620457cb174",
+      "label": "CLI council · fafea400ea",
+      "created_at": "2026-07-11T12:16:13.210341+00:00",
+      "snapshot_digest": "sha256:410300e8c82235d58acb272b65af6afb03bfd56b0e045e2375dc963621564667",
+      "status": "insufficient_consensus",
+      "top_three": [
+        "bounded-retry-and-backoff"
+      ],
+      "url": "council/cycles/fafea400ea10bf95ab0350ceea878c60582cfa940ac449835b8e1620457cb174.json"
+    },
+    {
+      "cycle_id": "sha256:deaacaca3bc49cf0b18429ff516a1ea8db3a04746f58ee34575920eed6db821c",
+      "label": "CLI council · deaacaca3b",
+      "created_at": "2026-07-11T10:16:14.522398+00:00",
+      "snapshot_digest": "sha256:816992577998994689c0a2629c7b5e4cfee07145cca09f44a58d2d5d264b7a5e",
+      "status": "insufficient_consensus",
+      "top_three": [
+        "robust-fitness-evaluation"
+      ],
+      "url": "council/cycles/deaacaca3bc49cf0b18429ff516a1ea8db3a04746f58ee34575920eed6db821c.json"
+    },
+    {
+      "cycle_id": "sha256:f27b3566cdfa3437cc5c9085c1dd0afefcde455a1cb73f026c1e460df59913ff",
+      "label": "CLI council · f27b3566cd",
+      "created_at": "2026-07-11T08:16:12.694280+00:00",
+      "snapshot_digest": "sha256:31bdc5d3ae401c93b6c3425614ce0239ee145516ad8281639be3f9cdc8f74d58",
+      "status": "insufficient_consensus",
+      "top_three": [
+        "signed-lineage-operations"
+      ],
+      "url": "council/cycles/f27b3566cdfa3437cc5c9085c1dd0afefcde455a1cb73f026c1e460df59913ff.json"
+    },
+    {
+      "cycle_id": "sha256:0928c9f9098fd425a3d4fd5e813e619cb183fd5791e2509fe70d9684f2c6aa01",
+      "label": "CLI council · 0928c9f909",
+      "created_at": "2026-07-11T04:16:03.416628+00:00",
+      "snapshot_digest": "sha256:fcd06c3ca1e61abaade0655028ccaa0983c2672b3ec8d334d3be887fa58d9595",
+      "status": "complete",
+      "top_three": [
+        "atomic-evolution-transactions",
+        "quality-diversity",
+        "bounded-autonomy-policy"
+      ],
+      "url": "council/cycles/0928c9f9098fd425a3d4fd5e813e619cb183fd5791e2509fe70d9684f2c6aa01.json"
+    },
+    {
+      "cycle_id": "sha256:4e5ba95de342a5ef28d797c17b271b01b2466b26a08934f27659013ccbd1a3a3",
+      "label": "CLI council · 4e5ba95de3",
+      "created_at": "2026-07-11T02:17:21.328409+00:00",
+      "snapshot_digest": "sha256:4a599f15070b638374d3c05ce48978e9b99a752c994778ec26c3e090da033cf0",
+      "status": "complete",
+      "top_three": [
+        "versioned-fitness-epochs",
+        "atomic-warehouse-transactions",
+        "interactive-evolution"
+      ],
+      "url": "council/cycles/4e5ba95de342a5ef28d797c17b271b01b2466b26a08934f27659013ccbd1a3a3.json"
+    },
+    {
+      "cycle_id": "cycle-5-insufficient-consensus",
+      "label": "Scheduled council cycle 5",
+      "created_at": "2026-07-11T02:17:08-04:00",
+      "snapshot_digest": "sha256:05ac2975627b3bf7dcebad96c7197385266c7902c828aca2d943bdb3d9966256",
+      "status": "insufficient_consensus",
+      "top_three": [],
+      "url": "council/failures/cycle-5-insufficient-consensus.json"
+    },
+    {
+      "cycle_id": "cycle-2",
+      "label": "Eight-strategy cycle 2",
+      "created_at": "2026-07-10T22:13:40-04:00",
+      "snapshot_digest": "sha256:1d03810016fe5b87cd10568c629ceffca8164ca6a42241f52d2c5d75db811bc2",
+      "status": "complete",
+      "top_three": [
+        "replay-verifiable-lineage-provenance-observatory",
+        "exact-eight-council-receipts-and-observatory",
+        "revision-bound-tool-less-proposal-worker"
+      ],
+      "url": "council/cycles/cycle-2.json"
+    },
+    {
+      "cycle_id": "cycle-1",
+      "label": "Eight-strategy cycle 1",
+      "created_at": "2026-07-10T22:00:00-04:00",
+      "snapshot_digest": "sha256:7797afbf9f1aa43cda8a742d1f5cd50f8af21ab278d456677d64450a2cc0e54e",
+      "status": "complete",
+      "top_three": [
+        "active-frontier-ledger-and-catalog",
+        "strict-validation-conformance-and-invariants",
+        "local-brainstem-improver-protocol"
+      ],
+      "url": "council/cycles/cycle-1.json"
+    }
+  ]
+}

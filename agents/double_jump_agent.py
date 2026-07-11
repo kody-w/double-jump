@@ -43,7 +43,7 @@ except Exception:
 
 PLAYER_BASE = "https://kody-w.github.io/rapp-hologram/"
 TARGET_REPO = "kody-w/double-jump"
-WAREHOUSE_RAW = "https://raw.githubusercontent.com/kody-w/double-jump/main/warehouse/moments.json"
+FRONTIER_RAW = "https://raw.githubusercontent.com/kody-w/double-jump/main/warehouse/frontier.json"
 
 # Prefer the repo's canonical harness library (single source of truth); fall back to an embedded copy so
 # this file still works dropped into any brainstem on its own.
@@ -55,12 +55,21 @@ try:
     from harness.moment import mint, improve, encode_token, decode_token
     from harness.strength import strength, rank, weakest
     from harness.loop import double_jump, triple_jump, WAREHOUSE as _WH_PATH
+    from harness.store import load_state as _load_state
+    from harness.validation import moment_id
+    from harness.policy import PolicyViolation, new_budget
     _SRC = "harness"
 except Exception:                                                    # pragma: no cover - drop-in fallback
     import base64 as _b64, random as _rnd
     _SRC = "embedded"
     _WH_PATH = os.path.join(_ROOT, "warehouse", "moments.json")
     _LIN, _DRIFT = ["s", "l", "p", "g"], ["x", "z"]
+    _load_state = None
+    PolicyViolation = RuntimeError
+    new_budget = None
+
+    def moment_id(m):
+        return encode_token(m)
 
     def encode_token(m):
         raw = json.dumps(m, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
@@ -153,7 +162,9 @@ class DoubleJumpAgent(BasicAgent):
                 "it by a margin (a 'double jump'). It can publish a Moment as a public GitHub gist and open a "
                 "submission issue so the network commits it. Every result carries the share token and a live "
                 "hologram iframe (the animated card art). Actions: 'scan' (rank weakest->strongest), 'weakest' "
-                "(the next target), 'jump' (double-jump the weakest or a given token), 'triple_jump' (a 3-round "
+                "(the next target), 'challenge' (target + objective bar for the brainstem), 'propose' "
+                "(deterministically validate and score a brainstem-authored child), 'jump' (deterministic "
+                "offline fallback for the weakest or a given token), 'triple_jump' (a 3-round "
                 "tournament -> a champion), 'submit' (gist + moment-submit issue, CRUD create), 'loop' "
                 "(autonomously find-weakest->jump->submit N rounds), 'promote' (reach up from the sandbox "
                 "and open a PR promoting proven improvements to the GLOBAL rapp-commons Moment feed). Use when "
@@ -163,16 +174,16 @@ class DoubleJumpAgent(BasicAgent):
                 "type": "object",
                 "properties": {
                     "action": {"type": "string",
-                               "enum": ["scan", "weakest", "jump", "triple_jump", "submit", "loop", "promote", "resolve"],
+                               "enum": ["scan", "weakest", "challenge", "propose", "jump", "triple_jump", "submit", "loop", "promote", "resolve"],
                                "description": "What to do. Default 'scan'."},
-                    "token": {"type": "string", "description": "A Moment share token (base64url). For 'jump' a specific Moment, or for 'submit' the Moment to publish. If omitted, 'jump'/'submit' act on the current weakest / last jump."},
+                    "token": {"type": "string", "description": "A Moment share token (base64url). For 'jump' a specific Moment, for 'propose' the child, or for 'submit' the Moment to publish."},
+                    "target_token": {"type": "string", "description": "For 'propose': the exact challenged parent token. The candidate goes in token."},
                     "rounds": {"type": "integer", "description": "For 'loop': how many improvement rounds (default 1)."},
                     "submit": {"type": "boolean", "description": "For 'loop': also publish each improvement as a gist + issue (default false)."},
                     "title": {"type": "string", "description": "Optional title override for a minted/improved Moment."},
                     "biome": {"type": "string", "enum": ["savanna", "canyon", "forest", "volcanic", "void"],
                               "description": "Optional biome for a minted Moment."},
                     "apply": {"type": "boolean", "description": "For 'promote': actually open the PR (default false = dry-run that just lists what would be promoted)."},
-                    "mode": {"type": "string", "enum": ["pr", "direct"], "description": "For 'promote': 'pr' (default, reach up via PR — respects the sacred global main) or 'direct'."},
                     "id": {"type": "string", "description": "For 'resolve': the holocard id to resolve (e.g. @double-jump/frenzy-8-...). Default = the champion (strongest)."},
                 },
                 "required": [],
@@ -182,14 +193,18 @@ class DoubleJumpAgent(BasicAgent):
         super().__init__(name=self.name, metadata=self.metadata)
 
     # ── helpers ──────────────────────────────────────────────────────────────
+    def _moment(self, m):
+        return {key: value for key, value in m.items() if not key.startswith("_")}
+
     def _play(self, m):
-        return PLAYER_BASE + "?m=" + encode_token(m)
+        return PLAYER_BASE + "?m=" + encode_token(self._moment(m))
 
     def _iframe(self, m):
         return ('<iframe src="' + self._play(m) + '" width="320" height="320" loading="lazy" '
                 'style="border:0;border-radius:12px" title="' + str(m.get("t", "Moment")).replace('"', "'") + '"></iframe>')
 
     def _card(self, m, extra=None):
+        m = self._moment(m)
         c = {"title": m.get("t"), "author": m.get("a"), "biome": m.get("b"),
              "keyframes": len(m.get("k", [])), "strength": strength(m),
              "token": encode_token(m), "play_url": self._play(m), "iframe": self._iframe(m)}
@@ -202,14 +217,18 @@ class DoubleJumpAgent(BasicAgent):
         p = kwargs.get("_warehouse_path") or _WH_PATH
         if os.path.exists(p):
             try:
+                if _load_state is not None:
+                    state = _load_state(p)
+                    return state.active_moments, state.frontier_path
                 d = json.load(open(p))
                 return d.get("moments", d if isinstance(d, list) else []), p
             except Exception:
                 pass
         try:
-            with urllib.request.urlopen(WAREHOUSE_RAW, timeout=10) as r:
+            with urllib.request.urlopen(FRONTIER_RAW, timeout=10) as r:
                 d = json.loads(r.read().decode("utf-8"))
-                return d.get("moments", d if isinstance(d, list) else []), WAREHOUSE_RAW
+                entries = d.get("entries") or []
+                return [entry["moment"] for entry in entries], FRONTIER_RAW
         except Exception:
             return [], None
 
@@ -273,15 +292,65 @@ class DoubleJumpAgent(BasicAgent):
             return self._env(action, "success", note="this is the next double-jump target",
                              target=self._card(w))
 
+        if action == "challenge":
+            ranked = rank(wh)
+            target = ranked[0]
+            clean_target = self._moment(target)
+            second = ranked[1]["_strength"] if len(ranked) > 1 else target["_strength"]
+            bar = round(max(target["_strength"] + 0.05, second), 4)
+            revision = "|".join(sorted(moment_id(moment) for moment in wh))
+            return self._env(
+                action,
+                "success",
+                challenge_id=moment_id(clean_target) + ":" + str(bar),
+                frontier_revision=revision,
+                target=self._card(clean_target),
+                second_strength=second,
+                margin=0.05,
+                bar=bar,
+                instruction=(
+                    "Use the local brainstem's domain intelligence to author one complete Moment child, "
+                    "then call action=propose with token=<child> and target_token=<target token>. "
+                    "Only the deterministic scorer can accept it."
+                ),
+            )
+
+        if action == "propose":
+            if not kwargs.get("token") or not kwargs.get("target_token"):
+                return self._env(action, "error", error="propose needs token=<candidate> and target_token=<challenged parent>.")
+            try:
+                candidate = decode_token(kwargs["token"])
+                target = decode_token(kwargs["target_token"])
+            except Exception as e:
+                return self._env(action, "error", error=f"bad token: {e}")
+            active = next((moment for moment in wh if moment_id(moment) == moment_id(target)), None)
+            if active is None:
+                return self._env(action, "error", error="challenged parent is no longer on the active frontier.")
+            ranked = sorted(wh, key=strength)
+            if moment_id(ranked[0]) != moment_id(active):
+                return self._env(action, "error", error="challenge is stale; request the current weakest again.")
+            second = strength(ranked[1]) if len(ranked) > 1 else strength(active)
+            bar = round(max(strength(active) + 0.05, second), 4)
+            score = strength(candidate)
+            cleared = score >= bar
+            return self._env(
+                action,
+                "accepted" if cleared else "rejected",
+                cleared=cleared,
+                bar=bar,
+                improvement={"from": strength(active), "to": score, "delta": round(score - strength(active), 4)},
+                target=self._card(active),
+                result=self._card(candidate),
+                next=("submit the accepted result token" if cleared else "revise the candidate and propose again"),
+            )
+
         if action == "jump":
             if kwargs.get("token"):
                 try:
                     target = decode_token(kwargs["token"])
                 except Exception as e:
                     return self._env(action, "error", error=f"bad token: {e}")
-                pool = wh + [target] if wh else [target, mint(seed=1)]
-                # force the given token to be the weakest so it is the one improved
-                dj = double_jump(sorted(pool, key=strength)[:1] + [target], improve)
+                dj = double_jump([target], improve)
             else:
                 if not wh:
                     return self._env(action, "error", error="empty warehouse and no token to jump.")
@@ -308,6 +377,11 @@ class DoubleJumpAgent(BasicAgent):
                 m = decode_token(kwargs["token"])
             except Exception as e:
                 return self._env(action, "error", error=f"bad token: {e}")
+            if new_budget is not None:
+                try:
+                    new_budget().authorize_side_effect("publish", explicit=True)
+                except PolicyViolation as e:
+                    return self._env(action, "error", error=str(e), code=getattr(e, "code", "policy_rejected"))
             gist, gerr = self._gist(m)
             if gerr:
                 return self._env(action, "error", stage="gist", error=gerr,
@@ -324,12 +398,23 @@ class DoubleJumpAgent(BasicAgent):
                 return self._env(action, "error", error="empty warehouse to loop over.")
             rounds = int(kwargs.get("rounds") or 1)
             do_submit = bool(kwargs.get("submit"))
+            if do_submit and new_budget is not None:
+                try:
+                    new_budget().authorize_side_effect("publish", explicit=True)
+                except PolicyViolation as e:
+                    return self._env(action, "error", error=str(e), code=getattr(e, "code", "policy_rejected"))
             pool = [dict(m) for m in wh]
             log = []
             for i in range(rounds):
                 dj = double_jump(pool, improve)
                 imp = dj["improved"]
-                pool.append(imp)
+                if not dj["cleared"]:
+                    log.append({"round": i + 1, "target": dj["target"].get("t"),
+                                "from": dj["from"], "to": dj["to"], "cleared": False,
+                                "error": "candidate did not clear the objective bar"})
+                    break
+                target_id = moment_id(dj["target"])
+                pool = [moment for moment in pool if moment_id(moment) != target_id] + [imp]
                 entry = {"round": i + 1, "target": dj["target"].get("t"),
                          "from": dj["from"], "to": dj["to"], "cleared": dj["cleared"],
                          "result": imp.get("t"), "token": encode_token(imp), "play_url": self._play(imp)}
@@ -347,7 +432,7 @@ class DoubleJumpAgent(BasicAgent):
             if not os.path.exists(tool):
                 return self._env(action, "error",
                                  error="promote tool not found — run this from inside the double-jump cubby repo.")
-            args = ["python3", tool, "--mode", (kwargs.get("mode") or "pr")]
+            args = ["python3", tool]
             if kwargs.get("apply"):
                 args.append("--apply")
             rc, out, err = _run(args, timeout=240)        # clone + PR can take a bit
@@ -376,4 +461,4 @@ class DoubleJumpAgent(BasicAgent):
                              note="resolved into an ERC-721/OpenSea token URI; animation_url is the live walkable hologram (zero servers).",
                              result=res)
 
-        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|jump|triple_jump|submit|loop|promote|resolve.")
+        return self._env(action, "error", error=f"unknown action '{action}'. Use scan|weakest|challenge|propose|jump|triple_jump|submit|loop|promote|resolve.")

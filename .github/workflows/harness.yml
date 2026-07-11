@@ -1,8 +1,7 @@
 name: harness
 
-# The autonomous double-jump loop: on a schedule (and on demand), find the WEAKEST Moment in the
-# warehouse and append a stronger one that leapfrogs it by a margin. Git is the harness — every
-# improvement is an append-only commit, so the repo history IS the record of the population improving.
+# Manual deterministic lab fallback. Intelligent evolution runs locally with
+# `python3 -m harness.loop --improver brainstem`, because hosted CI cannot reach 127.0.0.1:7071.
 
 on:
   workflow_dispatch:
@@ -11,11 +10,13 @@ on:
         description: 'How many improvement rounds'
         required: false
         default: '1'
-  schedule:
-    - cron: '0 */6 * * *'    # every 6 hours
 
 permissions:
   contents: write
+
+concurrency:
+  group: double-jump-writes
+  cancel-in-progress: false
 
 jobs:
   improve:
@@ -31,19 +32,22 @@ jobs:
 
       - name: Run the double-jump loop
         run: |
-          python3 -m harness.loop --rounds "${{ github.event.inputs.rounds || '1' }}"
+          python3 -m harness.loop --rounds "${{ github.event.inputs.rounds || '1' }}" --improver deterministic
+          python3 tools/build_artifacts.py
 
       - name: Commit improvement
         run: |
-          if [[ -z "$(git status --porcelain warehouse/)" ]]; then
+          if [[ -z "$(git status --porcelain warehouse/ cards.json seed-index.json resolve/)" ]]; then
             echo "No improvement to commit."
             exit 0
           fi
           git config user.name  "double-jump-harness"
           git config user.email "actions@github.com"
-          git add warehouse/
+          git add warehouse/ cards.json seed-index.json resolve/
           git commit -m "harness: double-jumped the weakest ($(date -u +%FT%TZ)) [skip ci]"
+          pushed=false
           for attempt in 1 2 3; do
-            if git pull --rebase --autostash origin main && git push; then break; fi
+            if git pull --rebase --autostash origin main && git push; then pushed=true; break; fi
             echo "push race (attempt $attempt) — retrying"; sleep 3
           done
+          $pushed || { echo "push failed after 3 attempts"; exit 1; }

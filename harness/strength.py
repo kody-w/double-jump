@@ -18,6 +18,9 @@ from .moment import LIN, DRIFT
 
 STRESS_LIMIT = 12          # matches homeostasis.js
 N = 100                    # frames sampled
+FITNESS_V1 = "double-jump-strength/1.0"
+FITNESS_V2 = "double-jump-strength/2.0"
+FITNESS_VERSIONS = (FITNESS_V1, FITNESS_V2)
 
 
 def _sorted(k):
@@ -75,7 +78,7 @@ def _std(a):
     return (_mean([(x - m) ** 2 for x in a])) ** 0.5
 
 
-def components(m):
+def _components_v1(m):
     fr = _expand(m)
     gen = len(_sorted(m.get("k")))
     path = sum(((fr[i]["x"] - fr[i - 1]["x"]) ** 2 + (fr[i]["z"] - fr[i - 1]["z"]) ** 2) ** 0.5
@@ -100,19 +103,80 @@ def components(m):
 _W = {"articulation": 0.30, "motion": 0.25, "jerk": 0.10, "glow": 0.15, "spike": 0.08, "variance": 0.12}
 
 
-def strength(m):
+def _components_v2(m):
+    """A balance-seeking profile that resists keyframe stuffing and saturated extremes."""
+    base = _components_v1(m)
+    frames = _expand(m)
+    keyframes = _sorted(m.get("k"))
+    effective = 1
+    for index in range(1, len(keyframes)):
+        if _key(keyframes[index]) != _key(keyframes[index - 1]):
+            effective += 1
+    glow = base["glow"]
+    spike = base["spike"]
+    def clipping_fraction(frame):
+        clipped = sum(
+            frame.get(field, 0) <= 0.01 or frame.get(field, 0) >= 0.99
+            for field in LIN
+        )
+        clipped += sum(abs(frame.get(field, 0)) >= 0.99 for field in DRIFT)
+        return clipped / len(LIN + DRIFT)
+
+    frame_clipping = _mean([clipping_fraction(frame) for frame in frames])
+    keyframe_clipping = _mean([clipping_fraction(frame) for frame in keyframes])
+    clipping = max(frame_clipping, keyframe_clipping)
+    return {
+        **base,
+        "effective_articulation": min(effective / 8.0, 1.0),
+        "glow_balance": max(0.0, 1 - abs(glow - 0.62) / 0.62),
+        "spike_balance": max(0.0, 1 - abs(spike - 0.42) / 0.58),
+        "smoothness": max(0.0, 1 - base["jerk"]),
+        "clipping_penalty": min(clipping * 0.55, 0.55),
+    }
+
+
+def components(m, version=FITNESS_V1):
+    if version in ("v1", FITNESS_V1):
+        return _components_v1(m)
+    if version in ("v2", FITNESS_V2):
+        return _components_v2(m)
+    raise ValueError(f"unknown fitness version: {version}")
+
+
+def strength(m, version=FITNESS_V1):
     """A single fitness scalar in [0,1]. Higher = stronger (more alive, articulated, dynamic)."""
-    c = components(m)
-    raw = sum(_W[k] * c[k] for k in _W)
-    return round(c["vitality"] * raw, 4)
+    c = components(m, version)
+    if version in ("v1", FITNESS_V1):
+        raw = sum(_W[k] * c[k] for k in _W)
+    elif version in ("v2", FITNESS_V2):
+        axes = (
+            c["effective_articulation"],
+            c["motion"],
+            c["glow_balance"],
+            c["spike_balance"],
+            c["variance"],
+        )
+        raw = (
+            0.24 * axes[0]
+            + 0.24 * axes[1]
+            + 0.16 * axes[2]
+            + 0.12 * axes[3]
+            + 0.14 * axes[4]
+            + 0.10 * c["smoothness"]
+        )
+        quality_floor = min(axes)
+        raw = raw * (0.75 + 0.25 * quality_floor) - c["clipping_penalty"]
+    else:
+        raise ValueError(f"unknown fitness version: {version}")
+    return round(max(0.0, min(1.0, c["vitality"] * raw)), 4)
 
 
-def rank(moments):
+def rank(moments, version=FITNESS_V1):
     """Return moments annotated with strength, sorted WEAKEST first."""
-    out = [dict(m, _strength=strength(m)) for m in moments]
+    out = [dict(m, _strength=strength(m, version)) for m in moments]
     out.sort(key=lambda m: m["_strength"])
     return out
 
 
-def weakest(moments):
-    return rank(moments)[0] if moments else None
+def weakest(moments, version=FITNESS_V1):
+    return rank(moments, version)[0] if moments else None

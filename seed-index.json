@@ -1,117 +1,107 @@
 {
   "schema": "rappcards-seed-index/1.0",
   "binder": "double-jump",
-  "homepage": "https://kody-w.github.io/double-jump/cards.html",
+  "homepage": "https://kody-w.github.io/double-jump/pokedex.html",
   "cards_url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
-  "count": 11,
+  "count": 10,
   "seeds": {
-    "6147380527733081792": {
-      "id": "@double-jump/stillness-3-won-the-triple-jump",
+    "3861041617178706239": {
+      "id": "@double-jump/a3a8c486578b4c175fde1148",
       "name": "Stillness 3",
       "rarity_tier": "common",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/stillness-3-won-the-triple-jump",
+      "bundle_key": "@double-jump/a3a8c486578b4c175fde1148",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "2203350426555733774": {
-      "id": "@double-jump/frenzy-4-won-the-triple-jump",
+    "11875382265886102295": {
+      "id": "@double-jump/c3b2a796ed342ca8a71f7f4a",
       "name": "Frenzy 4",
       "rarity_tier": "legendary",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/frenzy-4-won-the-triple-jump",
+      "bundle_key": "@double-jump/c3b2a796ed342ca8a71f7f4a",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "13635261904936066047": {
-      "id": "@double-jump/ascent-5-won-the-triple-jump",
+    "11284302192194928439": {
+      "id": "@double-jump/807067e1a64659277e0082f1",
       "name": "Ascent 5",
       "rarity_tier": "uncommon",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/ascent-5-won-the-triple-jump",
+      "bundle_key": "@double-jump/807067e1a64659277e0082f1",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "8403583549317521519": {
-      "id": "@double-jump/frenzy-6-won-the-triple-jump",
+    "10700773377924097033": {
+      "id": "@double-jump/cb4b136d8bc82d21866b53a1",
       "name": "Frenzy 6",
       "rarity_tier": "rare",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/frenzy-6-won-the-triple-jump",
+      "bundle_key": "@double-jump/cb4b136d8bc82d21866b53a1",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "445740000046355201": {
-      "id": "@double-jump/stillness-7-won-the-triple-jump",
-      "name": "Stillness 7",
-      "rarity_tier": "common",
-      "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
-      "url_is_bundle": true,
-      "bundle_key": "@double-jump/stillness-7-won-the-triple-jump",
-      "binder": "double-jump",
-      "upstream": "double-jump"
-    },
-    "3937039020836505579": {
-      "id": "@double-jump/frenzy-8-won-the-triple-jump",
+    "998337858641252937": {
+      "id": "@double-jump/d9d72ee58e03fc5a818444dd",
       "name": "Frenzy 8",
       "rarity_tier": "legendary",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/frenzy-8-won-the-triple-jump",
+      "bundle_key": "@double-jump/d9d72ee58e03fc5a818444dd",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "3354473083605240789": {
-      "id": "@double-jump/ascent-9-won-the-triple-jump",
+    "2829771431145240677": {
+      "id": "@double-jump/4b24a63eed07fc90e20dcb72",
       "name": "Ascent 9",
       "rarity_tier": "uncommon",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/ascent-9-won-the-triple-jump",
+      "bundle_key": "@double-jump/4b24a63eed07fc90e20dcb72",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "15520812612572765336": {
-      "id": "@double-jump/frenzy-10-won-the-triple-jump",
+    "4799498620253285659": {
+      "id": "@double-jump/e30a478fa7f65ba17bfb2ba4",
       "name": "Frenzy 10",
       "rarity_tier": "rare",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/frenzy-10-won-the-triple-jump",
+      "bundle_key": "@double-jump/e30a478fa7f65ba17bfb2ba4",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "6204024257523028348": {
-      "id": "@double-jump/stillness-11-won-the-triple-jump",
+    "939296485627164129": {
+      "id": "@double-jump/64455c2638b7d435fb41b38c",
       "name": "Stillness 11",
       "rarity_tier": "common",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/stillness-11-won-the-triple-jump",
+      "bundle_key": "@double-jump/64455c2638b7d435fb41b38c",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "10211273021813166838": {
-      "id": "@double-jump/frenzy-12-won-the-triple-jump",
+    "4595106128419845400": {
+      "id": "@double-jump/1d5f9ad5fe5366e5efbde48c",
       "name": "Frenzy 12",
       "rarity_tier": "rare",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/frenzy-12-won-the-triple-jump",
+      "bundle_key": "@double-jump/1d5f9ad5fe5366e5efbde48c",
       "binder": "double-jump",
       "upstream": "double-jump"
     },
-    "17734757470992396975": {
-      "id": "@double-jump/stillness-7-double-jumped",
+    "13640745081961078303": {
+      "id": "@double-jump/d9d9b8220bdd990732ca9acf",
       "name": "Stillness 7",
       "rarity_tier": "common",
       "url": "https://raw.githubusercontent.com/kody-w/double-jump/main/cards.json",
       "url_is_bundle": true,
-      "bundle_key": "@double-jump/stillness-7-double-jumped",
+      "bundle_key": "@double-jump/d9d9b8220bdd990732ca9acf",
       "binder": "double-jump",
       "upstream": "double-jump"
     }

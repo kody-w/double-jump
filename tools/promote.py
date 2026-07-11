@@ -13,7 +13,6 @@ selected Moments (deduped by token), pushes a branch, and opens a PR.
 Usage:
   python3 tools/promote.py                 # dry-run: list what would be promoted
   python3 tools/promote.py --apply         # open a PR to kody-w/rapp-commons
-  python3 tools/promote.py --apply --mode direct   # (discouraged) commit straight to main
 """
 import argparse
 import json
@@ -26,13 +25,14 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from harness.moment import encode_token            # noqa: E402
+from harness.store import load_state                # noqa: E402
 from harness.strength import strength              # noqa: E402
+from harness.policy import PolicyViolation, new_budget  # noqa: E402
 
 PLATFORM = "kody-w/rapp-commons"
 FEED = "hologram/moments.json"
 PLAYER = "https://kody-w.github.io/rapp-hologram/"
 WAREHOUSE = os.path.join(ROOT, "warehouse", "moments.json")
-MARKER = "double-jumped"          # the harness's improvement stamp = "improvements only"
 
 
 def _run(args, cwd=None):
@@ -45,30 +45,39 @@ def _load(path):
     return d.get("moments", d if isinstance(d, list) else [])
 
 
-def select_improvements(moments, marker=MARKER):
-    """Improvements only: organisms the harness made stronger (the double-jumped ones)."""
-    return [m for m in moments if marker in (m.get("t") or "")]
+def select_improvements(state):
+    """Select only children witnessed by accepted evolution receipts."""
+    accepted = {
+        event["child"] for event in state.events
+        if event.get("type") == "accepted_jump"
+    }
+    return [moment for identifier, moment in state.by_id.items() if identifier in accepted]
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true", help="actually open the PR (default: dry-run)")
-    ap.add_argument("--mode", choices=["pr", "direct"], default="pr")
-    ap.add_argument("--marker", default=MARKER)
+    ap.add_argument("--policy")
     a = ap.parse_args()
 
-    candidates = select_improvements(_load(WAREHOUSE), a.marker)
+    candidates = select_improvements(load_state(WAREHOUSE))
     if not candidates:
-        print(json.dumps({"status": "nothing", "reason": f"no Moments marked '{a.marker}' in the sandbox"}))
+        print(json.dumps({"status": "nothing", "reason": "no receipt-backed improvements in the sandbox"}))
         return 0
     summary = [{"title": m.get("t"), "strength": strength(m), "play": PLAYER + "?m=" + encode_token(m)}
                for m in candidates]
 
     if not a.apply:
-        print(json.dumps({"status": "dry-run", "mode": a.mode, "would_promote": len(candidates),
+        print(json.dumps({"status": "dry-run", "mode": "pr", "would_promote": len(candidates),
                           "selection": summary,
                           "note": "re-run with --apply to open a PR to " + PLATFORM}, indent=2))
         return 0
+    try:
+        budget = new_budget(a.policy) if a.policy else new_budget()
+        budget.authorize_side_effect("promotion_pr", explicit=True)
+    except PolicyViolation as exc:
+        print(json.dumps(exc.as_dict()))
+        return 1
 
     with tempfile.TemporaryDirectory() as tmp:
         clone = os.path.join(tmp, "rapp-commons")
@@ -97,14 +106,6 @@ def main():
         _run(["git", "config", "user.name", "double-jump-twin"], cwd=clone)
         _run(["git", "config", "user.email", "actions@github.com"], cwd=clone)
         titles = ", ".join(m.get("t", "Moment") for m in added)
-        if a.mode == "direct":
-            _run(["git", "add", FEED], cwd=clone)
-            _run(["git", "commit", "-m", f"promote: {len(added)} double-jump improvement(s)"], cwd=clone)
-            rc, _, err = _run(["git", "push", "origin", "HEAD:main"], cwd=clone)
-            print(json.dumps({"status": "pushed" if rc == 0 else "error", "mode": "direct",
-                              "added": len(added), "error": err or None}))
-            return 0 if rc == 0 else 1
-
         branch = f"promote/double-jump-{int(time.time())}"
         _run(["git", "checkout", "-b", branch], cwd=clone)
         _run(["git", "add", FEED], cwd=clone)

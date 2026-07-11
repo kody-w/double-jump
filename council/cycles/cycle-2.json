@@ -1,0 +1,23 @@
+{
+  "schema": "double-jump-council-summary/1.0",
+  "cycle_id": "cycle-2",
+  "label": "Eight-strategy cycle 2",
+  "created_at": "2026-07-10T22:13:40-04:00",
+  "snapshot_digest": "sha256:1d03810016fe5b87cd10568c629ceffca8164ca6a42241f52d2c5d75db811bc2",
+  "status": "complete",
+  "strategies": [
+    "evolution",
+    "orchestration",
+    "trust",
+    "game",
+    "experience",
+    "fitness",
+    "reliability",
+    "product"
+  ],
+  "top_three": [
+    "replay-verifiable-lineage-provenance-observatory",
+    "exact-eight-council-receipts-and-observatory",
+    "revision-bound-tool-less-proposal-worker"
+  ]
+}

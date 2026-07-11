@@ -25,7 +25,9 @@ Single-file, dependency-free, brainstem-drivable. Share it with anyone. Compatib
 at https://github.com/kody-w/RAR.
 """
 import json
+import math
 import os
+import tempfile
 import time
 
 try:
@@ -59,7 +61,24 @@ def _load(project):
 
 def _save(state):
     os.makedirs(STATE_DIR, exist_ok=True)
-    open(_path(state["project"]), "w").write(json.dumps(state, indent=2, ensure_ascii=False))
+    path = _path(state["project"])
+    fd, temporary = tempfile.mkstemp(prefix=".double-jump-", suffix=".tmp", dir=STATE_DIR, text=True)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(json.dumps(state, indent=2, ensure_ascii=False, allow_nan=False) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+
+
+def _score(value):
+    score = float(value)
+    if not math.isfinite(score) or not 0 <= score <= 100:
+        raise ValueError("score must be finite and in [0, 100]")
+    return score
 
 
 def _ranked(items):
@@ -141,7 +160,7 @@ class DoubleJumpAgent(BasicAgent):
 
     def _record(self, state, content, score, label, gen=0, improved_from=None, active=True):
         item = {"id": f"v{len(state['items']) + 1}", "content": (content or "").strip(),
-                "score": float(score) if score is not None else 0.0,
+                "score": _score(score) if score is not None else 0.0,
                 "label": (label or "").strip() or _clip(content, 40), "gen": gen, "active": active,
                 "improved_from": improved_from, "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
         state["items"].append(item)
@@ -156,9 +175,15 @@ class DoubleJumpAgent(BasicAgent):
         if action == "start":
             state["goal"] = (kwargs.get("goal") or state.get("goal") or "").strip()
             if kwargs.get("margin") is not None:
-                state["margin"] = float(kwargs["margin"])
+                try:
+                    state["margin"] = _score(kwargs["margin"])
+                except (TypeError, ValueError) as exc:
+                    return self._env("start", status="error", error=str(exc))
             if kwargs.get("content"):
-                self._record(state, kwargs.get("content"), kwargs.get("score"), kwargs.get("label"), gen=0)
+                try:
+                    self._record(state, kwargs.get("content"), kwargs.get("score"), kwargs.get("label"), gen=0)
+                except (TypeError, ValueError) as exc:
+                    return self._env("start", status="error", error=str(exc))
             _save(state)
             return self._env("start", status="ready", project=project, goal=state["goal"], margin=state["margin"],
                              how_to_drive=("Now: 'add' 2-4 starting candidates (each with your 0-100 score), then "
@@ -170,7 +195,10 @@ class DoubleJumpAgent(BasicAgent):
         if action == "add":
             if not kwargs.get("content"):
                 return self._env("add", status="error", error="add needs content=<the candidate>.")
-            it = self._record(state, kwargs["content"], kwargs.get("score"), kwargs.get("label"), gen=state["generation"])
+            try:
+                it = self._record(state, kwargs["content"], kwargs.get("score"), kwargs.get("label"), gen=state["generation"])
+            except (TypeError, ValueError) as exc:
+                return self._env("add", status="error", error=str(exc))
             _save(state)
             nxt = self._weakest(state)
             return self._env("add", status="added", item=it["id"], score=it["score"],
@@ -202,31 +230,33 @@ class DoubleJumpAgent(BasicAgent):
                 return self._env("improve", status="error", error="nothing to improve yet — 'add' a candidate first.")
             target, bar = nxt
             target_score = target.get("score", 0)
-            new_score = float(kwargs["score"])
-            beats = new_score >= target_score                    # only supersede if it's genuinely at least as good
+            try:
+                new_score = _score(kwargs["score"])
+            except (TypeError, ValueError) as exc:
+                return self._env("improve", status="error", error=str(exc))
+            cleared = new_score >= bar
             state["generation"] += 1
             it = self._record(state, kwargs["content"], new_score, kwargs.get("label"),
-                              gen=state["generation"], improved_from=target["id"], active=beats)
-            if beats:
-                target["active"] = False                         # retire the weakest (kept in history) -> the floor rises
-            cleared = beats and new_score >= bar
+                              gen=state["generation"], improved_from=target["id"], active=cleared)
+            if cleared:
+                target["active"] = False
             state["history"].append({"gen": state["generation"], "improved_from": target["id"],
                                      "new": it["id"], "score": new_score, "bar": bar,
-                                     "beats_target": beats, "cleared": cleared, "ts": it["ts"]})
+                                     "beats_target": new_score >= target_score, "cleared": cleared, "ts": it["ts"]})
             _save(state)
             snap = self._snapshot(state)
             after = self._weakest(state)
-            if not beats:
-                msg = (f"That scored {new_score}, below the target's {target_score}. Kept the original; the floor "
-                       f"did not drop. Try again with a genuinely stronger version.")
+            if new_score < target_score:
+                msg = (f"That scored {new_score}, below the target's {target_score}. Kept the original; "
+                       f"the floor did not drop. Try again with a genuinely stronger version.")
                 status = "short"
             elif cleared:
                 msg = f"DOUBLE JUMP — {new_score} >= {bar}. Retired the weakest; the floor is now {snap['floor']}."
                 status = "double_jump"
             else:
-                msg = (f"Improved (retired the weakest, {new_score} > {target_score}) but short of the leapfrog bar "
-                       f"{bar}. Floor is now {snap['floor']}. Push harder next round.")
-                status = "improved"
+                msg = (f"Better than the target, but {new_score} is short of the leapfrog bar {bar}. "
+                       f"The original stays active and the floor remains {snap['floor']}.")
+                status = "short"
             return self._env("improve", status=status, cleared=cleared, generation=state["generation"],
                              new_item=it["id"], message=msg,
                              next_weakest=(None if not after else {"id": after[0]["id"], "score": after[0]["score"],
@@ -238,7 +268,10 @@ class DoubleJumpAgent(BasicAgent):
             it = next((x for x in state["items"] if x["id"] == kwargs.get("id")), None)
             if not it or kwargs.get("score") is None:
                 return self._env("score", status="error", error="score needs id=<item> and score=<0-100>.")
-            it["score"] = float(kwargs["score"])
+            try:
+                it["score"] = _score(kwargs["score"])
+            except (TypeError, ValueError) as exc:
+                return self._env("score", status="error", error=str(exc))
             _save(state)
             return self._env("score", status="rescored", item=it["id"], score=it["score"], state=self._snapshot(state))
 

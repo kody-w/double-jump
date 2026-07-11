@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test invariants
+        run: |
+          python3 -m unittest discover -s tests -v
+          python3 -m py_compile agents/*.py harness/*.py share/*.py tools/*.py
+      - name: Verify generated artifacts
+        run: python3 tools/build_artifacts.py --check

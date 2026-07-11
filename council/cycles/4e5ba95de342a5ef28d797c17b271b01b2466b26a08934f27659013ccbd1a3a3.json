@@ -1,0 +1,1528 @@
+{
+  "schema": "double-jump-council/1.0",
+  "created_at": "2026-07-11T02:17:21.328409+00:00",
+  "snapshot_digest": "sha256:4a599f15070b638374d3c05ce48978e9b99a752c994778ec26c3e090da033cf0",
+  "strategies": [
+    {
+      "strategy_id": "evolution",
+      "ballot_hash": "sha256:cff6d78d654294f7dfb7a82cccd9f7dececebfd0f4b4aed74ee6bd53d1ef3ce0",
+      "proposals": [
+        {
+          "feature_id": "versioned-fitness-epochs",
+          "title": "Versioned Fitness Epochs",
+          "priority": 98,
+          "scope": "L",
+          "rationale": "Raw strength values remain comparable only while the evaluator is unchanged. Binding every score to an evaluator digest and providing explicit epoch transitions preserves trustworthy progress as scoring mechanics evolve.",
+          "files": [
+            "harness/strength.py",
+            "harness/store.py",
+            "tools/migrate_frontier.py",
+            "tools/verify_ledger.py",
+            "HARNESS.md",
+            "tests/test_fitness_epochs.py"
+          ],
+          "acceptance": [
+            "Every persisted score includes a deterministic evaluator ID derived from scoring code and configuration.",
+            "Ledger verification rejects direct parent-child score comparisons across different evaluator IDs.",
+            "Frontier migration deterministically rescores immutable artifacts and records an explicit epoch-transition receipt without rewriting prior receipts.",
+            "Repeated migration of the same snapshot into the same epoch produces the same frontier digest."
+          ]
+        },
+        {
+          "feature_id": "multi-objective-pareto-selection",
+          "title": "Multi-Objective Pareto Selection",
+          "priority": 94,
+          "scope": "L",
+          "rationale": "A single blended strength score can hide regressions in vitality, motion, articulation, or other traits. Pareto selection sustains balanced advancement and makes evolutionary tradeoffs explicit.",
+          "files": [
+            "harness/strength.py",
+            "harness/loop.py",
+            "harness/store.py",
+            "warehouse/frontier.json",
+            "evolution.html",
+            "tests/test_pareto_selection.py"
+          ],
+          "acceptance": [
+            "The scorer emits normalized named objective values alongside the compatibility aggregate score.",
+            "Selection deterministically computes Pareto rank and crowding distance with content-hash tie-breaking.",
+            "A candidate that misses the existing jump margin or violates a configured objective floor is rejected.",
+            "The frontier and evolution receipts expose objective values and enough data for the verifier to recompute selection."
+          ]
+        },
+        {
+          "feature_id": "novelty-search-and-speciation",
+          "title": "Novelty Search and Speciation",
+          "priority": 91,
+          "scope": "L",
+          "rationale": "Repeatedly optimizing the weakest scalar score can converge on near-identical organisms and discard useful stepping stones. Behavioral novelty and species protection preserve multiple evolutionary routes to future gains.",
+          "files": [
+            "harness/diversity.py",
+            "harness/loop.py",
+            "harness/store.py",
+            "evolution.html",
+            "HARNESS.md",
+            "tests/test_diversity.py"
+          ],
+          "acceptance": [
+            "A canonical behavioral descriptor is computed solely from validated genome and motion evidence.",
+            "Novelty distance and species assignments are deterministic regardless of population input order.",
+            "Replacement cannot remove the last member of a protected species unless the accepted child occupies that species.",
+            "Receipts persist novelty evidence and species assignments that ledger verification can recompute."
+          ]
+        },
+        {
+          "feature_id": "adaptive-mutation-curriculum",
+          "title": "Adaptive Mutation Curriculum",
+          "priority": 87,
+          "scope": "M",
+          "rationale": "Fixed mutation pressure eventually stalls or becomes destructive. A deterministic curriculum can escalate from small refinements to structural exploration after repeated failures, then return to exploitation after progress.",
+          "files": [
+            "harness/moment.py",
+            "harness/loop.py",
+            "harness/brainstem.py",
+            "harness/store.py",
+            "tests/test_mutation_curriculum.py"
+          ],
+          "acceptance": [
+            "Mutation tier is selected deterministically from revision-bound attempt history without wall-clock input.",
+            "Configured rejection or no-op streaks escalate mutation from bounded parameter changes to structural keyframe changes.",
+            "An accepted improvement resets the affected lineage to the exploitation tier.",
+            "Offline and brainstem improvers receive identical mutation bounds, and receipts record tier, operator, and seed."
+          ]
+        },
+        {
+          "feature_id": "lineage-crossover",
+          "title": "Lineage Crossover",
+          "priority": 83,
+          "scope": "L",
+          "rationale": "Single-parent mutation cannot directly combine complementary traits discovered by separate lineages. Deterministic crossover enables recombination while extending provenance from chains into verifiable ancestry DAGs.",
+          "files": [
+            "harness/moment.py",
+            "harness/loop.py",
+            "harness/store.py",
+            "tools/build_lineages.py",
+            "evolution.html",
+            "tests/test_lineage_crossover.py"
+          ],
+          "acceptance": [
+            "Crossover deterministically combines two distinct active parents from the same fitness epoch into a valid Moment.",
+            "The weakest organism remains the replacement target, and the child must satisfy the existing jump margin against it.",
+            "Each crossover receipt stores sorted parent hashes, seed, and crossover decisions sufficient to reproduce the child hash.",
+            "Lineage building renders both parent edges and rejects missing-parent references or ancestry cycles."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "orchestration",
+      "ballot_hash": "sha256:a8f32ba7767b1bf5d4c87e4c475e0341587fe4eb106e3801b435f0913d663156",
+      "proposals": [
+        {
+          "feature_id": "consensus-gated-work-queue",
+          "title": "Consensus-gated implementation queue",
+          "priority": 97,
+          "scope": "L",
+          "rationale": "Convert receipt-backed council selections into canonical work items without granting proposal workers direct execution authority.",
+          "files": [
+            "harness/council.py",
+            "harness/store.py",
+            "harness/orchestrator.py",
+            "tools/run_council.py",
+            "tests/test_orchestrator.py"
+          ],
+          "acceptance": [
+            "Only a valid selected proposal bound to the current repository snapshot can enter the queue.",
+            "Each work item preserves the decision hash, feature ID, file scope, acceptance criteria, and priority.",
+            "Replaying the same decision creates no duplicate work item.",
+            "Stale, malformed, or non-selected proposals are rejected without repository mutation."
+          ]
+        },
+        {
+          "feature_id": "bounded-autonomy-policy",
+          "title": "Central bounded-autonomy policy",
+          "priority": 94,
+          "scope": "M",
+          "rationale": "Apply one fail-closed policy to local brainstem, Copilot CLI, workflow, and promotion activity so autonomous execution remains measurable and constrained.",
+          "files": [
+            "council/autonomy-policy.json",
+            "harness/brainstem.py",
+            "harness/loop.py",
+            "harness/orchestrator.py",
+            "HARNESS.md",
+            "tests/test_autonomy_policy.py"
+          ],
+          "acceptance": [
+            "Policy limits wall time, attempts, concurrent jobs, writable paths, commands, and permitted side effects.",
+            "Missing or invalid policy denies execution with an explicit error.",
+            "Every execution receipt records the policy hash and consumed budget.",
+            "A policy violation terminates the job before disallowed mutation or promotion."
+          ]
+        },
+        {
+          "feature_id": "resumable-orchestration-runs",
+          "title": "Resumable orchestration state machine",
+          "priority": 90,
+          "scope": "M",
+          "rationale": "Make multi-worker council and implementation runs recoverable across process interruption while preventing duplicate work from retries or overlapping workflows.",
+          "files": [
+            "harness/orchestrator.py",
+            "harness/store.py",
+            "tools/run_council.py",
+            ".github/workflows/harness.yml",
+            "tests/test_orchestrator.py"
+          ],
+          "acceptance": [
+            "A run interrupted after any persisted stage resumes from the next incomplete stage.",
+            "Completed worker attempts are not rerun after restart.",
+            "A repository-scoped lease prevents two orchestrators from advancing the same run concurrently.",
+            "Terminal runs expose deterministic success, failure, cancellation, and budget-exhaustion states."
+          ]
+        },
+        {
+          "feature_id": "brainstem-provider-failover",
+          "title": "Brainstem provider supervision and failover",
+          "priority": 84,
+          "scope": "M",
+          "rationale": "Supervise local brainstem and GitHub Copilot CLI providers with explicit health checks, timeouts, and policy-controlled fallback rather than brittle subprocess assumptions.",
+          "files": [
+            "harness/brainstem.py",
+            "harness/loop.py",
+            "agents/double_jump_agent.py",
+            "README.md",
+            "tests/test_brainstem.py"
+          ],
+          "acceptance": [
+            "Preflight reports executable availability, authentication readiness, and required noninteractive no-tools capability.",
+            "Provider calls enforce configured startup and response deadlines.",
+            "Fallback occurs only through an explicitly ordered policy and records every attempted provider.",
+            "If all providers fail, the run fails visibly without producing a success-shaped proposal."
+          ]
+        },
+        {
+          "feature_id": "github-issue-handoff",
+          "title": "Idempotent GitHub issue and PR handoff",
+          "priority": 78,
+          "scope": "M",
+          "rationale": "Bridge approved local work items to GitHub collaboration while retaining human review and preventing autonomous direct-to-main changes.",
+          "files": [
+            "tools/publish_work_item.py",
+            "tools/run_council.py",
+            ".github/ISSUE_TEMPLATE/submit.yml",
+            ".github/workflows/ci.yml",
+            "tests/test_publish_work_item.py"
+          ],
+          "acceptance": [
+            "Publishing creates one issue keyed by the decision hash and feature ID.",
+            "The issue includes rationale, bounded file scope, acceptance criteria, and provenance links.",
+            "Repeated publishing updates or reuses the existing issue without duplication.",
+            "Associated pull requests require passing CI and human-controlled merge; the handoff never pushes directly to the default branch."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "trust",
+      "ballot_hash": "sha256:fc2a1dc6a5b8c51a4ea892584e700ca91f2cfe80aa2336274d9cb94481168415",
+      "proposals": [
+        {
+          "feature_id": "signed-lineage-operations",
+          "title": "Signed Lineage Operations",
+          "priority": 98,
+          "scope": "L",
+          "rationale": "Update, delete, retirement, and promotion operations cross the repository's strongest trust boundary and are intentionally unavailable without cryptographic authorization. Canonical signed mutation envelopes would enable them without weakening append-only lineage guarantees.",
+          "files": [
+            "tools/ingest.py",
+            "tools/promote.py",
+            "tools/resolve_card.py",
+            "harness/store.py",
+            "harness/validation.py",
+            ".github/workflows/ingest.yml",
+            "tests/test_signed_operations.py"
+          ],
+          "acceptance": [
+            "Every privileged mutation requires a canonical envelope containing the operation, target digest, lineage identifier, signer identifier, timestamp, nonce, and signature.",
+            "Unknown or revoked keys, stale envelopes, reused nonces, altered payloads, and target-digest mismatches fail before any repository artifact changes.",
+            "Successful mutations persist the verified signer fingerprint and request digest, while unsigned public issue submissions remain create-only."
+          ]
+        },
+        {
+          "feature_id": "github-actions-hardening",
+          "title": "GitHub Actions Trust-Boundary Hardening",
+          "priority": 95,
+          "scope": "M",
+          "rationale": "Scheduled ingestion and harness workflows can mutate authoritative artifacts, making workflow tokens and third-party actions a high-impact supply-chain boundary. Explicit least privilege and immutable dependencies reduce compromise blast radius.",
+          "files": [
+            ".github/workflows/ci.yml",
+            ".github/workflows/harness.yml",
+            ".github/workflows/ingest.yml"
+          ],
+          "acceptance": [
+            "Every job declares minimum required permissions, and pull-request jobs receive read-only repository access without mutation secrets.",
+            "All third-party actions are pinned to full commit SHAs; CI rejects tag, branch, or floating-version references.",
+            "Mutation jobs fail closed unless the event, actor, branch, and protected environment satisfy an explicit authorization policy."
+          ]
+        },
+        {
+          "feature_id": "brainstem-process-sandbox",
+          "title": "Brainstem Process Sandbox",
+          "priority": 92,
+          "scope": "M",
+          "rationale": "Tool-less prompting constrains model behavior but does not isolate the local subprocess from ambient credentials, path substitution, resource exhaustion, or malformed output. OS-level execution controls are needed around both brainstem providers.",
+          "files": [
+            "harness/brainstem.py",
+            "harness/loop.py",
+            "agents/double_jump_agent.py",
+            "share/double_jump_agent.py",
+            "tests/test_brainstem.py"
+          ],
+          "acceptance": [
+            "Providers execute with shell expansion disabled, an approved executable path, a repository-scoped working directory, and a provider-specific environment allowlist.",
+            "Timeouts, output-size limits, and process-tree termination prevent hung or oversized workers from continuing after rejection.",
+            "Nonzero exits, truncated output, protocol violations, and unexpected executable resolution fail without mutating frontier, lineage, card, or receipt artifacts."
+          ]
+        },
+        {
+          "feature_id": "untrusted-content-rendering-sandbox",
+          "title": "Untrusted Content Rendering Sandbox",
+          "priority": 88,
+          "scope": "M",
+          "rationale": "Submitted card metadata and encoded Moments flow into public pages and remote hologram iframes. Treating those values as trusted DOM or navigation content could enable script injection, origin confusion, or data leakage.",
+          "files": [
+            "index.html",
+            "arena.html",
+            "evolution.html",
+            "nft.html",
+            "pokedex.html",
+            "cards.json"
+          ],
+          "acceptance": [
+            "Repository-controlled text is rendered with safe DOM APIs, and tests demonstrate that HTML-bearing titles, authors, and identifiers cannot create executable elements or event handlers.",
+            "Hologram URLs are constructed only from validated tokens and an exact HTTPS origin allowlist; alternate schemes, credentials, redirects, and look-alike hosts are rejected.",
+            "Every remote hologram iframe uses a restrictive sandbox and referrer policy while retaining required rendering and interaction behavior."
+          ]
+        },
+        {
+          "feature_id": "signed-peer-manifests",
+          "title": "Signed Peer Manifests",
+          "priority": 84,
+          "scope": "L",
+          "rationale": "Federated peer catalogs introduce content and identity outside the repository's provenance boundary. Signatures, origin policy, and expiry checks prevent an untrusted or compromised peer from silently entering the Holodex.",
+          "files": [
+            "peers.json",
+            "tools/mint_cards.py",
+            "pokedex.html",
+            "cards.json",
+            "tests/test_peer_manifests.py"
+          ],
+          "acceptance": [
+            "Each trusted peer declares an allowed HTTPS origin and public-key fingerprint, and imported manifests verify against a canonical signed representation.",
+            "Unsigned, expired, redirected, disallowed-origin, malformed, or unknown-key manifests are excluded with explicit diagnostics rather than partially imported.",
+            "Imported cards retain peer identity, manifest digest, and signer fingerprint, and conflicting card identities fail closed instead of overwriting local or previously verified entries."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "game",
+      "ballot_hash": "sha256:00613a16abe4c0d068a27a555989dea71536d7b8d9596890f75fbd2a94d72c9b",
+      "proposals": [
+        {
+          "feature_id": "interactive-evolution",
+          "title": "Interactive Evolution Lab",
+          "priority": 96,
+          "scope": "L",
+          "rationale": "Turn the arena's automatic weakest-member evolution into a meaningful player decision by letting players bias traits, inspect tradeoffs, and choose among valid candidates while preserving deterministic validation and the required jump margin.",
+          "files": [
+            "arena.html",
+            "harness/loop.py",
+            "harness/brainstem.py",
+            "harness/validation.py",
+            "tests/test_gameplay.py"
+          ],
+          "acceptance": [
+            "Players can set motion, glow, spike, and articulation priorities before evolving.",
+            "The same frontier revision, seed, and selected priorities produce the same offline candidate and score.",
+            "Players can compare at least three valid candidates before selecting one.",
+            "Rejected candidates leave the frontier unchanged and display the failed invariant or margin."
+          ]
+        },
+        {
+          "feature_id": "draft-battles",
+          "title": "Three-Creature Draft Battles",
+          "priority": 92,
+          "scope": "L",
+          "rationale": "Add strategic competition beyond scalar strength ranking: players draft a roster and assign creatures to visible rule-modified rounds, making composition and sequencing matter.",
+          "files": [
+            "arena.html",
+            "harness/battle.py",
+            "tools/build_artifacts.py",
+            "tests/test_battle.py"
+          ],
+          "acceptance": [
+            "A player can draft exactly three distinct active creatures.",
+            "Each battle has three deterministic rounds with visible scoring modifiers and one-use roster slots.",
+            "Identical roster, assignments, ruleset, and seed produce identical scores and winners.",
+            "The result view exposes each trait contribution and generates a replay code that reconstructs the match."
+          ]
+        },
+        {
+          "feature_id": "daily-challenges",
+          "title": "Daily Seeded Challenges",
+          "priority": 88,
+          "scope": "M",
+          "rationale": "Provide a recurring replay loop through equal-start challenges that ask players to satisfy changing trait, vitality, or score objectives rather than repeatedly running unrestricted evolution.",
+          "files": [
+            "arena.html",
+            "harness/challenges.py",
+            "tools/build_artifacts.py",
+            "warehouse/challenges.json",
+            ".github/workflows/harness.yml",
+            "tests/test_challenges.py"
+          ],
+          "acceptance": [
+            "Exactly one challenge is generated per UTC date from a documented deterministic seed.",
+            "Every player receives the same starting frontier revision, constraints, and objective for a given date.",
+            "Challenge completion is determined by the strict validator and an explicit measurable objective.",
+            "Past challenges remain playable from an archive and reproduce their original setup."
+          ]
+        },
+        {
+          "feature_id": "seasonal-leaderboards",
+          "title": "Verified Seasonal Leaderboards",
+          "priority": 83,
+          "scope": "L",
+          "rationale": "Convert isolated challenge and battle outcomes into sustained competition using verifier-backed standings, finite seasons, anti-spam scoring, and immutable historical champions.",
+          "files": [
+            "arena.html",
+            "harness/competition.py",
+            "tools/ingest.py",
+            "warehouse/seasons.json",
+            ".github/workflows/ingest.yml",
+            "tests/test_competition.py"
+          ],
+          "acceptance": [
+            "Only receipts valid for the season's frontier revision and ruleset are counted.",
+            "Standings use each player’s best result per challenge and deterministic documented tie-breakers.",
+            "The arena displays score, rank, completed events, and time remaining for the active season.",
+            "Closing a season freezes its standings and champion while creating a separate new season."
+          ]
+        },
+        {
+          "feature_id": "collection-achievements",
+          "title": "Holodex Collection Achievements",
+          "priority": 78,
+          "scope": "M",
+          "rationale": "Give long-term progression to exploration and experimentation by turning discovered organisms, trait diversity, evolution wins, and challenge results into visible mastery tracks and unlockable badges.",
+          "files": [
+            "pokedex.html",
+            "arena.html",
+            "assets/progression.js",
+            "cards.json",
+            "tests/test_progression.py"
+          ],
+          "acceptance": [
+            "The Holodex shows progress for discovery, trait diversity, evolution, battle, and challenge mastery tracks.",
+            "Achievement thresholds and awarded points are versioned and deterministic from recorded events.",
+            "Refreshing or replaying the same event cannot award progress twice.",
+            "Players can export, import, and reset their local progression without changing repository data."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "experience",
+      "ballot_hash": "sha256:27cb39254eab1fa9039b421c1abaae55d7ab77e2c695fdd7b9526ba96d9470f3",
+      "proposals": [
+        {
+          "feature_id": "accessibility-and-reduced-motion",
+          "title": "Accessible motion controls and keyboard parity",
+          "priority": 98,
+          "scope": "M",
+          "rationale": "The animation-heavy arena, galleries, and observatory need equivalent experiences for keyboard, screen-reader, vestibular, and low-motion users.",
+          "files": [
+            "arena.html",
+            "index.html",
+            "pokedex.html",
+            "nft.html",
+            "evolution.html"
+          ],
+          "acceptance": [
+            "Every continuously animated canvas or hologram has a keyboard-focusable play/pause control with an accessible name and visible focus state.",
+            "With prefers-reduced-motion enabled, pages start paused or in a non-animated summary state until explicit activation.",
+            "All primary controls work with Tab, Enter or Space, and Escape without keyboard traps.",
+            "Automated checks report no critical WCAG 2.2 A or AA violations on the five public pages."
+          ]
+        },
+        {
+          "feature_id": "hologram-gallery-virtualization",
+          "title": "Virtualize live hologram galleries",
+          "priority": 95,
+          "scope": "M",
+          "rationale": "Mounting many looping 100-frame iframes simultaneously wastes bandwidth, memory, and battery and makes card browsing especially costly on mobile devices.",
+          "files": [
+            "assets/hologram-loader.js",
+            "index.html",
+            "pokedex.html",
+            "nft.html"
+          ],
+          "acceptance": [
+            "With a 100-card fixture, no more than eight hologram iframes remain mounted after the page becomes idle at any scroll position.",
+            "Holograms load only within one viewport of visibility and restore correctly when revisited.",
+            "Placeholders reserve final media dimensions so cumulative layout shift remains at or below 0.1.",
+            "Every placeholder and iframe exposes an accessible title and a usable fallback link."
+          ]
+        },
+        {
+          "feature_id": "mobile-responsive-experience",
+          "title": "Mobile-responsive layouts and arena controls",
+          "priority": 92,
+          "scope": "M",
+          "rationale": "The 3D arena, dense card surfaces, and lineage views require deliberate touch, safe-area, orientation, and small-screen behavior rather than desktop layouts scaled down.",
+          "files": [
+            "arena.html",
+            "index.html",
+            "pokedex.html",
+            "nft.html",
+            "evolution.html"
+          ],
+          "acceptance": [
+            "At 320 x 568 and 390 x 844 in portrait and landscape, each page has no unintended horizontal overflow or safe-area-obscured controls.",
+            "Primary touch targets are at least 44 x 44 CSS pixels and remain reachable at 200 percent zoom.",
+            "Arena interactions support touch and pointer input without preventing normal page scrolling outside an active canvas gesture.",
+            "Rendering pauses while the page is hidden and caps canvas pixel density on high-DPI mobile devices."
+          ]
+        },
+        {
+          "feature_id": "resilient-loading-and-error-states",
+          "title": "Resilient loading and failure recovery",
+          "priority": 86,
+          "scope": "M",
+          "rationale": "Static pages depend on warehouse JSON and remote hologram embeds; failures currently risk presenting an unexplained blank or incomplete experience.",
+          "files": [
+            "assets/data-loader.js",
+            "arena.html",
+            "index.html",
+            "pokedex.html",
+            "evolution.html"
+          ],
+          "acceptance": [
+            "Loading, empty, malformed-data, timeout, and network-error states are visually distinct and announced through an aria-live status region.",
+            "Retry actions reissue only failed requests and do not duplicate rendered cards or lineage entries.",
+            "A failed or timed-out hologram embed becomes a labeled fallback with a direct-open link.",
+            "Rejected fetches and rendering errors never leave an indefinite spinner or unhandled promise rejection."
+          ]
+        },
+        {
+          "feature_id": "frontend-performance-observability",
+          "title": "Experience telemetry and performance budgets",
+          "priority": 82,
+          "scope": "M",
+          "rationale": "The repository lacks a shared way to diagnose real page responsiveness, layout instability, iframe pressure, and asset failures across its public experiences.",
+          "files": [
+            "assets/experience-observability.js",
+            "index.html",
+            "arena.html",
+            "pokedex.html",
+            "nft.html",
+            "evolution.html",
+            ".github/workflows/ci.yml"
+          ],
+          "acceptance": [
+            "Each page records LCP, CLS, INP, long tasks, active iframe count, hologram startup latency, and data or embed failures in one documented event schema.",
+            "A debug query parameter displays an accessible diagnostics panel and permits copying the current measurements as JSON.",
+            "No Moment token, card payload, query string, user identifier, or other personal data appears in emitted records.",
+            "CI exercises deterministic mobile fixtures and fails when LCP exceeds 2.5 seconds, CLS exceeds 0.1, or the active-iframe budget exceeds eight."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "fitness",
+      "ballot_hash": "sha256:d8fe6e9113ec95a4f1f88ec104b20cea92276e6b974c030c1bcd9dd19e71e068",
+      "proposals": [
+        {
+          "feature_id": "goodhart-resistant-fitness",
+          "title": "Goodhart-Resistant Fitness Ensemble",
+          "priority": 98,
+          "scope": "M",
+          "rationale": "The published scalar directly rewards exploitable proxies such as jerk, spike, glow, variance, motion, and keyframe count. Add saturating transforms, contribution caps, quality floors, deterministic perturbation scoring, and an adversarial fixture corpus so balanced behavior beats schema-valid metric gaming.",
+          "files": [
+            "harness/strength.py",
+            "harness/loop.py",
+            "tools/audit_fitness.py",
+            "tests/test_strength.py",
+            "tests/fixtures/fitness-pathologies.json",
+            "HARNESS.md"
+          ],
+          "acceptance": [
+            "The fixture corpus covers keyframe stuffing, alternating maximum jerk or spikes, constant maximum glow, inflated motion, and collapsed vitality.",
+            "Every pathological fixture scores below its balanced control or fails a documented component floor.",
+            "No single non-vitality component can independently clear the jump margin while all other quality axes remain weak.",
+            "Repeated evaluation of the same candidate and revision produces an identical serialized score breakdown."
+          ]
+        },
+        {
+          "feature_id": "fitness-versioning",
+          "title": "Versioned Fitness Calibration and Rescoring",
+          "priority": 94,
+          "scope": "M",
+          "rationale": "Replayable lineage is insufficient if historical and current scores silently use different formulas. Persist an explicit scorer version and configuration digest, require deterministic frontier-wide rescoring for upgrades, and expose ranking churn before activation.",
+          "files": [
+            "harness/strength.py",
+            "harness/store.py",
+            "tools/migrate_frontier.py",
+            "tools/verify_ledger.py",
+            "tests/test_fitness_versioning.py",
+            "HARNESS.md"
+          ],
+          "acceptance": [
+            "Every persisted score, frontier entry, and evolution receipt includes a fitness version and configuration digest.",
+            "Ledger verification rejects comparisons across fitness versions unless a complete rescore migration links them.",
+            "A migration report includes old and new ranks, rank correlation, frontier churn, and changed acceptance outcomes.",
+            "Running the same rescore migration twice produces identical ordering and artifact digests."
+          ]
+        },
+        {
+          "feature_id": "behavioral-novelty-scoring",
+          "title": "Behavioral Novelty Scoring",
+          "priority": 91,
+          "scope": "M",
+          "rationale": "Content-addressing blocks exact duplicates but not near-clones that make tiny genome changes to harvest incremental strength. Compute novelty from rendered behavioral descriptors against active and retired observations while keeping quality floors independent.",
+          "files": [
+            "harness/novelty.py",
+            "harness/strength.py",
+            "harness/loop.py",
+            "harness/store.py",
+            "warehouse/evolution.json",
+            "tests/test_novelty.py"
+          ],
+          "acceptance": [
+            "Changing only identity metadata leaves the behavioral descriptor and novelty score unchanged.",
+            "Near-clone fixtures receive lower novelty than behaviorally distinct fixtures of comparable quality.",
+            "Novelty cannot compensate for failing vitality or minimum quality floors.",
+            "Each evolution receipt records the nearest observation hashes, their distances, the novelty threshold, and the resulting decision."
+          ]
+        },
+        {
+          "feature_id": "quality-diversity-archive",
+          "title": "Quality-Diversity Archive",
+          "priority": 88,
+          "scope": "L",
+          "rationale": "A single champion and global floor encourage convergence on one high-scoring phenotype. Maintain deterministic behavioral niches and retain the strongest organism per niche so locomotion, articulation, and energy strategies remain represented without weakening quality.",
+          "files": [
+            "harness/store.py",
+            "harness/loop.py",
+            "warehouse/frontier.json",
+            "tools/build_artifacts.py",
+            "evolution.html",
+            "tests/test_quality_diversity.py",
+            "HARNESS.md"
+          ],
+          "acceptance": [
+            "Behavioral descriptors map deterministically into versioned niche bins with documented boundaries.",
+            "Strong candidates in different niches remain active simultaneously even when their scalar scores differ.",
+            "A candidate replaces an incumbent only within its niche and only after clearing the quality margin and global safety floors.",
+            "Seeded loop selection deterministically prioritizes empty or stagnant niches, and the observatory displays niche occupancy and elites."
+          ]
+        },
+        {
+          "feature_id": "fitness-scorecards",
+          "title": "Explainable Fitness Scorecards",
+          "priority": 85,
+          "scope": "M",
+          "rationale": "A lone strength value cannot reveal whether a jump reflects healthy improvement or exploitation of one proxy. Persist auditable component-level scorecards and parent-child counterfactual deltas, keeping quality, robustness, and novelty visibly separate.",
+          "files": [
+            "harness/strength.py",
+            "harness/moment.py",
+            "harness/store.py",
+            "tools/build_artifacts.py",
+            "tools/verify_ledger.py",
+            "evolution.html",
+            "tests/test_fitness_scorecards.py"
+          ],
+          "acceptance": [
+            "Each scorecard exposes raw, normalized, saturated, weighted, gated, robustness, novelty, threshold, and final values.",
+            "The serialized components deterministically reconstruct the final score within the documented numeric tolerance.",
+            "Evolution receipts include parent-child deltas and a machine-readable acceptance or rejection explanation.",
+            "The observatory renders component deltas and limiting gates, and ledger verification detects any tampered scorecard field."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "reliability",
+      "ballot_hash": "sha256:fe5236ce35bbef1c5dbba062e1a315ffd0f1813f064b3af51357207de6ebcc90",
+      "proposals": [
+        {
+          "feature_id": "atomic-warehouse-transactions",
+          "title": "Atomic warehouse transactions with crash recovery",
+          "priority": 98,
+          "scope": "L",
+          "rationale": "Loop, ingestion, promotion, resolution, and artifact builders can update related state concurrently; journaling, locking, and atomic publication prevent mixed revisions and lost updates.",
+          "files": [
+            "harness/store.py",
+            "harness/loop.py",
+            "tools/ingest.py",
+            "tools/promote.py",
+            "tools/build_artifacts.py",
+            "tests/"
+          ],
+          "acceptance": [
+            "All state-mutating commands acquire one shared writer lock.",
+            "Fault injection after every staged write leaves either the complete old revision or complete new revision.",
+            "Startup deterministically recovers stale transaction journals and passes ledger verification.",
+            "Concurrent loop and ingestion runs complete without lost updates or mixed-revision artifacts."
+          ]
+        },
+        {
+          "feature_id": "deterministic-ci-quality-gates",
+          "title": "Hermetic CI and artifact reproducibility gates",
+          "priority": 95,
+          "scope": "M",
+          "rationale": "Generated catalogs, lineage views, and ledgers need a required clean-checkout gate proving deterministic rebuilds and detecting corruption before merge.",
+          "files": [
+            ".github/workflows/ci.yml",
+            "tools/build_artifacts.py",
+            "tools/build_lineages.py",
+            "tools/verify_ledger.py",
+            "tests/"
+          ],
+          "acceptance": [
+            "CI runs tests and ledger verification on every pull request and protected-branch push.",
+            "Two clean builds from identical inputs produce byte-identical generated artifacts.",
+            "CI fails when rebuilding leaves tracked generated files modified.",
+            "Tampered receipt, frontier, and lineage fixtures each cause a nonzero verification result."
+          ]
+        },
+        {
+          "feature_id": "scheduled-run-concurrency-control",
+          "title": "Coordinated scheduled runs with bounded retries",
+          "priority": 92,
+          "scope": "M",
+          "rationale": "Harness and ingestion workflows are repository writers; shared concurrency control, deterministic run keys, timeouts, and bounded retries make cron and manual executions safe under overlap or interruption.",
+          "files": [
+            ".github/workflows/harness.yml",
+            ".github/workflows/ingest.yml",
+            "harness/loop.py",
+            "tools/ingest.py"
+          ],
+          "acceptance": [
+            "All writer workflows use one repository-wide concurrency group.",
+            "Retrying the same run key produces no duplicate observation, receipt, commit, or pull request.",
+            "Transient operations retry with configured limits and permanent failures exit nonzero.",
+            "Cancellation or timeout publishes no partial warehouse state."
+          ]
+        },
+        {
+          "feature_id": "idempotent-issue-ingestion",
+          "title": "Exactly-once issue ingestion and acknowledgement",
+          "priority": 88,
+          "scope": "M",
+          "rationale": "GitHub delivery retries and mid-run failures can repeat ingestion side effects even when content storage deduplicates; durable checkpoints should couple data publication with issue acknowledgement.",
+          "files": [
+            "tools/ingest.py",
+            ".github/workflows/ingest.yml",
+            "harness/store.py",
+            "tests/"
+          ],
+          "acceptance": [
+            "Replaying an identical issue event creates no duplicate observation, comment, label transition, or commit.",
+            "A crash between state publication and issue acknowledgement resumes without repeating completed effects.",
+            "Concurrent deliveries for one issue serialize against the same durable checkpoint.",
+            "Invalid submissions remain unacknowledged and receive one stable, actionable failure result."
+          ]
+        },
+        {
+          "feature_id": "operational-health-telemetry",
+          "title": "Structured run telemetry and failure alerting",
+          "priority": 84,
+          "scope": "M",
+          "rationale": "Operators need machine-readable outcomes that distinguish accepted jumps, validation rejections, no-ops, provider failures, transaction failures, and scheduler failures without inspecting raw logs.",
+          "files": [
+            "harness/loop.py",
+            "harness/telemetry.py",
+            ".github/workflows/harness.yml",
+            ".github/workflows/ingest.yml",
+            "tests/"
+          ],
+          "acceptance": [
+            "Every run emits schema-versioned JSON containing run ID, trigger, revision, duration, outcome, and categorized error code.",
+            "Workflow summaries report attempted, accepted, rejected, and deduplicated counts on success and failure.",
+            "Telemetry excludes proposal bodies, credentials, and authentication material.",
+            "Repeated scheduled failures create or update one operational alert, and a later successful run resolves it."
+          ]
+        }
+      ]
+    },
+    {
+      "strategy_id": "product",
+      "ballot_hash": "sha256:66681071018fc4b03bfdc1a7b3bdf996730602029c46d4dfe78df3d0e7a72a7b",
+      "proposals": [
+        {
+          "feature_id": "guided-first-jump",
+          "title": "Guided First Jump",
+          "priority": 95,
+          "scope": "M",
+          "rationale": "Turn the repository's specialized vocabulary and disconnected surfaces into a no-write walkthrough that demonstrates the complete product value before requiring CLI setup, authentication, or mutation.",
+          "files": [
+            "start.html",
+            "index.html",
+            "arena.html",
+            "evolution.html",
+            "README.md",
+            "assets/onboarding.js"
+          ],
+          "acceptance": [
+            "A visitor can launch and complete the walkthrough from index.html without authentication or repository writes.",
+            "The walkthrough identifies the weakest active organism, previews a qualifying jump, and explains the resulting floor and receipt hash.",
+            "Resetting the walkthrough restores the bundled snapshot deterministically.",
+            "Every walkthrough step links to the corresponding full product surface while preserving the selected organism."
+          ]
+        },
+        {
+          "feature_id": "organism-deep-links",
+          "title": "Canonical Organism Deep Links",
+          "priority": 91,
+          "scope": "M",
+          "rationale": "Unify the gallery, arena, Holodex, and observatory around one shareable organism identity so the product feels like one coherent experience rather than four separate viewers.",
+          "files": [
+            "index.html",
+            "arena.html",
+            "pokedex.html",
+            "evolution.html",
+            "assets/navigation.js"
+          ],
+          "acceptance": [
+            "A canonical URL containing a content-addressed organism ID opens the same organism on every product surface.",
+            "Navigation between surfaces preserves the selected organism and its federation source.",
+            "The detail view shows the live hologram, canonical strength, active or retired state, and lineage links.",
+            "Malformed or unknown IDs produce an explicit not-found state without silently selecting another organism."
+          ]
+        },
+        {
+          "feature_id": "federation-manifest",
+          "title": "Trustworthy Federation Manifest",
+          "priority": 87,
+          "scope": "M",
+          "rationale": "Replace implicit peer assumptions with a small deterministic contract that makes the existing federation understandable, verifiable, and safe to extend without introducing a centralized service.",
+          "files": [
+            "peers.json",
+            "federation.json",
+            "tools/build_artifacts.py",
+            "tools/sync_peers.py",
+            "pokedex.html",
+            "tests/test_federation.py"
+          ],
+          "acceptance": [
+            "Artifact generation emits a deterministic federation.json containing schema version, repository identity, frontier revision, endpoints, and artifact digests.",
+            "Peer synchronization accepts only allowlisted manifests whose declared artifact digests verify.",
+            "A failed peer verification exits nonzero and leaves the last verified peer cache unchanged.",
+            "Federated cards retain source repository and content ID, and the Holodex displays each peer as healthy, stale, or invalid."
+          ]
+        },
+        {
+          "feature_id": "browser-moment-builder",
+          "title": "Browser Moment Builder",
+          "priority": 82,
+          "scope": "M",
+          "rationale": "Provide a no-code contribution path centered on the product's distinctive live holograms, reducing the gap between discovering Double Jump and submitting a valid organism.",
+          "files": [
+            "studio.html",
+            "assets/studio.js",
+            ".github/ISSUE_TEMPLATE/submit.yml",
+            "README.md",
+            "harness/validation.py",
+            "tests/test_moment_builder.py"
+          ],
+          "acceptance": [
+            "A user can edit keyframes and preview the resulting 100-frame hologram entirely in the browser.",
+            "Exported JSON passes the repository's strict Moment validator without manual restructuring.",
+            "Invalid input displays field-specific validation errors before export.",
+            "The builder downloads a gist-ready payload and generates a create-only submission issue URL without storing credentials."
+          ]
+        },
+        {
+          "feature_id": "fitness-profiles",
+          "title": "Declarative Fitness Profiles",
+          "priority": 74,
+          "scope": "M",
+          "rationale": "Prevent the canonical scalar score from converging on one visual style by enabling bounded, themed challenges composed only from existing fingerprint terms, while preserving the default competition and historical replay.",
+          "files": [
+            "fitness-profiles.json",
+            "harness/strength.py",
+            "harness/loop.py",
+            "harness/validation.py",
+            "arena.html",
+            "tests/test_fitness_profiles.py"
+          ],
+          "acceptance": [
+            "Profiles use versioned IDs and normalized nonnegative weights over existing canonical fitness terms.",
+            "Invalid terms, negative weights, or non-normalized profiles are rejected before a competition begins.",
+            "The same organism and profile version always produce the same score.",
+            "Runs without a profile retain canonical scoring and reproduce existing historical receipts unchanged.",
+            "Profile leaderboards are displayed separately and label every result with its profile ID and version."
+          ]
+        }
+      ]
+    }
+  ],
+  "ranking": [
+    {
+      "canonical_feature": "versioned-fitness-epochs",
+      "title": "Versioned Fitness Epochs",
+      "support": 3,
+      "average_priority": 88.67,
+      "borda": 10,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "evolution",
+          "rank": 1,
+          "feature_id": "versioned-fitness-epochs",
+          "title": "Versioned Fitness Epochs",
+          "priority": 98,
+          "scope": "L"
+        },
+        {
+          "strategy_id": "fitness",
+          "rank": 2,
+          "feature_id": "fitness-versioning",
+          "title": "Versioned Fitness Calibration and Rescoring",
+          "priority": 94,
+          "scope": "M"
+        },
+        {
+          "strategy_id": "product",
+          "rank": 5,
+          "feature_id": "fitness-profiles",
+          "title": "Declarative Fitness Profiles",
+          "priority": 74,
+          "scope": "M"
+        }
+      ],
+      "rank": 1
+    },
+    {
+      "canonical_feature": "atomic-warehouse-transactions",
+      "title": "Atomic warehouse transactions with crash recovery",
+      "support": 2,
+      "average_priority": 93.33,
+      "borda": 11,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "orchestration",
+          "rank": 3,
+          "feature_id": "resumable-orchestration-runs",
+          "title": "Resumable orchestration state machine",
+          "priority": 90,
+          "scope": "M"
+        },
+        {
+          "strategy_id": "reliability",
+          "rank": 1,
+          "feature_id": "atomic-warehouse-transactions",
+          "title": "Atomic warehouse transactions with crash recovery",
+          "priority": 98,
+          "scope": "L"
+        },
+        {
+          "strategy_id": "reliability",
+          "rank": 3,
+          "feature_id": "scheduled-run-concurrency-control",
+          "title": "Coordinated scheduled runs with bounded retries",
+          "priority": 92,
+          "scope": "M"
+        }
+      ],
+      "rank": 2
+    },
+    {
+      "canonical_feature": "interactive-evolution",
+      "title": "Interactive Evolution Lab",
+      "support": 2,
+      "average_priority": 91.0,
+      "borda": 12,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "game",
+          "rank": 1,
+          "feature_id": "interactive-evolution",
+          "title": "Interactive Evolution Lab",
+          "priority": 96,
+          "scope": "L"
+        },
+        {
+          "strategy_id": "product",
+          "rank": 1,
+          "feature_id": "guided-first-jump",
+          "title": "Guided First Jump",
+          "priority": 95,
+          "scope": "M"
+        },
+        {
+          "strategy_id": "product",
+          "rank": 4,
+          "feature_id": "browser-moment-builder",
+          "title": "Browser Moment Builder",
+          "priority": 82,
+          "scope": "M"
+        }
+      ],
+      "rank": 3
+    },
+    {
+      "canonical_feature": "multi-objective-pareto-selection",
+      "title": "Multi-Objective Pareto Selection",
+      "support": 2,
+      "average_priority": 91.0,
+      "borda": 12,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "evolution",
+          "rank": 2,
+          "feature_id": "multi-objective-pareto-selection",
+          "title": "Multi-Objective Pareto Selection",
+          "priority": 94,
+          "scope": "L"
+        },
+        {
+          "strategy_id": "evolution",
+          "rank": 3,
+          "feature_id": "novelty-search-and-speciation",
+          "title": "Novelty Search and Speciation",
+          "priority": 91,
+          "scope": "L"
+        },
+        {
+          "strategy_id": "fitness",
+          "rank": 3,
+          "feature_id": "behavioral-novelty-scoring",
+          "title": "Behavioral Novelty Scoring",
+          "priority": 91,
+          "scope": "M"
+        },
+        {
+          "strategy_id": "fitness",
+          "rank": 4,
+          "feature_id": "quality-diversity-archive",
+          "title": "Quality-Diversity Archive",
+          "priority": 88,
+          "scope": "L"
+        }
+      ],
+      "rank": 4
+    },
+    {
+      "canonical_feature": "idempotent-issue-ingestion",
+      "title": "Exactly-once issue ingestion and acknowledgement",
+      "support": 2,
+      "average_priority": 83.0,
+      "borda": 3,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "orchestration",
+          "rank": 5,
+          "feature_id": "github-issue-handoff",
+          "title": "Idempotent GitHub issue and PR handoff",
+          "priority": 78,
+          "scope": "M"
+        },
+        {
+          "strategy_id": "reliability",
+          "rank": 4,
+          "feature_id": "idempotent-issue-ingestion",
+          "title": "Exactly-once issue ingestion and acknowledgement",
+          "priority": 88,
+          "scope": "M"
+        }
+      ],
+      "rank": 5
+    },
+    {
+      "canonical_feature": "accessibility-and-reduced-motion",
+      "title": "Accessible motion controls and keyboard parity",
+      "support": 1,
+      "average_priority": 98.0,
+      "borda": 5,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "experience",
+          "rank": 1,
+          "feature_id": "accessibility-and-reduced-motion",
+          "title": "Accessible motion controls and keyboard parity",
+          "priority": 98,
+          "scope": "M"
+        }
+      ],
+      "rank": 6
+    },
+    {
+      "canonical_feature": "goodhart-resistant-fitness",
+      "title": "Goodhart-Resistant Fitness Ensemble",
+      "support": 1,
+      "average_priority": 98.0,
+      "borda": 5,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "fitness",
+          "rank": 1,
+          "feature_id": "goodhart-resistant-fitness",
+          "title": "Goodhart-Resistant Fitness Ensemble",
+          "priority": 98,
+          "scope": "M"
+        }
+      ],
+      "rank": 7
+    },
+    {
+      "canonical_feature": "signed-lineage-operations",
+      "title": "Signed Lineage Operations",
+      "support": 1,
+      "average_priority": 98.0,
+      "borda": 5,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "trust",
+          "rank": 1,
+          "feature_id": "signed-lineage-operations",
+          "title": "Signed Lineage Operations",
+          "priority": 98,
+          "scope": "L"
+        }
+      ],
+      "rank": 8
+    },
+    {
+      "canonical_feature": "consensus-gated-work-queue",
+      "title": "Consensus-gated implementation queue",
+      "support": 1,
+      "average_priority": 97.0,
+      "borda": 5,
+      "best_rank": 1,
+      "members": [
+        {
+          "strategy_id": "orchestration",
+          "rank": 1,
+          "feature_id": "consensus-gated-work-queue",
+          "title": "Consensus-gated implementation queue",
+          "priority": 97,
+          "scope": "L"
+        }
+      ],
+      "rank": 9
+    },
+    {
+      "canonical_feature": "deterministic-ci-quality-gates",
+      "title": "Hermetic CI and artifact reproducibility gates",
+      "support": 1,
+      "average_priority": 95.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "reliability",
+          "rank": 2,
+          "feature_id": "deterministic-ci-quality-gates",
+          "title": "Hermetic CI and artifact reproducibility gates",
+          "priority": 95,
+          "scope": "M"
+        }
+      ],
+      "rank": 10
+    },
+    {
+      "canonical_feature": "github-actions-hardening",
+      "title": "GitHub Actions Trust-Boundary Hardening",
+      "support": 1,
+      "average_priority": 95.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "trust",
+          "rank": 2,
+          "feature_id": "github-actions-hardening",
+          "title": "GitHub Actions Trust-Boundary Hardening",
+          "priority": 95,
+          "scope": "M"
+        }
+      ],
+      "rank": 11
+    },
+    {
+      "canonical_feature": "hologram-gallery-virtualization",
+      "title": "Virtualize live hologram galleries",
+      "support": 1,
+      "average_priority": 95.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "experience",
+          "rank": 2,
+          "feature_id": "hologram-gallery-virtualization",
+          "title": "Virtualize live hologram galleries",
+          "priority": 95,
+          "scope": "M"
+        }
+      ],
+      "rank": 12
+    },
+    {
+      "canonical_feature": "bounded-autonomy-policy",
+      "title": "Central bounded-autonomy policy",
+      "support": 1,
+      "average_priority": 94.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "orchestration",
+          "rank": 2,
+          "feature_id": "bounded-autonomy-policy",
+          "title": "Central bounded-autonomy policy",
+          "priority": 94,
+          "scope": "M"
+        }
+      ],
+      "rank": 13
+    },
+    {
+      "canonical_feature": "draft-battles",
+      "title": "Three-Creature Draft Battles",
+      "support": 1,
+      "average_priority": 92.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "game",
+          "rank": 2,
+          "feature_id": "draft-battles",
+          "title": "Three-Creature Draft Battles",
+          "priority": 92,
+          "scope": "L"
+        }
+      ],
+      "rank": 14
+    },
+    {
+      "canonical_feature": "brainstem-process-sandbox",
+      "title": "Brainstem Process Sandbox",
+      "support": 1,
+      "average_priority": 92.0,
+      "borda": 3,
+      "best_rank": 3,
+      "members": [
+        {
+          "strategy_id": "trust",
+          "rank": 3,
+          "feature_id": "brainstem-process-sandbox",
+          "title": "Brainstem Process Sandbox",
+          "priority": 92,
+          "scope": "M"
+        }
+      ],
+      "rank": 15
+    },
+    {
+      "canonical_feature": "mobile-responsive-experience",
+      "title": "Mobile-responsive layouts and arena controls",
+      "support": 1,
+      "average_priority": 92.0,
+      "borda": 3,
+      "best_rank": 3,
+      "members": [
+        {
+          "strategy_id": "experience",
+          "rank": 3,
+          "feature_id": "mobile-responsive-experience",
+          "title": "Mobile-responsive layouts and arena controls",
+          "priority": 92,
+          "scope": "M"
+        }
+      ],
+      "rank": 16
+    },
+    {
+      "canonical_feature": "organism-deep-links",
+      "title": "Canonical Organism Deep Links",
+      "support": 1,
+      "average_priority": 91.0,
+      "borda": 4,
+      "best_rank": 2,
+      "members": [
+        {
+          "strategy_id": "product",
+          "rank": 2,
+          "feature_id": "organism-deep-links",
+          "title": "Canonical Organism Deep Links",
+          "priority": 91,
+          "scope": "M"
+        }
+      ],
+      "rank": 17
+    },
+    {
+      "canonical_feature": "daily-challenges",
+      "title": "Daily Seeded Challenges",
+      "support": 1,
+      "average_priority": 88.0,
+      "borda": 3,
+      "best_rank": 3,
+      "members": [
+        {
+          "strategy_id": "game",
+          "rank": 3,
+          "feature_id": "daily-challenges",
+          "title": "Daily Seeded Challenges",
+          "priority": 88,
+          "scope": "M"
+        }
+      ],
+      "rank": 18
+    },
+    {
+      "canonical_feature": "untrusted-content-rendering-sandbox",
+      "title": "Untrusted Content Rendering Sandbox",
+      "support": 1,
+      "average_priority": 88.0,
+      "borda": 2,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "trust",
+          "rank": 4,
+          "feature_id": "untrusted-content-rendering-sandbox",
+          "title": "Untrusted Content Rendering Sandbox",
+          "priority": 88,
+          "scope": "M"
+        }
+      ],
+      "rank": 19
+    },
+    {
+      "canonical_feature": "federation-manifest",
+      "title": "Trustworthy Federation Manifest",
+      "support": 1,
+      "average_priority": 87.0,
+      "borda": 3,
+      "best_rank": 3,
+      "members": [
+        {
+          "strategy_id": "product",
+          "rank": 3,
+          "feature_id": "federation-manifest",
+          "title": "Trustworthy Federation Manifest",
+          "priority": 87,
+          "scope": "M"
+        }
+      ],
+      "rank": 20
+    },
+    {
+      "canonical_feature": "adaptive-mutation-curriculum",
+      "title": "Adaptive Mutation Curriculum",
+      "support": 1,
+      "average_priority": 87.0,
+      "borda": 2,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "evolution",
+          "rank": 4,
+          "feature_id": "adaptive-mutation-curriculum",
+          "title": "Adaptive Mutation Curriculum",
+          "priority": 87,
+          "scope": "M"
+        }
+      ],
+      "rank": 21
+    },
+    {
+      "canonical_feature": "resilient-loading-and-error-states",
+      "title": "Resilient loading and failure recovery",
+      "support": 1,
+      "average_priority": 86.0,
+      "borda": 2,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "experience",
+          "rank": 4,
+          "feature_id": "resilient-loading-and-error-states",
+          "title": "Resilient loading and failure recovery",
+          "priority": 86,
+          "scope": "M"
+        }
+      ],
+      "rank": 22
+    },
+    {
+      "canonical_feature": "fitness-scorecards",
+      "title": "Explainable Fitness Scorecards",
+      "support": 1,
+      "average_priority": 85.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "fitness",
+          "rank": 5,
+          "feature_id": "fitness-scorecards",
+          "title": "Explainable Fitness Scorecards",
+          "priority": 85,
+          "scope": "M"
+        }
+      ],
+      "rank": 23
+    },
+    {
+      "canonical_feature": "brainstem-provider-failover",
+      "title": "Brainstem provider supervision and failover",
+      "support": 1,
+      "average_priority": 84.0,
+      "borda": 2,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "orchestration",
+          "rank": 4,
+          "feature_id": "brainstem-provider-failover",
+          "title": "Brainstem provider supervision and failover",
+          "priority": 84,
+          "scope": "M"
+        }
+      ],
+      "rank": 24
+    },
+    {
+      "canonical_feature": "operational-health-telemetry",
+      "title": "Structured run telemetry and failure alerting",
+      "support": 1,
+      "average_priority": 84.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "reliability",
+          "rank": 5,
+          "feature_id": "operational-health-telemetry",
+          "title": "Structured run telemetry and failure alerting",
+          "priority": 84,
+          "scope": "M"
+        }
+      ],
+      "rank": 25
+    },
+    {
+      "canonical_feature": "signed-peer-manifests",
+      "title": "Signed Peer Manifests",
+      "support": 1,
+      "average_priority": 84.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "trust",
+          "rank": 5,
+          "feature_id": "signed-peer-manifests",
+          "title": "Signed Peer Manifests",
+          "priority": 84,
+          "scope": "L"
+        }
+      ],
+      "rank": 26
+    },
+    {
+      "canonical_feature": "seasonal-leaderboards",
+      "title": "Verified Seasonal Leaderboards",
+      "support": 1,
+      "average_priority": 83.0,
+      "borda": 2,
+      "best_rank": 4,
+      "members": [
+        {
+          "strategy_id": "game",
+          "rank": 4,
+          "feature_id": "seasonal-leaderboards",
+          "title": "Verified Seasonal Leaderboards",
+          "priority": 83,
+          "scope": "L"
+        }
+      ],
+      "rank": 27
+    },
+    {
+      "canonical_feature": "lineage-crossover",
+      "title": "Lineage Crossover",
+      "support": 1,
+      "average_priority": 83.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "evolution",
+          "rank": 5,
+          "feature_id": "lineage-crossover",
+          "title": "Lineage Crossover",
+          "priority": 83,
+          "scope": "L"
+        }
+      ],
+      "rank": 28
+    },
+    {
+      "canonical_feature": "frontend-performance-observability",
+      "title": "Experience telemetry and performance budgets",
+      "support": 1,
+      "average_priority": 82.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "experience",
+          "rank": 5,
+          "feature_id": "frontend-performance-observability",
+          "title": "Experience telemetry and performance budgets",
+          "priority": 82,
+          "scope": "M"
+        }
+      ],
+      "rank": 29
+    },
+    {
+      "canonical_feature": "collection-achievements",
+      "title": "Holodex Collection Achievements",
+      "support": 1,
+      "average_priority": 78.0,
+      "borda": 1,
+      "best_rank": 5,
+      "members": [
+        {
+          "strategy_id": "game",
+          "rank": 5,
+          "feature_id": "collection-achievements",
+          "title": "Holodex Collection Achievements",
+          "priority": 78,
+          "scope": "M"
+        }
+      ],
+      "rank": 30
+    }
+  ],
+  "top_three": [
+    "versioned-fitness-epochs",
+    "atomic-warehouse-transactions",
+    "interactive-evolution"
+  ],
+  "consensus_version": "double-jump-consensus/2.0",
+  "cycle_id": "sha256:4e5ba95de342a5ef28d797c17b271b01b2466b26a08934f27659013ccbd1a3a3"
+}

@@ -53,13 +53,13 @@
   .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
   .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
   .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
-  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none;overflow-x:auto}.djnav a{padding:7px 9px;font-size:12px}}
   body{padding-top:62px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="arena.html">Arena</a><a href="pokedex.html" class="active">Holodex</a><a href="nft.html">Market</a></nav>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html" class="active">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
 <canvas id="gl"></canvas>
 <h1>Holo<span class="b">dex</span></h1>
 <p class="lede">Every double-jump creature is a living holographic organism — each card is the actual 3D
@@ -74,6 +74,8 @@ creature. Click one to <b>walk it</b>. They all compete in the <a href="arena.ht
 var TYPE={savanna:"#78C850",canyon:"#E0C068",forest:"#35e0c0",volcanic:"#F08030",void:"#7038F8"};
 var RAR={legendary:"leg",rare:"rare",uncommon:"unc",common:"com"};
 var CARDS=[],FILTER="",TYPEF="",VIEWS=[],HAS3D=(typeof THREE!=="undefined");
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function playOf(c){return "https://kody-w.github.io/rapp-hologram/?m="+encodeURIComponent(c.holo.token);}
 
 function decodeToken(t){try{t=t.replace(/-/g,"+").replace(/_/g,"/");return JSON.parse(decodeURIComponent(escape(atob(t))));}catch(e){return null;}}
 function biomeOf(c){return (c.agent_types&&c.agent_types[1]||"VOID").toLowerCase();}
@@ -141,29 +143,29 @@ if(HAS3D)loop();
 function tile(c,i){
   var b=biomeOf(c),col=TYPE[b]||"#888",d=document.createElement("div");d.className="c";d.onclick=function(){open(c);};
   d.innerHTML='<span class="no">#'+String(i+1).padStart(2,"0")+'</span>'+
-    '<span class="rar '+RAR[c.rarity_tier]+'">'+c.rarity_label+'</span>'+
+    '<span class="rar '+esc(RAR[c.rarity_tier]||"com")+'">'+esc(c.rarity_label)+'</span>'+
     '<div class="art3d">'+(HAS3D?"":c.avatar_svg)+'</div>'+
-    '<div class="nm">'+c.name+'</div>'+
+    '<div class="nm">'+esc(c.name)+'</div>'+
     '<span class="ty" style="background:'+col+'">'+b+'</span>'+
-    '<div class="st">⚡ '+c.holo.strength+' · '+c.holo.keyframes+'f</div>';
+    '<div class="st">⚡ '+esc(c.holo.strength)+' · '+esc(c.holo.keyframes)+'f</div>';
   return d;
 }
 function open(c){
   var m=document.getElementById("modal");
-  var ab=(c.abilities||[]).map(function(a){return '<div class="ab"><span class="an">'+a.name+'</span> '+(a.damage?'· '+a.damage+' dmg ':'')+'<div style="color:var(--mut);font-size:13px">'+a.text+'</div></div>';}).join("");
+  var ab=(c.abilities||[]).map(function(a){return '<div class="ab"><span class="an">'+esc(a.name)+'</span> '+(a.damage?'· '+esc(a.damage)+' dmg ':'')+'<div style="color:var(--mut);font-size:13px">'+esc(a.text)+'</div></div>';}).join("");
   var s=c.stats;
-  m.innerHTML='<div class="holo"><button class="x" onclick="shut(event)">×</button><iframe src="'+c.holo.play_url+'" title="'+c.name+'"></iframe></div>'+
-    '<div class="info"><h2>'+c.name+' '+c.evolution.icon+'</h2>'+
-      '<div class="sub">'+c.title+' · '+biomeOf(c)+' · '+c.rarity_label+' · by '+c.holo.author+'</div>'+
+  m.innerHTML='<div class="holo"><button class="x" onclick="shut(event)">×</button><iframe sandbox="allow-scripts" src="'+playOf(c)+'" title="'+esc(c.name)+'"></iframe></div>'+
+    '<div class="info"><h2>'+esc(c.name)+' '+esc(c.evolution.icon)+'</h2>'+
+      '<div class="sub">'+esc(c.title)+' · '+esc(biomeOf(c))+' · '+esc(c.rarity_label)+' · by '+esc(c.holo.author)+'</div>'+
       '<div class="stats">'+
-        '<div class="stat"><div class="k">HP</div><div class="v">'+c.hp+'</div></div>'+
-        '<div class="stat"><div class="k">ATK (motion)</div><div class="v">'+s.atk+'</div></div>'+
-        '<div class="stat"><div class="k">DEF (vitality)</div><div class="v">'+s.def+'</div></div>'+
-        '<div class="stat"><div class="k">SPD (spikes)</div><div class="v">'+s.spd+'</div></div>'+
-        '<div class="stat"><div class="k">INT (articulation)</div><div class="v">'+s.int+'</div></div>'+
-        '<div class="stat"><div class="k">Strength</div><div class="v">'+c.holo.strength+'</div></div>'+
-      '</div>'+ab+'<div class="flav">“'+c.flavor_text+'”</div>'+
-      '<a class="play" href="'+c.holo.play_url+'" target="_blank">▶ Walk it fullscreen</a></div>';
+        '<div class="stat"><div class="k">HP</div><div class="v">'+esc(c.hp)+'</div></div>'+
+        '<div class="stat"><div class="k">ATK (motion)</div><div class="v">'+esc(s.atk)+'</div></div>'+
+        '<div class="stat"><div class="k">DEF (vitality)</div><div class="v">'+esc(s.def)+'</div></div>'+
+        '<div class="stat"><div class="k">SPD (spikes)</div><div class="v">'+esc(s.spd)+'</div></div>'+
+        '<div class="stat"><div class="k">INT (articulation)</div><div class="v">'+esc(s.int)+'</div></div>'+
+        '<div class="stat"><div class="k">Strength</div><div class="v">'+esc(c.holo.strength)+'</div></div>'+
+      '</div>'+ab+'<div class="flav">“'+esc(c.flavor_text)+'”</div>'+
+      '<a class="play" href="'+playOf(c)+'" target="_blank" rel="noopener">▶ Walk it fullscreen</a></div>';
   document.getElementById("ov").classList.add("on");
 }
 function shut(e){if(e)e.stopPropagation();document.getElementById("ov").classList.remove("on");}
@@ -184,7 +186,7 @@ function render(){
 }
 document.getElementById("q").oninput=function(e){FILTER=e.target.value.toLowerCase();render();};
 
-fetch("cards.json").then(function(r){return r.json();}).then(function(d){
+fetch("cards.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(d){
   CARDS=Object.values(d.cards||{});
   var types=document.getElementById("types"),seen={};
   var all=document.createElement("span");all.className="chip active";all.textContent="all";
@@ -195,7 +197,7 @@ fetch("cards.json").then(function(r){return r.json();}).then(function(d){
     ch.onclick=function(){TYPEF=b;[].forEach.call(types.children,function(c){c.classList.remove("active");});ch.classList.add("active");render();};
     types.appendChild(ch);});
   render();
-}).catch(function(e){document.getElementById("dex").innerHTML='<div style="color:#ff6b6b;padding:30px">Could not load cards.json: '+e+'</div>';});
+}).catch(function(e){var dex=document.getElementById("dex");dex.textContent="Could not load cards.json: "+e;dex.style.color="#ff6b6b";});
 </script>
 </body>
 </html>

@@ -17,8 +17,6 @@ body:
       description: The CRUD operation.
       options:
         - create
-        - update
-        - delete
         - read
       default: 0
     validations:

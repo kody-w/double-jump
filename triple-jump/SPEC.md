@@ -39,7 +39,7 @@ A conforming run **MUST**:
 
 ```bash
 # CLI — one tournament, champion appended to the warehouse
-python3 harness/loop.py --triple-jump
+python3 -m harness.loop --triple-jump
 
 # Agent — through any RAPP brainstem
 #   action=triple_jump   → returns the champion + per-round deltas + a live hologram iframe

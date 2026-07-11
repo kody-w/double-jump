@@ -9,7 +9,7 @@ wallet, or crawler can fetch to render + verify + trade the Moment. The twist th
 a static JSON on the CDN, the hologram one URL away.
 
 Usage:  python3 tools/resolve_card.py            # resolve the champion (strongest holocard)
-        python3 tools/resolve_card.py --id @double-jump/frenzy-8-won-the-triple-jump
+        python3 tools/resolve_card.py --all      # materialize every active holocard
 """
 import argparse
 import base64
@@ -72,12 +72,38 @@ def resolve(card):
     }
 
 
+def _path_for(card):
+    slug = card["id"].split("/")[-1]
+    return os.path.join(ROOT, "resolve", slug + ".json")
+
+
+def _stable_write(path, document, check=False):
+    text = json.dumps(document, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    changed = text != old
+    if changed and not check:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(text)
+    return changed
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--id", help="card id; default = the champion (strongest)")
     ap.add_argument("--no-write", action="store_true")
+    ap.add_argument("--all", action="store_true", help="materialize metadata for every active card")
+    ap.add_argument("--check", action="store_true", help="exit nonzero when generated metadata is stale")
     a = ap.parse_args()
     cards = list(json.load(open(CARDS))["cards"].values())
+    if a.all:
+        changed = []
+        for item in cards:
+            path = _path_for(item)
+            if _stable_write(path, resolve(item), check=a.check):
+                changed.append(os.path.relpath(path, ROOT))
+        print(json.dumps({"resolved": len(cards), "changed": changed}, indent=2))
+        return 1 if a.check and changed else 0
     if a.id:
         card = next((c for c in cards if c["id"] == a.id), None)
         if not card:
@@ -87,10 +113,7 @@ def main():
     doc = resolve(card)
     slug = card["id"].split("/")[-1]
     if not a.no_write:
-        d = os.path.join(ROOT, "resolve")
-        os.makedirs(d, exist_ok=True)
-        path = os.path.join(d, slug + ".json")
-        open(path, "w").write(json.dumps(doc, indent=2, ensure_ascii=False) + "\n")
+        _stable_write(_path_for(card), doc, check=a.check)
     iframe = (f'<iframe src="{doc["animation_url"]}" width="480" height="480" loading="lazy" '
               f'style="border:0;border-radius:16px" title="{card["name"]}"></iframe>')
     print(json.dumps({
@@ -101,6 +124,7 @@ def main():
         "rappid": doc["rappid"],
         "embed": iframe,
     }, indent=2, ensure_ascii=False))
+    return 0
 
 
 if __name__ == "__main__":

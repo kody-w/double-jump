@@ -3,11 +3,11 @@
 ingest.py — the static-API CRUD executor (issue-ops).
 
 GitHub Pages can't write, so a submission is a GitHub **Issue** (the write endpoint). This tool is what
-the `ingest` workflow runs on each `moment-submit` issue: it parses the issue body, decodes the Moment
-share token, verifies it, and applies the CRUD op to the static warehouse (`warehouse/moments.json`),
-append-only and idempotent (the build.py stable-write convention — only real changes touch disk).
+the `ingest` workflow runs on each `moment-submit` issue: it parses the issue body, strictly decodes and
+validates the Moment share token, and applies a create/read operation to the content-addressed warehouse.
+Public update/delete remain disabled until signed lineage operations exist.
 
-  op = create | update | delete   (read = report only)
+  op = create | read
 
 Body source (first hit wins): argv[1] file path, $ISSUE_BODY, or stdin. Prints a JSON result the
 workflow posts back as a comment.
@@ -20,7 +20,10 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 from harness.moment import decode_token, encode_token          # noqa: E402
+from harness.store import load_state, save_state                # noqa: E402
 from harness.strength import strength                           # noqa: E402
+from harness.validation import moment_id                        # noqa: E402
+from harness.policy import PolicyViolation, new_budget         # noqa: E402
 
 WAREHOUSE = os.path.join(ROOT, "warehouse", "moments.json")
 PLAYER_BASE = "https://kody-w.github.io/rapp-hologram/"
@@ -66,29 +69,16 @@ def _find_token(sections, body):
     return max(cands, key=len) if cands else None
 
 
-def _load():
-    if os.path.exists(WAREHOUSE):
-        d = json.load(open(WAREHOUSE))
-        return d.get("moments", d if isinstance(d, list) else [])
-    return []
-
-
-def _save(moments):
-    os.makedirs(os.path.dirname(WAREHOUSE), exist_ok=True)
-    new = json.dumps({"moments": moments}, indent=2) + "\n"
-    old = open(WAREHOUSE).read() if os.path.exists(WAREHOUSE) else None
-    if new != old:
-        open(WAREHOUSE, "w").write(new)
-        return True
-    return False
-
-
 def main():
     body = _read_body()
     sec = _sections(body)
     op = (_strip_fence(sec.get("op", "create")) or "create").split()[0].lower()
-    if op not in ("create", "update", "delete", "read"):
-        op = "create"
+    if op not in ("create", "read"):
+        print(json.dumps({
+            "status": "error",
+            "error": "only create and read are public; update/delete require signed lineage operations",
+        }))
+        return 1
 
     token = _find_token(sec, body)
     if not token:
@@ -96,7 +86,6 @@ def main():
         return 1
     try:
         m = decode_token(token)
-        assert isinstance(m, dict) and m.get("k"), "not a Moment record"
     except Exception as e:
         print(json.dumps({"status": "error", "error": f"bad token: {e}"}))
         return 1
@@ -106,8 +95,10 @@ def main():
         print(json.dumps({"status": "rejected", "error": "Moment is not alive (strength 0)", "title": m.get("t")}))
         return 1
 
-    moments = _load()
-    tokens = [encode_token(x) for x in moments]
+    state = load_state(WAREHOUSE)
+    moments = state.moments
+    identifiers = {moment_id(x) for x in moments}
+    identifier = moment_id(m)
     tok = encode_token(m)
     result = {"op": op, "title": m.get("t"), "author": m.get("a"), "biome": m.get("b"),
               "keyframes": len(m.get("k", [])), "strength": s,
@@ -115,22 +106,26 @@ def main():
 
     if op == "read":
         result["status"] = "ok"
-        result["present"] = tok in tokens
-    elif op == "delete":
-        before = len(moments)
-        moments = [x for i, x in enumerate(moments) if tokens[i] != tok]
-        changed = _save(moments)
-        result["status"] = "deleted" if len(moments) < before else "absent"
-        result["changed"] = changed
-    else:  # create / update — upsert (append-only growth; identical re-submit is a no-op)
-        if tok in tokens:
+        result["present"] = identifier in identifiers
+    else:
+        if identifier in identifiers:
             result["status"] = "duplicate"
             result["changed"] = False
         else:
-            moments.append(m)
-            result["changed"] = _save(moments)
-            result["status"] = "created"
-    result["warehouse"] = len(moments)
+            if "roots" not in state.meta:
+                state.meta["roots"] = sorted(state.active_ids)
+            state.moments.append(m)
+            try:
+                budget = new_budget()
+                budget.authorize_side_effect("warehouse_write")
+                result["changed"] = save_state(state)
+                result["budget"] = budget.receipt()
+            except PolicyViolation as exc:
+                print(json.dumps(exc.as_dict()))
+                return 1
+            result["status"] = "submitted"
+    result["warehouse"] = len(state.moments)
+    result["active"] = len(state.active_moments)
     print(json.dumps(result, indent=2))
     return 0
 

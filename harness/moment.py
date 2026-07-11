@@ -17,6 +17,9 @@ import base64
 import json
 import random
 
+from .validation import decode_token as decode_validated_token
+from .validation import validate_moment
+
 BIOMES = ["savanna", "canyon", "forest", "volcanic", "void"]
 LIN = ["s", "l", "p", "g"]          # 0..1 fields
 DRIFT = ["x", "z"]                   # -1..1 drift
@@ -28,14 +31,13 @@ def _clamp(v, lo, hi):
 
 def encode_token(m):
     """Canonical share token: base64url(compact-JSON), padding stripped. Matches moment.js encode()."""
-    raw = json.dumps(m, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    validate_moment(m)
+    raw = json.dumps(m, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
     return base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
 
 
 def decode_token(token):
-    pad = "=" * (-len(token) % 4)
-    raw = base64.urlsafe_b64decode(token + pad)
-    return json.loads(raw.decode("utf-8"))
+    return decode_validated_token(token)
 
 
 def _frame(rng, at):
@@ -54,13 +56,14 @@ def mint(seed=None, n=None, biome=None, title=None, author="@double-jump"):
     n = n if n else rng.randint(2, 4)
     ats = [0] + sorted(rng.sample(range(1, 99), max(0, n - 2))) + [99] if n >= 2 else [0, 99]
     k = [_frame(rng, at) for at in ats]
-    return {
+    moment = {
         "v": 1,
         "t": title or f"Mint {rng.randint(1000, 9999)}",
         "a": author,
         "b": biome or rng.choice(BIOMES),
         "k": k,
     }
+    return validate_moment(moment)
 
 
 def _value_at(k, at):
@@ -90,6 +93,7 @@ def improve(m, boost=1, seed=None):
     This deepens articulation (more keyframes), motion (x/z drift), glow (g), and spikes (p) — the exact
     terms the strength function rewards — while staying within bounds and keeping at[0]=0, at[-1]=99.
     `boost` controls how aggressively to enrich (higher = stronger jump)."""
+    validate_moment(m)
     rng = random.Random(seed)
     k = sorted((dict(f) for f in m.get("k", [])), key=lambda f: f["at"])
     if len(k) < 2:
@@ -123,4 +127,37 @@ def improve(m, boost=1, seed=None):
     out["k"] = k
     base_t = m.get("t", "Moment").split(" · ")[0]
     out["t"] = f"{base_t} · double-jumped"
-    return out
+    return validate_moment(out)
+
+
+def draft_improvements(m):
+    """Return three deterministic, non-persistent evolution choices for the player lab."""
+    validate_moment(m)
+    base_title = m["t"].split(" · ")[0]
+    drafts = []
+
+    motion = improve(m, boost=2, seed=101)
+    for index, frame in enumerate(motion["k"]):
+        direction = 1 if index % 2 == 0 else -1
+        frame["x"] = round(_clamp(frame["x"] + direction * 0.28, -1, 1), 3)
+        frame["z"] = round(_clamp(frame["z"] - direction * 0.24, -1, 1), 3)
+    motion["t"] = f"{base_title} · motion draft"
+    drafts.append(("motion", validate_moment(motion)))
+
+    articulation = improve(m, boost=4, seed=202)
+    for index, frame in enumerate(articulation["k"]):
+        direction = 1 if index % 2 == 0 else -1
+        frame["s"] = round(_clamp(frame["s"] + direction * 0.12, 0, 1), 3)
+        frame["l"] = round(_clamp(frame["l"] - direction * 0.08, 0, 1), 3)
+    articulation["t"] = f"{base_title} · articulation draft"
+    drafts.append(("articulation", validate_moment(articulation)))
+
+    radiance = improve(m, boost=2, seed=303)
+    for index, frame in enumerate(radiance["k"]):
+        frame["g"] = round(_clamp(frame["g"] + 0.14, 0, 1), 3)
+        frame["p"] = round(_clamp(frame["p"] + 0.10, 0, 1), 3)
+        frame["h"] = round((frame["h"] + 35 + index * 7) % 360, 2)
+    radiance["t"] = f"{base_title} · radiance draft"
+    drafts.append(("radiance", validate_moment(radiance)))
+
+    return drafts

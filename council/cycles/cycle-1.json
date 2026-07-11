@@ -1,0 +1,23 @@
+{
+  "schema": "double-jump-council-summary/1.0",
+  "cycle_id": "cycle-1",
+  "label": "Eight-strategy cycle 1",
+  "created_at": "2026-07-10T22:00:00-04:00",
+  "snapshot_digest": "sha256:7797afbf9f1aa43cda8a742d1f5cd50f8af21ab278d456677d64450a2cc0e54e",
+  "status": "complete",
+  "strategies": [
+    "evolution",
+    "orchestration",
+    "trust",
+    "game",
+    "experience",
+    "fitness",
+    "reliability",
+    "product"
+  ],
+  "top_three": [
+    "active-frontier-ledger-and-catalog",
+    "strict-validation-conformance-and-invariants",
+    "local-brainstem-improver-protocol"
+  ]
+}

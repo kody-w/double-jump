@@ -1,0 +1,65 @@
+{
+  "@context": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "@type": "rappid:moment",
+  "$schema": "erc721-metadata-compatible",
+  "name": "Stillness 3",
+  "description": "A living volcanic hologram — 2 heartbeats, strength 0.2228. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.2228. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgzNTAgODAlIDYxJSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyYTBlMGUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgzNTAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI2MCIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMzAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48dGV4dCB4PSI2MCIgeT0iMTEyIiBmb250LXNpemU9IjkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNyIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSI+dm9sY2FuaWMgwrcgMmY8L3RleHQ+PC9zdmc+",
+  "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
+  "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
+  "attributes": [
+    {
+      "trait_type": "Biome",
+      "value": "volcanic"
+    },
+    {
+      "trait_type": "Keyframes",
+      "value": 2
+    },
+    {
+      "trait_type": "Strength",
+      "value": 0.2228
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Author (twin)",
+      "value": "@twin"
+    },
+    {
+      "trait_type": "Signed",
+      "value": false
+    },
+    {
+      "trait_type": "ATK · motion",
+      "value": 8
+    },
+    {
+      "trait_type": "DEF · vitality",
+      "value": 100
+    },
+    {
+      "trait_type": "SPD · spikes",
+      "value": 14
+    },
+    {
+      "trait_type": "INT · articulation",
+      "value": 25
+    }
+  ],
+  "rappid": "rappid:moment:7f8ec16b2106f1bc8d72006e8a03169946004bd74bfa3f59e2e45e76aaca128c",
+  "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDMgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJ2b2xjYW5pYyIsImsiOlt7ImF0IjowLCJzIjowLjUzOCwibCI6MC41MjEsInAiOjAuMTQyLCJnIjowLjYyNCwiaCI6MzUwLCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzgsImwiOjAuNTIxLCJwIjowLjE0MiwiZyI6MC44MjQsImgiOjIxLCJ4IjowLCJ6IjowLjJ9XX0",
+  "born": null,
+  "owner": "@twin",
+  "sig_suite": "ecdsa-p256",
+  "chain": {
+    "repo": "kody-w/double-jump",
+    "kind": "git-blockchain",
+    "validator": "https://github.com/kody-w/double-jump/commits/main/warehouse/moments.json"
+  },
+  "dimension": "rappid:dimension:0c0ba7d21766be26e61700893fd94",
+  "spec": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "sources": []
+}

@@ -40,6 +40,15 @@ real agents loaded on that brainstem — calling up to real compute while its *s
 
 > `POST http://localhost:7071/chat` — the local brainstem. The twin reaches up to it; it does not embed it.
 
+`python3 -m harness.loop --improver brainstem` uses that loopback contract. The brainstem authors a
+candidate from a structured challenge; strict validation and the published scorer decide whether it
+clears the bar. Remote hosts are rejected, failures do not silently fall back, and no candidate moves the
+frontier without an acceptance receipt.
+
+`--improver copilot-cli` is the no-second-login driver: it uses the operator's existing authenticated
+`gh copilot` session as the intelligence provider, with tools disabled, then feeds the result through the
+same strict brainstem proposal gate.
+
 ### 3b. The global Moment platform — fork → PR, never a shove
 To make an improvement show **globally** (on the real platform's feed,
 `kody-w/rapp-commons/hologram/moments.json`), the twin **opens a pull request** — it never pushes to that

@@ -1,0 +1,65 @@
+{
+  "@context": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "@type": "rappid:moment",
+  "$schema": "erc721-metadata-compatible",
+  "name": "Frenzy 6",
+  "description": "A living canyon hologram — 6 heartbeats, strength 0.5953. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.5953. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgyNDcgODAlIDU0JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyYTFjMGUiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgyNDcgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSIzMiIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMjg3IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNDYiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDMyNyA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iODAiIHI9IjciIGZpbGw9ImhzbCg3IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDQ3IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iODgiIGN5PSI4MCIgcj0iNyIgZmlsbD0iaHNsKDg3IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PHRleHQgeD0iNjAiIHk9IjExMiIgZm9udC1zaXplPSI5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjciIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiPmNhbnlvbiDCtyA2ZjwvdGV4dD48L3N2Zz4=",
+  "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
+  "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
+  "attributes": [
+    {
+      "trait_type": "Biome",
+      "value": "canyon"
+    },
+    {
+      "trait_type": "Keyframes",
+      "value": 6
+    },
+    {
+      "trait_type": "Strength",
+      "value": 0.5953
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Author (twin)",
+      "value": "@brainstem"
+    },
+    {
+      "trait_type": "Signed",
+      "value": false
+    },
+    {
+      "trait_type": "ATK · motion",
+      "value": 70
+    },
+    {
+      "trait_type": "DEF · vitality",
+      "value": 100
+    },
+    {
+      "trait_type": "SPD · spikes",
+      "value": 49
+    },
+    {
+      "trait_type": "INT · articulation",
+      "value": 75
+    }
+  ],
+  "rappid": "rappid:moment:f5e5ff9a0e7fba46c9c274e20a9967cde0f0444e0a67986882cfb978a12e101c",
+  "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDYgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6ImNhbnlvbiIsImsiOlt7ImF0IjowLCJzIjowLjA4LCJsIjowLjk2MiwicCI6MC43MDcsImciOjAuNzEyLCJoIjoyNDcsIngiOi0wLjYsInoiOi0wLjU4NH0seyJhdCI6MjAsInMiOjAuMTA3LCJsIjowLjY5NiwicCI6MC41MSwiZyI6MC40NDksImgiOjI1MSwieCI6LTAuNTAyLCJ6IjowLjEzM30seyJhdCI6NDAsInMiOjAuNjE2LCJsIjowLjE5LCJwIjowLjYyOCwiZyI6MC40MzMsImgiOjMxLCJ4IjowLjQxMywieiI6LTAuMTk1fSx7ImF0Ijo1OSwicyI6MC4wNTQsImwiOjAuNDQ0LCJwIjowLjU0NiwiZyI6MC4wNTUsImgiOjE3NSwieCI6MC42ODcsInoiOi0wLjA3Mn0seyJhdCI6NzksInMiOjAuNzkxLCJsIjowLjExOCwicCI6MC4wMjQsImciOjAuNzcyLCJoIjoyOTksIngiOjAuMjQ1LCJ6IjotMC43NjJ9LHsiYXQiOjk5LCJzIjowLjA4OSwibCI6MC45NCwicCI6MC43OSwiZyI6MC41NjUsImgiOjI1OCwieCI6LTAuNDMxLCJ6IjotMC45Mzl9XX0",
+  "born": null,
+  "owner": "@brainstem",
+  "sig_suite": "ecdsa-p256",
+  "chain": {
+    "repo": "kody-w/double-jump",
+    "kind": "git-blockchain",
+    "validator": "https://github.com/kody-w/double-jump/commits/main/warehouse/moments.json"
+  },
+  "dimension": "rappid:dimension:0c0ba7d21766be26e61700893fd94",
+  "spec": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "sources": []
+}

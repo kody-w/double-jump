@@ -1,0 +1,65 @@
+{
+  "@context": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "@type": "rappid:moment",
+  "$schema": "erc721-metadata-compatible",
+  "name": "Stillness 11",
+  "description": "A living canyon hologram — 2 heartbeats, strength 0.1968. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.1968. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCg1NSA4MCUgNTglKSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzJhMWMwZSIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iMTgiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDU1IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNjAiIGN5PSI4MCIgcj0iNyIgZmlsbD0iaHNsKDk1IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PHRleHQgeD0iNjAiIHk9IjExMiIgZm9udC1zaXplPSI5IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIiBvcGFjaXR5PSIwLjciIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiPmNhbnlvbiDCtyAyZjwvdGV4dD48L3N2Zz4=",
+  "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+  "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+  "attributes": [
+    {
+      "trait_type": "Biome",
+      "value": "canyon"
+    },
+    {
+      "trait_type": "Keyframes",
+      "value": 2
+    },
+    {
+      "trait_type": "Strength",
+      "value": 0.1968
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Author (twin)",
+      "value": "@twin"
+    },
+    {
+      "trait_type": "Signed",
+      "value": false
+    },
+    {
+      "trait_type": "ATK · motion",
+      "value": 8
+    },
+    {
+      "trait_type": "DEF · vitality",
+      "value": 100
+    },
+    {
+      "trait_type": "SPD · spikes",
+      "value": 1
+    },
+    {
+      "trait_type": "INT · articulation",
+      "value": 25
+    }
+  ],
+  "rappid": "rappid:moment:c38d7e21b7845acde0e9075f67f3d7e65fbc716f0091a7e72f233d927f4dfc71",
+  "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDExIMK3IHdvbiB0aGUgdHJpcGxlIGp1bXAiLCJhIjoiQHR3aW4iLCJiIjoiY2FueW9uIiwiayI6W3siYXQiOjAsInMiOjAuNTIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNTIzLCJoIjo1NSwieCI6MCwieiI6LTAuMn0seyJhdCI6OTksInMiOjAuNjIxLCJsIjowLjQzOCwicCI6MC4wMDYsImciOjAuNzIzLCJoIjo5NiwieCI6MCwieiI6MC4yfV19",
+  "born": null,
+  "owner": "@twin",
+  "sig_suite": "ecdsa-p256",
+  "chain": {
+    "repo": "kody-w/double-jump",
+    "kind": "git-blockchain",
+    "validator": "https://github.com/kody-w/double-jump/commits/main/warehouse/moments.json"
+  },
+  "dimension": "rappid:dimension:0c0ba7d21766be26e61700893fd94",
+  "spec": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "sources": []
+}

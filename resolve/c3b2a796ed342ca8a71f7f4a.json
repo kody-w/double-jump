@@ -1,0 +1,65 @@
+{
+  "@context": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "@type": "rappid:moment",
+  "$schema": "erc721-metadata-compatible",
+  "name": "Frenzy 4",
+  "description": "A living void hologram — 5 heartbeats, strength 0.6288. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.6288. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCg3OCA4MCUgNTclKSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzBhMGExNiIvPjwvcmFkaWFsR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSJ1cmwoI2cpIi8+PGNpcmNsZSBjeD0iMTgiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDc4IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iMzUiIGN5PSI4MCIgcj0iNyIgZmlsbD0iaHNsKDExOCA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjxjaXJjbGUgY3g9IjUyIiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgxNTggNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI2OCIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMTk4IDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iODUiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDIzOCA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj52b2lkIMK3IDVmPC90ZXh0Pjwvc3ZnPg==",
+  "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
+  "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
+  "attributes": [
+    {
+      "trait_type": "Biome",
+      "value": "void"
+    },
+    {
+      "trait_type": "Keyframes",
+      "value": 5
+    },
+    {
+      "trait_type": "Strength",
+      "value": 0.6288
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Author (twin)",
+      "value": "@brainstem"
+    },
+    {
+      "trait_type": "Signed",
+      "value": false
+    },
+    {
+      "trait_type": "ATK · motion",
+      "value": 100
+    },
+    {
+      "trait_type": "DEF · vitality",
+      "value": 100
+    },
+    {
+      "trait_type": "SPD · spikes",
+      "value": 43
+    },
+    {
+      "trait_type": "INT · articulation",
+      "value": 62
+    }
+  ],
+  "rappid": "rappid:moment:b15e049429eb933ed3f96f94bd9f7f64544c13cf45568c72b73e5144f8169569",
+  "token": "eyJ2IjoxLCJ0IjoiRnJlbnp5IDQgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAYnJhaW5zdGVtIiwiYiI6InZvaWQiLCJrIjpbeyJhdCI6MCwicyI6MC41LCJsIjowLjAzMiwicCI6MC41MDcsImciOjAuMzcxLCJoIjo3OCwieCI6MC44OCwieiI6LTAuODUzfSx7ImF0IjoyNSwicyI6MC4xMzksImwiOjAuMzU1LCJwIjowLjg5NSwiZyI6MC43MTEsImgiOjIwOCwieCI6LTAuMzc1LCJ6IjowLjk0NX0seyJhdCI6NTAsInMiOjAuMDMzLCJsIjowLjMyMSwicCI6MC4xMDYsImciOjAuNjk2LCJoIjoyODksIngiOjAuNTI2LCJ6IjotMC4yMzN9LHsiYXQiOjc0LCJzIjowLjUzOSwibCI6MC41MjksInAiOjAuNDI1LCJnIjowLjcwNiwiaCI6Mjk0LCJ4IjotMC4zMSwieiI6LTAuMzc0fSx7ImF0Ijo5OSwicyI6MC42OTYsImwiOjAuNDgsInAiOjAuMDQ4LCJnIjowLjAyOSwiaCI6NDAsIngiOi0wLjcwNywieiI6LTAuMDA4fV19",
+  "born": null,
+  "owner": "@brainstem",
+  "sig_suite": "ecdsa-p256",
+  "chain": {
+    "repo": "kody-w/double-jump",
+    "kind": "git-blockchain",
+    "validator": "https://github.com/kody-w/double-jump/commits/main/warehouse/moments.json"
+  },
+  "dimension": "rappid:dimension:0c0ba7d21766be26e61700893fd94",
+  "spec": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "sources": []
+}

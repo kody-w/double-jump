@@ -1,0 +1,14 @@
+{
+  "schema": "double-jump-fitness-profiles/1.0",
+  "active": "double-jump-strength/1.0",
+  "profiles": {
+    "double-jump-strength/1.0": {
+      "status": "historical",
+      "description": "Original vitality-gated articulation, motion, jerk, glow, spike, and variance score."
+    },
+    "double-jump-strength/2.0": {
+      "status": "experimental",
+      "description": "Balance-seeking profile with effective articulation, saturation targets, smoothness, quality-floor coupling, and clipping penalties."
+    }
+  }
+}

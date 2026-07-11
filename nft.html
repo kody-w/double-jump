@@ -50,15 +50,15 @@
   .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
   .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
   .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
-  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none;overflow-x:auto}.djnav a{padding:7px 9px;font-size:12px}}
   body{padding-top:62px}
 </style>
 </head>
 <body>
-<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html" class="active">Market</a></nav>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html" class="active">Metadata</a><a href="evolution.html">Evolution</a></nav>
 <div class="top">
   <h1>Holo<span class="b">Market</span></h1>
-  <span class="badge">⛓ 100% on-chain art · serverless · the art is alive</span>
+  <span class="badge">Git-backed metadata preview · unsigned · the art is alive</span>
   <span style="flex:1"></span>
   <a href="pokedex.html" style="color:var(--blue);text-decoration:none;font-size:13px">← Holodex</a>
 </div>
@@ -67,7 +67,7 @@
   <div class="media">
     <div class="live">
       <span class="tag">▶ live · walkable · 100 frames</span>
-      <iframe id="frame" title="hologram"></iframe>
+      <iframe id="frame" title="hologram" sandbox="allow-scripts"></iframe>
       <a class="full" id="full" target="_blank">⤢ open</a>
     </div>
   </div>
@@ -76,7 +76,7 @@
     <div class="name" id="name">…</div>
     <span class="rar" id="rar"></span>
     <div class="price"><span class="p" id="price">—</span><span class="u">≈ strength × 10 Ξ (vibes)</span></div>
-    <div class="buy"><button class="b1">Place bid</button><button class="b2">Make offer</button></div>
+    <div class="buy"><button class="b2" disabled>Metadata preview — not listed for sale</button></div>
     <div class="share"><button onclick="copyLink()">🔗 Copy link</button><button onclick="copyEmbed()">⧉ Copy embed</button><button onclick="shareNative()">📤 Share</button><button onclick="tweet()">𝕏 Tweet</button></div>
     <div class="traits" id="traits"></div>
     <div class="meta" id="meta"></div>
@@ -91,8 +91,10 @@ var SPEC="https://github.com/kody-w/rapp-moment/blob/main/SPEC.md";
 var COMMONS="rappid:dimension:0c0ba7d21766be26e61700893fd94";
 var RAW="https://raw.githubusercontent.com/kody-w/double-jump/main/resolve/";
 var CARDS=[],CUR=null;
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function playOf(c){return "https://kody-w.github.io/rapp-hologram/?m="+encodeURIComponent(c.holo.token);}
 function curUrl(){return location.origin+location.pathname+"?id="+(CUR?CUR.id.split("/").pop():"");}
-function curEmbed(){return CUR?'<iframe src="'+CUR.holo.play_url+'" width="480" height="480" style="border:0;border-radius:16px" title="'+CUR.name+'"></iframe>':"";}
+function curEmbed(){return CUR?'<iframe src="'+playOf(CUR)+'" width="480" height="480" sandbox="allow-scripts" style="border:0;border-radius:16px" title="'+String(CUR.name).replace(/"/g,"&quot;")+'"></iframe>':"";}
 function toast(t){var e=document.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(function(){e.style.display="none";},1900);}
 function copyLink(){navigator.clipboard.writeText(curUrl()).then(function(){toast("🔗 link copied — opens this exact creature");});}
 function copyEmbed(){navigator.clipboard.writeText(curEmbed()).then(function(){toast("⧉ embed copied — paste the live hologram anywhere");});}
@@ -104,9 +106,9 @@ function setMeta(prop,val){var key=prop.indexOf("og:")===0?"property":"name";var
 async function sha256hex(s){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
   return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0");}).join("");}
 async function resolve(c){
-  var h=c.holo, rid="rappid:moment:"+await sha256hex("moment:"+h.token), s=c.stats;
+  var h=c.holo,play=playOf(c),rid="rappid:moment:"+await sha256hex("moment:"+h.token), s=c.stats;
   return {name:c.name,description:c.flavor_text,image:"data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(c.avatar_svg))),
-    animation_url:h.play_url,external_url:h.play_url,rappid:rid,sig_suite:"ecdsa-p256",dimension:COMMONS,spec:SPEC,
+    animation_url:play,external_url:play,rappid:rid,sig_suite:"ecdsa-p256",dimension:COMMONS,spec:SPEC,
     chain:{repo:"kody-w/double-jump",kind:"git-blockchain"},
     attributes:[{trait_type:"Biome",value:h.biome},{trait_type:"Strength",value:h.strength},
       {trait_type:"Keyframes",value:h.keyframes},{trait_type:"Rarity",value:c.rarity_label},
@@ -123,10 +125,10 @@ async function show(c){
   var rar=document.getElementById("rar");rar.textContent=c.rarity_label;rar.style.background=RAR[c.rarity_tier]||"#aab2c5";
   document.getElementById("price").textContent=(c.holo.strength*10).toFixed(2)+" Ξ";
   document.getElementById("traits").innerHTML=d.attributes.map(function(a){
-    return '<div class="tr"><div class="k">'+a.trait_type+'</div><div class="v">'+a.value+'</div></div>';}).join("");
+    return '<div class="tr"><div class="k">'+esc(a.trait_type)+'</div><div class="v">'+esc(a.value)+'</div></div>';}).join("");
   document.getElementById("meta").innerHTML=
-    '<div><b>rappid</b> <code>'+d.rappid.slice(0,38)+'…</code></div>'+
-    '<div style="margin-top:6px"><b>tokenURI</b> (the static metadata a marketplace fetches): <a href="'+d._tokenuri+'" target="_blank">'+d._tokenuri+'</a></div>'+
+    '<div><b>rappid</b> <code>'+esc(d.rappid.slice(0,38))+'…</code></div>'+
+    '<div style="margin-top:6px"><b>tokenURI</b> (static ERC-721-compatible metadata): <a href="'+esc(d._tokenuri)+'" target="_blank" rel="noopener">'+esc(d._tokenuri)+'</a></div>'+
     '<div style="margin-top:6px"><b>animation_url</b> = the live hologram itself · <b>image</b> = a self-contained SVG data-URI · <b>chain</b> = git. No server anywhere.</div>';
   [].forEach.call(document.querySelectorAll("#switch button"),function(b){b.classList.toggle("on",b.dataset.id===c.id);});
   CUR=c;
@@ -137,7 +139,7 @@ async function show(c){
   setMeta("twitter:card","summary_large_image");
   setMeta("twitter:title",c.name+" — living holographic NFT");
 }
-fetch("cards.json").then(function(r){return r.json();}).then(function(d){
+fetch("cards.json").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(d){
   CARDS=Object.values(d.cards).sort(function(a,b){return b.holo.strength-a.holo.strength;});
   var sw=document.getElementById("switch");
   CARDS.forEach(function(c){var b=document.createElement("button");b.dataset.id=c.id;

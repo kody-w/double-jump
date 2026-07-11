@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- (c) 2026 Kody Wildfeuer · PolyForm Noncommercial 1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolution Lab — Double Jump</title>
+<style>
+  :root{--bg:#090d15;--panel:#141a27;--line:#273047;--txt:#e8ecf4;--mut:#929bb0;--ac:#35e0c0;--blue:#7d91ff;--bad:#ff8585}
+  *{box-sizing:border-box}body{margin:0;padding:76px 20px 60px;background:radial-gradient(900px 500px at 50% -10%,#17213a,var(--bg));color:var(--txt);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  main{max-width:1180px;margin:auto}h1{font-size:clamp(1.8rem,5vw,3rem);margin:0}h1 span{color:var(--ac)}.lede{color:var(--mut);max-width:760px}
+  .target{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin:20px 0}.target b{color:var(--ac)}
+  .drafts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}@media(max-width:850px){.drafts{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}.card iframe{width:100%;aspect-ratio:1;border:0;display:block;background:#05060a}.body{padding:14px}
+  .profile{text-transform:uppercase;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.07em}.score{font-size:22px;font-weight:800}.meta{color:var(--mut);font-size:12px}.ok{color:var(--ac)}.short{color:var(--bad)}
+  .axes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}.axis{background:#0d121c;border-radius:8px;padding:7px}.axis span{display:block;color:var(--mut);font-size:10px;text-transform:uppercase}.axis b{font-size:13px}
+  button,.issue{display:block;width:100%;border:1px solid var(--blue);border-radius:10px;padding:10px;background:var(--blue);color:#080b12;font:inherit;font-weight:750;text-align:center;text-decoration:none;cursor:pointer;margin-top:8px}
+  button:disabled{background:#242b3a;color:#737b8f;border-color:#343c4e;cursor:not-allowed}.issue{background:transparent;color:var(--txt);border-color:var(--line)}
+  #status{min-height:24px;margin:16px 0;color:var(--ac)}.djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.9);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw;overflow-x:auto}
+  .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:var(--ac);font-weight:800}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none}.djnav a{padding:7px 9px;font-size:12px}}
+</style>
+</head>
+<body>
+<nav class="djnav" aria-label="Primary"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html" class="active" aria-current="page">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
+<main>
+  <h1>Evolution <span>Lab</span></h1>
+  <p class="lede">Choose one deterministic draft for the active weakest organism. This is a local,
+  reversible preview: copying or submitting a token does not move the canonical frontier until the
+  deterministic harness verifies and accepts it.</p>
+  <div class="target" id="target">Loading the active challenge…</div>
+  <div class="drafts" id="drafts"></div>
+  <div id="status" role="status" aria-live="polite"></div>
+</main>
+<script>
+"use strict";
+var PLAYER="https://kody-w.github.io/rapp-hologram/";
+function encodeToken(m){return btoa(unescape(encodeURIComponent(JSON.stringify(m)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");}
+function node(tag,cls,text){var el=document.createElement(tag);if(cls)el.className=cls;if(text!=null)el.textContent=text;return el;}
+function axis(name,value){var el=node("div","axis"),label=node("span","",name),score=node("b","",Number(value).toFixed(3));el.appendChild(label);el.appendChild(score);return el;}
+function copyText(text){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(text);var area=node("textarea");area.value=text;document.body.appendChild(area);area.select();document.execCommand("copy");area.remove();return Promise.resolve();}
+fetch("warehouse/frontier.json").then(function(response){if(!response.ok)throw new Error("HTTP "+response.status);return response.json();}).then(function(frontier){
+  var draft=frontier.draft;if(!draft||!draft.profiles||!draft.profiles.length)throw new Error("no active draft");
+  var targetEntry=frontier.entries.find(function(entry){return entry.id===draft.target_id;});
+  document.getElementById("target").replaceChildren(
+    document.createTextNode("Current target: "),
+    node("b","",targetEntry.moment.t),
+    document.createTextNode(" · strength "+targetEntry.strength.toFixed(4)+" · bar "+draft.bar.toFixed(4))
+  );
+  var host=document.getElementById("drafts");
+  draft.profiles.forEach(function(choice){
+    var card=node("article","card"),token=encodeToken(choice.moment);
+    var frame=node("iframe");frame.src=PLAYER+"?m="+token;frame.title=choice.profile+" evolution preview";frame.loading="lazy";frame.setAttribute("sandbox","allow-scripts");card.appendChild(frame);
+    var body=node("div","body");body.appendChild(node("div","profile",choice.profile));
+    body.appendChild(node("div","score",choice.strength.toFixed(4)));
+    body.appendChild(node("div",choice.cleared?"ok":"short",choice.cleared?"Clears the canonical bar":"Short of "+draft.bar.toFixed(4)));
+    body.appendChild(node("div","meta","experimental v2 score "+choice.strength_v2.toFixed(4)+" · digest "+choice.id.slice(7,19)));
+    var axes=node("div","axes");["articulation","motion","glow","spike","variance","vitality"].forEach(function(name){axes.appendChild(axis(name,choice.components[name]));});body.appendChild(axes);
+    var choose=node("button","",choice.cleared?"Choose and copy token":"Cannot choose: bar not cleared");choose.disabled=!choice.cleared;
+    choose.onclick=function(){copyText(token).then(function(){localStorage.setItem("double-jump-draft",JSON.stringify({target:draft.target_id,choice:choice.id,profile:choice.profile,token:token}));document.getElementById("status").textContent=choice.profile+" draft copied. Submit it for canonical verification when ready.";});};body.appendChild(choose);
+    var issue=node("a","issue","Open validated submission issue");issue.href="https://github.com/kody-w/double-jump/issues/new?template=submit.yml";issue.target="_blank";issue.rel="noopener";body.appendChild(issue);
+    card.appendChild(body);host.appendChild(card);
+  });
+}).catch(function(error){document.getElementById("target").textContent="Evolution challenge unavailable: "+error;});
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+{
+  "@context": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "@type": "rappid:moment",
+  "$schema": "erc721-metadata-compatible",
+  "name": "Ascent 5",
+  "description": "A living savanna hologram — 3 heartbeats, strength 0.3231. A living holographic Moment — 100 frames, one heartbeat each. The card's art IS the walkable creature; it plays serverlessly from a CDN. Strength 0.3231. https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+  "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48ZGVmcz48cmFkaWFsR3JhZGllbnQgaWQ9ImciIGN4PSI1MCUiIGN5PSIzOCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9ImhzbCgxODAgODAlIDU2JSkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxYzJhMTQiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0idXJsKCNnKSIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iNjAiIHI9IjciIGZpbGw9ImhzbCgxODAgNzUlIDYwJSkiIG9wYWNpdHk9IjAuOTIiLz48Y2lyY2xlIGN4PSI0NiIgY3k9IjgwIiByPSI3IiBmaWxsPSJoc2woMjIwIDc1JSA2MCUpIiBvcGFjaXR5PSIwLjkyIi8+PGNpcmNsZSBjeD0iNzQiIGN5PSI2MCIgcj0iNyIgZmlsbD0iaHNsKDI2MCA3NSUgNjAlKSIgb3BhY2l0eT0iMC45MiIvPjx0ZXh0IHg9IjYwIiB5PSIxMTIiIGZvbnQtc2l6ZT0iOSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmZiIgb3BhY2l0eT0iMC43IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIj5zYXZhbm5hIMK3IDNmPC90ZXh0Pjwvc3ZnPg==",
+  "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+  "external_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+  "attributes": [
+    {
+      "trait_type": "Biome",
+      "value": "savanna"
+    },
+    {
+      "trait_type": "Keyframes",
+      "value": 3
+    },
+    {
+      "trait_type": "Strength",
+      "value": 0.3231
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Author (twin)",
+      "value": "@claude"
+    },
+    {
+      "trait_type": "Signed",
+      "value": false
+    },
+    {
+      "trait_type": "ATK · motion",
+      "value": 14
+    },
+    {
+      "trait_type": "DEF · vitality",
+      "value": 100
+    },
+    {
+      "trait_type": "SPD · spikes",
+      "value": 31
+    },
+    {
+      "trait_type": "INT · articulation",
+      "value": 38
+    }
+  ],
+  "rappid": "rappid:moment:2153eefe31dd8ff4cf1994dd10c74f73c860c0c6e9d584948a70ddaf80e46d6b",
+  "token": "eyJ2IjoxLCJ0IjoiQXNjZW50IDUgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAY2xhdWRlIiwiYiI6InNhdmFubmEiLCJrIjpbeyJhdCI6MCwicyI6MC4xNjMsImwiOjAuMiwicCI6MCwiZyI6MC4xLCJoIjoxODAsIngiOi0wLjMwNSwieiI6MH0seyJhdCI6NTAsInMiOjAuNTIsImwiOjAuNSwicCI6MC4zNSwiZyI6MC42LCJoIjoyODEsIngiOjAsInoiOjAuMTM1fSx7ImF0Ijo5OSwicyI6MC45NTUsImwiOjAuNywicCI6MC41MzQsImciOjAuOSwiaCI6MjMsIngiOjAuMjM4LCJ6IjowLjR9XX0",
+  "born": null,
+  "owner": "@claude",
+  "sig_suite": "ecdsa-p256",
+  "chain": {
+    "repo": "kody-w/double-jump",
+    "kind": "git-blockchain",
+    "validator": "https://github.com/kody-w/double-jump/commits/main/warehouse/moments.json"
+  },
+  "dimension": "rappid:dimension:0c0ba7d21766be26e61700893fd94",
+  "spec": "https://github.com/kody-w/rapp-moment/blob/main/SPEC.md",
+  "sources": []
+}

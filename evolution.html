@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- (c) 2026 Kody Wildfeuer · PolyForm Noncommercial 1.0.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evolution Observatory — Double Jump</title>
+<style>
+  :root{--bg:#090d15;--panel:#141a27;--line:#273047;--txt:#e8ecf4;--mut:#929bb0;--ac:#35e0c0;--blue:#7d91ff;--gold:#ffd24a}
+  *{box-sizing:border-box}body{margin:0;padding:76px 20px 60px;background:radial-gradient(900px 500px at 50% -10%,#17213a,var(--bg));color:var(--txt);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  main{max-width:1120px;margin:auto}h1{margin:0;font-size:clamp(1.8rem,5vw,3rem)}h1 span{color:var(--ac)}
+  .lede{color:var(--mut);max-width:760px}.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0}
+  .metric,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px}.metric{padding:13px}.metric b{display:block;font-size:22px}.metric span{font-size:11px;color:var(--mut);text-transform:uppercase}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+  .panel{padding:17px}.panel h2{font-size:16px;margin:0 0 12px}.row{border-top:1px solid var(--line);padding:11px 0}.row:first-of-type{border-top:0}
+  .title{font-weight:750}.meta{color:var(--mut);font-size:12px}.active{color:var(--ac)}.retired{color:#ff8c8c}.hash{font:11px ui-monospace,SFMono-Regular,monospace;color:var(--blue)}
+  .features{margin:7px 0 0;padding-left:20px}.status{display:inline-block;border:1px solid #31584e;color:var(--ac);border-radius:999px;padding:2px 8px;font-size:11px}
+  .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.9);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw;overflow-x:auto}
+  .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}.djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:var(--ac);font-weight:800}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none}.djnav a{padding:7px 9px;font-size:12px}}
+</style>
+</head>
+<body>
+<nav class="djnav" aria-label="Primary"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html" class="active" aria-current="page">Evolution</a></nav>
+<main>
+  <h1>Evolution <span>Observatory</span></h1>
+  <p class="lede">Every accepted organism jump and every eight-strategy product decision is inspectable.
+  The intelligence proposes; deterministic gates decide; hash-linked receipts preserve what happened.</p>
+  <div class="summary" id="summary" aria-live="polite"></div>
+  <div class="grid">
+    <section class="panel"><h2>Living lineage atlas</h2><div id="lineages">Loading lineages…</div></section>
+    <section class="panel"><h2>Open evolution council</h2><div id="cycles">Loading council receipts…</div></section>
+  </div>
+</main>
+<script>
+"use strict";
+function node(tag,cls,text){var el=document.createElement(tag);if(cls)el.className=cls;if(text!=null)el.textContent=text;return el;}
+function short(id){return id?String(id).replace(/^sha256:/,"").slice(0,12):"root";}
+function metric(label,value){var el=node("div","metric"),b=node("b","",value),s=node("span","",label);el.appendChild(b);el.appendChild(s);return el;}
+function load(url){return fetch(url).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();});}
+Promise.all([load("warehouse/lineages.json"),load("council/index.json")]).then(function(values){
+  var lineages=values[0],index=values[1],summary=document.getElementById("summary");
+  summary.appendChild(metric("Unique artifacts",lineages.artifacts));
+  summary.appendChild(metric("Active frontier",lineages.active));
+  summary.appendChild(metric("Accepted jumps",lineages.entries.filter(function(e){return e.receipt;}).length));
+  summary.appendChild(metric("Behavior niches",lineages.quality_diversity?lineages.quality_diversity.occupied:"—"));
+  summary.appendChild(metric("Council cycles",(index.cycles||[]).length));
+  var list=document.getElementById("lineages");list.replaceChildren();
+  lineages.entries.slice().sort(function(a,b){return Number(b.active)-Number(a.active)||a.depth-b.depth||a.strength-b.strength;}).forEach(function(entry){
+    var row=node("article","row"),title=node("div","title",entry.title+" · "+entry.strength.toFixed(4));
+    var state=node("span",entry.active?"active":"retired",entry.active?"active":"retired");
+    title.appendChild(document.createTextNode(" · "));title.appendChild(state);row.appendChild(title);
+    row.appendChild(node("div","meta",entry.biome+" · "+(entry.niche||"unclassified")+" · depth "+entry.depth+" · parent "+short(entry.parent)));
+    row.appendChild(node("div","hash",short(entry.id)));
+    if(entry.receipt)row.appendChild(node("div","meta",(entry.receipt.improver||"unknown")+" proposed · bar "+entry.receipt.bar+" · receipt "+short(entry.receipt.hash)));
+    list.appendChild(row);
+  });
+  var cycles=document.getElementById("cycles");cycles.replaceChildren();
+  if(!(index.cycles||[]).length){cycles.appendChild(node("p","meta","No product council receipts yet."));return;}
+  (index.cycles||[]).forEach(function(item){
+    var row=node("article","row"),title=node("div","title",item.label||item.cycle_id);
+    title.appendChild(document.createTextNode(" "));title.appendChild(node("span","status",item.status||"complete"));row.appendChild(title);
+    row.appendChild(node("div","meta",item.created_at+" · snapshot "+short(item.snapshot_digest)));
+    var ol=node("ol","features");(item.top_three||[]).forEach(function(feature){ol.appendChild(node("li","",feature));});row.appendChild(ol);
+    cycles.appendChild(row);
+  });
+}).catch(function(error){
+  document.getElementById("summary").textContent="Observatory data unavailable: "+error;
+  document.getElementById("lineages").textContent="Retry after the static artifacts are rebuilt.";
+  document.getElementById("cycles").textContent="";
+});
+</script>
+</body>
+</html>

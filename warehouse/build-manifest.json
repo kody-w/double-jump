@@ -1,0 +1,20 @@
+{
+  "schema": "double-jump-build-manifest/1.0",
+  "frontier_revision": "39db868630e743104fb8bed2b84edb1136134232e9b43c811778ae266b725f45",
+  "files": {
+    "cards.json": "sha256:f4ce81d7ff49a37e0354bac909610db2b6b35ec0710183e5ff3c6150c35d306f",
+    "seed-index.json": "sha256:a798631cb3843cdeaa13a452097da5a5a41ebeaec6aa3cd697e08c2644c2bb1d",
+    "warehouse/frontier.json": "sha256:9a4e95f6a42f06f08e5429080fc8393d3164daadc222c6fb233b977be6db5f68",
+    "warehouse/lineages.json": "sha256:91e029dd177a3f2dc44607d841dd1f05cbb70f7676d2c4d01042c10a17d49971",
+    "resolve/1d5f9ad5fe5366e5efbde48c.json": "sha256:e0802ed2665291390b544bee69c6bfcde2d5d54ef3284b1fcb4ffb78f3ac9bc3",
+    "resolve/4b24a63eed07fc90e20dcb72.json": "sha256:6388776ccc9842c8c46063c16c1f42cdcd2d75d4cd69274ee6f72e8e5ec2d344",
+    "resolve/64455c2638b7d435fb41b38c.json": "sha256:306738b35dc0a2d21624db5026a0943a5b324981062084b367ffd460b1c90da7",
+    "resolve/807067e1a64659277e0082f1.json": "sha256:cf56e970dbe473c3a1ea96274974005a35fea792f2a9da891525afb3a2990587",
+    "resolve/a3a8c486578b4c175fde1148.json": "sha256:57a783649f5aa5d79ae24cea3489aeeb6a7837ff5cad6f8cf913a241dcba3307",
+    "resolve/c3b2a796ed342ca8a71f7f4a.json": "sha256:d9e470814d75747a4785806ba484e3100dd06e79f522a4e38b7d06b8e69447fe",
+    "resolve/cb4b136d8bc82d21866b53a1.json": "sha256:6f4a80e7f99455d11aa3b911ff05cd322540d57fc9b6119bd5f0af33defc10e9",
+    "resolve/d9d72ee58e03fc5a818444dd.json": "sha256:ce589cff92bfd079da9723cedb710b1d9c62f79694d538ed69686233e9ff3de0",
+    "resolve/d9d9b8220bdd990732ca9acf.json": "sha256:34e6f08f0ff93bae2d2a45ff325756006ac4f9fa0a4d52ce2c696d346aee43c2",
+    "resolve/e30a478fa7f65ba17bfb2ba4.json": "sha256:15b88f368b34f96d6f0798bf37f526f9334f8fda238c05fdc5d4a8b5a2a8bfb9"
+  }
+}

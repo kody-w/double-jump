@@ -2,16 +2,20 @@
   "_meta": {
     "schema": "rappcards/1.0",
     "registry": "double-jump",
-    "homepage": "https://kody-w.github.io/double-jump/cards.html",
-    "total": 11,
+    "homepage": "https://kody-w.github.io/double-jump/pokedex.html",
+    "total": 10,
+    "frontier_revision": "39db868630e743104fb8bed2b84edb1136134232e9b43c811778ae266b725f45",
     "description": "Double Jump — holocards minted from living holograms. Each card's art is the live walkable Moment."
   },
   "cards": {
-    "@double-jump/stillness-3-won-the-triple-jump": {
-      "id": "@double-jump/stillness-3-won-the-triple-jump",
+    "@double-jump/a3a8c486578b4c175fde1148": {
+      "id": "@double-jump/a3a8c486578b4c175fde1148",
+      "aliases": [
+        "@double-jump/stillness-3-won-the-triple-jump"
+      ],
       "name": "Stillness 3",
       "title": "Stillness 3 · won the triple jump",
-      "seed": "6147380527733081792",
+      "seed": "3861041617178706239",
       "hp": 53,
       "stats": {
         "atk": 8,
@@ -67,11 +71,14 @@
         "description": "Stillness 3 · won the triple jump"
       }
     },
-    "@double-jump/frenzy-4-won-the-triple-jump": {
-      "id": "@double-jump/frenzy-4-won-the-triple-jump",
+    "@double-jump/c3b2a796ed342ca8a71f7f4a": {
+      "id": "@double-jump/c3b2a796ed342ca8a71f7f4a",
+      "aliases": [
+        "@double-jump/frenzy-4-won-the-triple-jump"
+      ],
       "name": "Frenzy 4",
       "title": "Frenzy 4 · won the triple jump",
-      "seed": "2203350426555733774",
+      "seed": "11875382265886102295",
       "hp": 78,
       "stats": {
         "atk": 100,
@@ -127,11 +134,14 @@
         "description": "Frenzy 4 · won the triple jump"
       }
     },
-    "@double-jump/ascent-5-won-the-triple-jump": {
-      "id": "@double-jump/ascent-5-won-the-triple-jump",
+    "@double-jump/807067e1a64659277e0082f1": {
+      "id": "@double-jump/807067e1a64659277e0082f1",
+      "aliases": [
+        "@double-jump/ascent-5-won-the-triple-jump"
+      ],
       "name": "Ascent 5",
       "title": "Ascent 5 · won the triple jump",
-      "seed": "13635261904936066047",
+      "seed": "11284302192194928439",
       "hp": 59,
       "stats": {
         "atk": 14,
@@ -187,11 +197,14 @@
         "description": "Ascent 5 · won the triple jump"
       }
     },
-    "@double-jump/frenzy-6-won-the-triple-jump": {
-      "id": "@double-jump/frenzy-6-won-the-triple-jump",
+    "@double-jump/cb4b136d8bc82d21866b53a1": {
+      "id": "@double-jump/cb4b136d8bc82d21866b53a1",
+      "aliases": [
+        "@double-jump/frenzy-6-won-the-triple-jump"
+      ],
       "name": "Frenzy 6",
       "title": "Frenzy 6 · won the triple jump",
-      "seed": "8403583549317521519",
+      "seed": "10700773377924097033",
       "hp": 76,
       "stats": {
         "atk": 70,
@@ -247,71 +260,14 @@
         "description": "Frenzy 6 · won the triple jump"
       }
     },
-    "@double-jump/stillness-7-won-the-triple-jump": {
-      "id": "@double-jump/stillness-7-won-the-triple-jump",
-      "name": "Stillness 7",
-      "title": "Stillness 7 · won the triple jump",
-      "seed": "445740000046355201",
-      "hp": 51,
-      "stats": {
-        "atk": 8,
-        "def": 100,
-        "spd": 5,
-        "int": 25
-      },
-      "agent_types": [
-        "HOLO",
-        "FOREST"
+    "@double-jump/d9d72ee58e03fc5a818444dd": {
+      "id": "@double-jump/d9d72ee58e03fc5a818444dd",
+      "aliases": [
+        "@double-jump/frenzy-8-won-the-triple-jump"
       ],
-      "weakness": "STILLNESS",
-      "resistance": "MOTION",
-      "rarity_tier": "common",
-      "rarity_label": "Common",
-      "abilities": [
-        {
-          "name": "Double Jump",
-          "cost": 1,
-          "damage": 3,
-          "text": "Leapfrog the weakest. Gain strength equal to your motion energy."
-        },
-        {
-          "name": "Triple Jump",
-          "cost": 2,
-          "damage": 11,
-          "text": "Three hops, one crown. This organism won its tournament."
-        }
-      ],
-      "retreat_cost": 1,
-      "evolution": {
-        "stage": 2,
-        "label": "Evolved",
-        "icon": "👑"
-      },
-      "flavor_text": "A living forest hologram — 2 heartbeats, strength 0.1828.",
-      "avatar_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 120 120\"><defs><radialGradient id=\"g\" cx=\"50%\" cy=\"38%\"><stop offset=\"0%\" stop-color=\"hsl(34 80% 55%)\"/><stop offset=\"100%\" stop-color=\"#0a1f1c\"/></radialGradient></defs><rect width=\"120\" height=\"120\" fill=\"url(#g)\"/><circle cx=\"18\" cy=\"60\" r=\"7\" fill=\"hsl(34 75% 60%)\" opacity=\"0.92\"/><circle cx=\"60\" cy=\"80\" r=\"7\" fill=\"hsl(74 75% 60%)\" opacity=\"0.92\"/><text x=\"60\" y=\"112\" font-size=\"9\" text-anchor=\"middle\" fill=\"#fff\" opacity=\"0.7\" font-family=\"monospace\">forest · 2f</text></svg>",
-      "holo": {
-        "token": "eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC40MDgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC42MDgsImgiOjU4LCJ4IjowLCJ6IjowLjJ9XX0",
-        "play_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC40MDgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC42MDgsImgiOjU4LCJ4IjowLCJ6IjowLjJ9XX0",
-        "animation_url": "https://kody-w.github.io/rapp-hologram/?m=eyJ2IjoxLCJ0IjoiU3RpbGxuZXNzIDcgwrcgd29uIHRoZSB0cmlwbGUganVtcCIsImEiOiJAdHdpbiIsImIiOiJmb3Jlc3QiLCJrIjpbeyJhdCI6MCwicyI6MC41MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC40MDgsImgiOjM0LCJ4IjowLCJ6IjotMC4yfSx7ImF0Ijo5OSwicyI6MC42MzQsImwiOjAuMzM4LCJwIjowLjA0NywiZyI6MC42MDgsImgiOjU4LCJ4IjowLCJ6IjowLjJ9XX0",
-        "strength": 0.1828,
-        "biome": "forest",
-        "keyframes": 2,
-        "author": "@twin"
-      },
-      "meta": {
-        "version": "1.0.0",
-        "category": "double-jump",
-        "author": "@twin",
-        "quality_tier": "experimental",
-        "license": "PolyForm-Noncommercial-1.0.0",
-        "description": "Stillness 7 · won the triple jump"
-      }
-    },
-    "@double-jump/frenzy-8-won-the-triple-jump": {
-      "id": "@double-jump/frenzy-8-won-the-triple-jump",
       "name": "Frenzy 8",
       "title": "Frenzy 8 · won the triple jump",
-      "seed": "3937039020836505579",
+      "seed": "998337858641252937",
       "hp": 80,
       "stats": {
         "atk": 93,
@@ -367,11 +323,14 @@
         "description": "Frenzy 8 · won the triple jump"
       }
     },
-    "@double-jump/ascent-9-won-the-triple-jump": {
-      "id": "@double-jump/ascent-9-won-the-triple-jump",
+    "@double-jump/4b24a63eed07fc90e20dcb72": {
+      "id": "@double-jump/4b24a63eed07fc90e20dcb72",
+      "aliases": [
+        "@double-jump/ascent-9-won-the-triple-jump"
+      ],
       "name": "Ascent 9",
       "title": "Ascent 9 · won the triple jump",
-      "seed": "3354473083605240789",
+      "seed": "2829771431145240677",
       "hp": 60,
       "stats": {
         "atk": 20,
@@ -427,11 +386,14 @@
         "description": "Ascent 9 · won the triple jump"
       }
     },
-    "@double-jump/frenzy-10-won-the-triple-jump": {
-      "id": "@double-jump/frenzy-10-won-the-triple-jump",
+    "@double-jump/e30a478fa7f65ba17bfb2ba4": {
+      "id": "@double-jump/e30a478fa7f65ba17bfb2ba4",
+      "aliases": [
+        "@double-jump/frenzy-10-won-the-triple-jump"
+      ],
       "name": "Frenzy 10",
       "title": "Frenzy 10 · won the triple jump",
-      "seed": "15520812612572765336",
+      "seed": "4799498620253285659",
       "hp": 73,
       "stats": {
         "atk": 74,
@@ -487,11 +449,14 @@
         "description": "Frenzy 10 · won the triple jump"
       }
     },
-    "@double-jump/stillness-11-won-the-triple-jump": {
-      "id": "@double-jump/stillness-11-won-the-triple-jump",
+    "@double-jump/64455c2638b7d435fb41b38c": {
+      "id": "@double-jump/64455c2638b7d435fb41b38c",
+      "aliases": [
+        "@double-jump/stillness-11-won-the-triple-jump"
+      ],
       "name": "Stillness 11",
       "title": "Stillness 11 · won the triple jump",
-      "seed": "6204024257523028348",
+      "seed": "939296485627164129",
       "hp": 52,
       "stats": {
         "atk": 8,
@@ -547,11 +512,14 @@
         "description": "Stillness 11 · won the triple jump"
       }
     },
-    "@double-jump/frenzy-12-won-the-triple-jump": {
-      "id": "@double-jump/frenzy-12-won-the-triple-jump",
+    "@double-jump/1d5f9ad5fe5366e5efbde48c": {
+      "id": "@double-jump/1d5f9ad5fe5366e5efbde48c",
+      "aliases": [
+        "@double-jump/frenzy-12-won-the-triple-jump"
+      ],
       "name": "Frenzy 12",
       "title": "Frenzy 12 · won the triple jump",
-      "seed": "10211273021813166838",
+      "seed": "4595106128419845400",
       "hp": 74,
       "stats": {
         "atk": 69,
@@ -607,11 +575,14 @@
         "description": "Frenzy 12 · won the triple jump"
       }
     },
-    "@double-jump/stillness-7-double-jumped": {
-      "id": "@double-jump/stillness-7-double-jumped",
+    "@double-jump/d9d9b8220bdd990732ca9acf": {
+      "id": "@double-jump/d9d9b8220bdd990732ca9acf",
+      "aliases": [
+        "@double-jump/stillness-7-double-jumped"
+      ],
       "name": "Stillness 7",
       "title": "Stillness 7 · double-jumped",
-      "seed": "17734757470992396975",
+      "seed": "13640745081961078303",
       "hp": 57,
       "stats": {
         "atk": 21,

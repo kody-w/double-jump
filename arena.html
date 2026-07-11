@@ -30,12 +30,13 @@
   .djnav{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:2px;align-items:center;background:rgba(12,16,24,.85);border:1px solid #222a3a;border-radius:999px;padding:5px 6px;backdrop-filter:blur(8px);max-width:94vw}
   .djnav a{color:#aeb6c8;text-decoration:none;font-weight:600;font-size:13px;padding:7px 11px;border-radius:999px;white-space:nowrap}
   .djnav a:hover{color:#fff}.djnav a.active{background:#1c2540;color:#fff}.djnav .brand{color:#35e0c0;font-weight:800}
-  @media(max-width:560px){.djnav a:not(.brand):not(.active){display:none}}
+  @media(max-width:560px){.djnav{left:8px;right:8px;transform:none;overflow-x:auto}.djnav a{padding:7px 9px;font-size:12px}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/fitness.js"></script>
 </head>
 <body>
-<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="arena.html" class="active">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Market</a></nav>
+<nav class="djnav"><a class="brand" href="index.html">◆ dj</a><a href="index.html">Gallery</a><a href="evolve.html">Evolve</a><a href="arena.html" class="active">Arena</a><a href="pokedex.html">Holodex</a><a href="nft.html">Metadata</a><a href="evolution.html">Evolution</a></nav>
 <div id="ui">
   <h1>Double-Jump <span class="b">Arena</span></h1>
   <div class="row"><span class="k">Generation</span><span class="v" id="gen">1</span></div>
@@ -46,7 +47,7 @@
 </div>
 <div id="lb"><h2>Leaderboard · strength</h2><div id="lbrows"></div></div>
 <div id="controls">
-  <button class="go" onclick="evolveOnce()">▶ Evolve (double-jump the weakest)</button>
+  <button class="go" onclick="evolveOnce()">▶ Simulate a double jump</button>
   <button onclick="toggleAuto()" id="autoBtn">⏩ Auto-evolve</button>
   <button onclick="addContender()">➕ New contender</button>
   <button onclick="toggleOrbit()" id="orbitBtn">⏸ Orbit</button>
@@ -55,8 +56,7 @@
 <a class="link" href="pokedex.html">🔴 open the Holodex →</a>
 
 <script>
-var WAREHOUSE_LOCAL="warehouse/moments.json";
-var WAREHOUSE_RAW="https://raw.githubusercontent.com/kody-w/double-jump/main/warehouse/moments.json";
+var WAREHOUSE_LOCAL="warehouse/frontier.json";
 
 // ---------- genome math (DNA): interpolate the 100-frame organism ----------
 var LIN=["s","l","p","g"],DRIFT=["x","z"];
@@ -72,14 +72,7 @@ function sampleForm(m,at){
 function expand(m){var o=[];for(var i=0;i<100;i++)o.push(sampleForm(m,i/99*99));return o;}
 function mean(a){var s=0;for(var i=0;i<a.length;i++)s+=a[i];return s/(a.length||1);}
 function std(a){var mu=mean(a);return Math.sqrt(mean(a.map(function(x){return (x-mu)*(x-mu);})));}
-function strength(m){
-  var fr=expand(m),gen=(m.k||[]).length,path=0,jerk=0;
-  for(var i=1;i<fr.length;i++)path+=Math.hypot((fr[i].x||0)-(fr[i-1].x||0),(fr[i].z||0)-(fr[i-1].z||0));
-  for(var j=2;j<fr.length;j++)jerk+=Math.abs((fr[j].s||0)-2*(fr[j-1].s||0)+(fr[j-2].s||0));
-  var glow=mean(fr.map(function(f){return f.g||0;})),spike=mean(fr.map(function(f){return f.p||0;}));
-  var varc=mean(LIN.map(function(k){return std(fr.map(function(f){return f[k]||0;}));}));
-  return +(0.30*Math.min(gen/8,1)+0.25*Math.min(path/5,1)+0.10*Math.min(jerk/2,1)+0.15*glow+0.08*spike+0.12*Math.min(varc*3,1)).toFixed(4);
-}
+function strength(m){return DoubleJumpFitness.strength(m);}
 function clamp(v,a,b){return v<a?a:v>b?b:v;}
 // double-jump: insert a mid keyframe in the biggest gap + lift glow/spikes/motion (the mutation)
 function improve(m,boost){
@@ -87,7 +80,8 @@ function improve(m,boost){
   if(k.length<2)k=[{at:0,s:.3,l:.3,p:.1,g:.2,h:40,x:0,z:0},{at:99,s:.4,l:.35,p:.1,g:.3,h:60,x:0,z:.1}];
   for(var b=0;b<(boost||1);b++){
     var gi=0,gmax=-1;for(var i=0;i<k.length-1;i++){var g=k[i+1].at-k[i].at;if(g>gmax){gmax=g;gi=i;}}
-    if(gmax<2)break;var midAt=Math.round((k[gi].at+k[gi+1].at)/2),nf=sampleForm(m,midAt);
+    if(gmax<2)break;var midAt=Math.floor((k[gi].at+k[gi+1].at)/2);
+    var source=Object.assign({},m,{k:k}),nf=sampleForm(source,midAt);
     nf={at:midAt,s:nf.s,l:nf.l,p:clamp(nf.p+.15,0,1),g:clamp(nf.g+.18,0,1),h:(nf.h+50)%360,
       x:clamp(nf.x+(Math.random()-.5),-1,1),z:clamp(nf.z+(Math.random()-.5),-1,1)};
     k.push(nf);k=sortK(k);
@@ -133,7 +127,7 @@ function buildForm(f){
   var ns=Math.round(f.p*8);
   for(var i=0;i<ns;i++){var sp=new THREE.Mesh(new THREE.ConeGeometry(0.14,0.4+f.p*0.6,5),
     new THREE.MeshStandardMaterial({color:col,emissive:col,emissiveIntensity:0.5}));sp.position.set(((i+0.5)/ns-0.5)*size*1.2,bodyY+size*0.55,0);g.add(sp);}
-  g.userData.heart=lt;g.userData.baseLI=0.6+f.g*2.2;g.userData.body=body;
+  g.userData.heart=lt;g.userData.baseLI=0.6+f.g*2.2;g.userData.body=body;g.userData.bodyY=bodyY;
   return g;
 }
 function disposeGroup(g){g.traverse(function(o){if(o.geometry)o.geometry.dispose();if(o.material)o.material.dispose();});}
@@ -159,22 +153,25 @@ function refreshHUD(){
   D.getElementById("champ").textContent=(crown?crown.m.t.split(" · ")[0]+" ("+crown.s.toFixed(3)+")":"—");
   D.getElementById("avg").textContent=(mean(POP.map(function(o){return o.s;}))||0).toFixed(3);
   D.getElementById("floor").textContent=(R.length?R[R.length-1].s.toFixed(3):"0");
-  var rows=R.map(function(o,i){return '<div class="le'+(i===0?' champ':'')+'"><span class="r">'+(i===0?"👑":"#"+(i+1))+
-    '</span><span class="n" style="color:'+(i===0?"#ffd24a":"#e8ecf4")+'">'+o.m.t.split(" · ")[0]+
-    '</span><span class="s">'+o.s.toFixed(3)+'</span></div>';}).join("");
-  D.getElementById("lbrows").innerHTML=rows;
+  var rows=D.getElementById("lbrows");rows.replaceChildren();
+  R.forEach(function(o,i){var row=D.createElement("div");row.className="le"+(i===0?" champ":"");
+    var rank=D.createElement("span");rank.className="r";rank.textContent=i===0?"👑":"#"+(i+1);
+    var name=D.createElement("span");name.className="n";name.style.color=i===0?"#ffd24a":"#e8ecf4";
+    name.textContent=(o.m.t||"Moment").split(" · ")[0];var score=D.createElement("span");score.className="s";
+    score.textContent=o.s.toFixed(3);row.appendChild(rank);row.appendChild(name);row.appendChild(score);rows.appendChild(row);});
 }
 function toast(t){var e=D.getElementById("toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(function(){e.style.display="none";},1800);}
 
 function evolveOnce(){
-  if(POP.length<2)return;var R=ranked();var weak=R[R.length-1];var bar=R.length>1?R[R.length-2].s:weak.s+.05;
+  if(POP.length<2)return;var R=ranked();var weak=R[R.length-1];
+  var bar=Math.max(weak.s+.05,R.length>1?R[R.length-2].s:weak.s);
   var best=null;for(var b=1;b<=8;b++){var c=improve(weak.m,b);if(!best||strength(c)>strength(best))best=c;if(strength(c)>=bar+.0)break;}
   weak.m=best;weak.s=strength(best);
   // rebuild just the evolved organism
   if(weak.group){scene.remove(weak.group);disposeGroup(weak.group);}
   weak.group=buildForm(sampleForm(weak.m,0));weak.group.position.set(weak.home.x,0,weak.home.z);scene.add(weak.group);
   gen++;refreshHUD();
-  toast("⤴ double-jumped “"+weak.m.t.split(" · ")[0]+"” → "+weak.s.toFixed(3));
+  toast("⤴ local simulation: “"+weak.m.t.split(" · ")[0]+"” → "+weak.s.toFixed(3));
 }
 function addContender(){
   var m=forge();POP.push({m:m,s:strength(m)});placeAll();
@@ -219,8 +216,8 @@ function animate(){
 W.addEventListener("resize",function(){camera.aspect=W.innerWidth/W.innerHeight;camera.updateProjectionMatrix();renderer.setSize(W.innerWidth,W.innerHeight);});
 
 function load(url){return fetch(url).then(function(r){if(!r.ok)throw 0;return r.json();});}
-load(WAREHOUSE_LOCAL).catch(function(){return load(WAREHOUSE_RAW);}).then(function(d){
-  var ms=d.moments||d||[];POP=ms.map(function(m){return {m:m,s:strength(m)};});
+load(WAREHOUSE_LOCAL).then(function(d){
+  var entries=d.entries||[];POP=entries.map(function(entry){return {m:entry.moment,s:entry.strength};});
   placeAll();animate();
 }).catch(function(e){toast("could not load the warehouse");animate();});
 </script>

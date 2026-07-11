@@ -1,0 +1,38 @@
+{
+  "schema": "double-jump-evolution/2.0",
+  "meta": {
+    "legacy_observations": 85,
+    "duplicate_observations_removed": 74,
+    "migration": "frontier-v1",
+    "roots": [
+      "sha256:1d5f9ad5fe5366e5efbde48ca74b5cacf7c8f343f8e208f007bc65ff736e2cef",
+      "sha256:4b24a63eed07fc90e20dcb726486717f0668bf7b9f006e4dba4a24051e1e3aae",
+      "sha256:64455c2638b7d435fb41b38ceb1fc8b1e360f0811481e54069e02a55837f5b51",
+      "sha256:807067e1a64659277e0082f16712704cc455b4a13573ab704892a8babebe88f0",
+      "sha256:82fd30f1ad53c58d1f9241eb630f132257d2b0afaac1f28ab28b632d3cd3919a",
+      "sha256:a3a8c486578b4c175fde11480d031951cf2a4f62f0f5937a0990e964b5ceab49",
+      "sha256:c3b2a796ed342ca8a71f7f4a745c2d52db1ca3b6969a5d986c1055c4c7b9f8e7",
+      "sha256:cb4b136d8bc82d21866b53a1d595b2360efc921c9341e6e0c369dac7b60b59ca",
+      "sha256:d9d72ee58e03fc5a818444dde884261354c20fd1ee466b90b07fc613aa28e119",
+      "sha256:e30a478fa7f65ba17bfb2ba41d020bd94c7173b42db7db8f72575ac02729f792"
+    ]
+  },
+  "events": [
+    {
+      "id": "jump:33f172637e05525fa3685fc83dbb816c4ab0e12404e332f8076ef0b856b64703",
+      "type": "accepted_jump",
+      "parent": "sha256:82fd30f1ad53c58d1f9241eb630f132257d2b0afaac1f28ab28b632d3cd3919a",
+      "child": "sha256:d9d9b8220bdd990732ca9acfb72609397024ca458a576faa34cf185f1d72b0cd",
+      "from": 0.1828,
+      "to": 0.2891,
+      "bar": 0.2328,
+      "fitness": "double-jump-strength/1.0",
+      "improver": "legacy-brainstem",
+      "rationale": "Migrated from the witnessed first double jump.",
+      "created_at": "2026-06-21T21:30:00+00:00",
+      "provenance": {},
+      "previous": null,
+      "hash": "sha256:815314951b02ece2bdf86f09d6dd8413c872339129c2946f218f2fb55bfc1704"
+    }
+  ]
+}
