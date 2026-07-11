@@ -8,7 +8,7 @@ import json
 import os
 import tempfile
 
-from .strength import FITNESS_V1, FITNESS_V2, FITNESS_VERSIONS, components, strength
+from .strength import FITNESS_V1, FITNESS_V2, FITNESS_VERSIONS, serialized_components, strength
 from .moment import draft_improvements
 from .validation import canonical_json, moment_id, validate_moment
 
@@ -391,7 +391,7 @@ def frontier_document(state):
                 FITNESS_V1: strength(moment, FITNESS_V1),
                 FITNESS_V2: strength(moment, FITNESS_V2),
             },
-            "components": components(moment),
+            "components": serialized_components(moment),
             "niche": niche(moment, FITNESS_V1),
             "moment": moment,
         }
@@ -412,7 +412,7 @@ def frontier_document(state):
                     "strength": strength(moment, FITNESS_V1),
                     "strength_v2": strength(moment, FITNESS_V2),
                     "cleared": strength(moment, FITNESS_V1) >= bar,
-                    "components": components(moment, FITNESS_V1),
+                    "components": serialized_components(moment, FITNESS_V1),
                     "moment": moment,
                 }
                 for profile, moment in draft_improvements(target)

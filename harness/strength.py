@@ -143,6 +143,14 @@ def components(m, version=FITNESS_V1):
     raise ValueError(f"unknown fitness version: {version}")
 
 
+def serialized_components(m, version=FITNESS_V1):
+    """Stable generated-artifact representation across Python versions/platforms."""
+    return {
+        key: round(value, 10) if isinstance(value, float) else value
+        for key, value in components(m, version).items()
+    }
+
+
 def strength(m, version=FITNESS_V1):
     """A single fitness scalar in [0,1]. Higher = stronger (more alive, articulated, dynamic)."""
     c = components(m, version)

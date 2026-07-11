@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from harness.store import load_state  # noqa: E402
-from harness.strength import FITNESS_V1, FITNESS_V2, components, strength  # noqa: E402
+from harness.strength import FITNESS_V1, FITNESS_V2, serialized_components, strength  # noqa: E402
 from harness.validation import moment_id  # noqa: E402
 from harness.diversity import archive_document, descriptor, niche  # noqa: E402
 
@@ -51,7 +51,7 @@ def build_document():
                 FITNESS_V1: strength(moment, FITNESS_V1),
                 FITNESS_V2: strength(moment, FITNESS_V2),
             },
-            "components": components(moment),
+            "components": serialized_components(moment),
             "active": identifier in active,
             "niche": niche(moment, FITNESS_V1),
             "descriptor": descriptor(moment, FITNESS_V1),
