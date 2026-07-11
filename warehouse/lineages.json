@@ -1,6 +1,6 @@
 {
   "schema": "double-jump-lineages/1.0",
-  "frontier_revision": "39db868630e743104fb8bed2b84edb1136134232e9b43c811778ae266b725f45",
+  "frontier_revision": "ac4e22a8c94b5a35b0aa167383e818946f9f2690f2df31759970e1b80aa180a4",
   "event_head": "sha256:815314951b02ece2bdf86f09d6dd8413c872339129c2946f218f2fb55bfc1704",
   "artifacts": 11,
   "active": 10,

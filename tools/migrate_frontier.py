@@ -24,21 +24,22 @@ def main():
         document = json.load(handle)
     observations = document.get("moments", document if isinstance(document, list) else [])
     observed_count = len(observations)
-    try:
-        original = subprocess.check_output(
-            ["git", "show", "HEAD:warehouse/moments.json"],
-            cwd=ROOT,
-            text=True,
-            stderr=subprocess.DEVNULL,
-        )
-        original_document = json.loads(original)
-        original_moments = original_document.get(
-            "moments",
-            original_document if isinstance(original_document, list) else [],
-        )
-        observed_count = max(observed_count, len(original_moments))
-    except (OSError, subprocess.SubprocessError, ValueError, TypeError):
-        pass
+    for revision in ("HEAD", "HEAD^"):
+        try:
+            original = subprocess.check_output(
+                ["git", "show", f"{revision}:warehouse/moments.json"],
+                cwd=ROOT,
+                text=True,
+                stderr=subprocess.DEVNULL,
+            )
+            original_document = json.loads(original)
+            original_moments = original_document.get(
+                "moments",
+                original_document if isinstance(original_document, list) else [],
+            )
+            observed_count = max(observed_count, len(original_moments))
+        except (OSError, subprocess.SubprocessError, ValueError, TypeError):
+            pass
     state = load_state(WAREHOUSE)
     before_events = len(state.events)
 

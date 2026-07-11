@@ -1,8 +1,8 @@
 {
   "schema": "double-jump-evolution/2.0",
   "meta": {
-    "legacy_observations": 85,
-    "duplicate_observations_removed": 74,
+    "legacy_observations": 89,
+    "duplicate_observations_removed": 78,
     "migration": "frontier-v1",
     "roots": [
       "sha256:1d5f9ad5fe5366e5efbde48ca74b5cacf7c8f343f8e208f007bc65ff736e2cef",
