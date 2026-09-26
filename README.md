@@ -1,5 +1,9 @@
 # Double Jump
 
+<!-- rapp1:network-header:start -->
+[![RAPP/1](https://kody-w.github.io/rapp-hive-public/portfolio/badges/double-jump.svg)](https://github.com/kody-w/rapp-hive-public/blob/main/portfolio/repos/double-jump.md) · **New to RAPP?** [Start here: get your Brainstem →](https://github.com/kody-w/rapp-installer#start-here)
+<!-- rapp1:network-header:end -->
+
 > 🧬 **This repo is the [double-jump twin's](front_door.md) cubby — a sandboxed virtual workspace**
 > (`rappid:@kody-w/double-jump`). The twin improves in isolation here and **reaches up** to real hardware
 > only through two hatches: the local brainstem (real compute) and a PR to the global platform. See
